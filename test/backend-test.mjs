@@ -10,8 +10,6 @@ async function j(res) { const t = await res.text(); let d; try { d = JSON.parse(
 
 const ok = await step("1 인증코드 확인(check_code=true)", async () => { const d = await j(await fetch(`${URL_}/rest/v1/rpc/check_code`, { method: "POST", headers: H(), body: JSON.stringify({ p_code: CODE }) })); if (d !== true) throw new Error("코드가 유효하지 않음(이미 사용됐거나 미등록): " + JSON.stringify(d)); return d; });
 const su = await step("2 가입(signup, 세션 즉시 발급)", async () => { const d = await j(await fetch(`${URL_}/auth/v1/signup`, { method: "POST", headers: H(), body: JSON.stringify({ email, password, data: { nick: "테스트", grade: "e5" } }) })); if (!d.access_token) throw new Error("access_token 없음 → Authentication > Email > Confirm email 이 아직 켜져 있음"); return { user: d.user?.id }; });
-const tok = su && (await (async () => { const d = await j(await fetch(`${URL_}/auth/v1/signup`, { method: "POST", headers: H(), body: JSON.stringify({ email: `x${email}`, password, data: { nick: "테스트2", grade: "e5" } }) })).catch(() => null); return null; })(), null);
-// 다시 로그인해 토큰 확보(위 signup 응답을 재사용)
 const login = await step("3 로그인(password grant)", async () => j(await fetch(`${URL_}/auth/v1/token?grant_type=password`, { method: "POST", headers: H(), body: JSON.stringify({ email, password }) })));
 const T = login?.access_token;
 if (T) {

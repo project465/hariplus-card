@@ -16,4 +16,4 @@ jobs:
         with: { node-version: 20 }
       - run: node test/backend-test.mjs
         env:
-          TEST_CODE: ${{ github.event.inputs.code || 'HARI-TEST-0001' }}
+          TEST_CODE: ${{ github.event.inputs.code || 'HARI-TEST-0002' }}
