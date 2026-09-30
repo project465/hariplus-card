@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>하리 PLUS 컬러카드</title>
+<meta name="description" content="스터디 메이트 키트의 질문카드. 오늘 마음이 가는 색을 고르고 카드를 뽑습니다.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
+<style>
+  /* 레이아웃: 한 손 세로 폰 기준 한 화면 하나. 폭 480px 카드 한 장. 하단 고정 탭. */
+  :root{
+    --paper:#FBF7F0; --surface:#FFFFFF; --ink:#2C2D2D; --muted:#6B6459; --line:#E7DECF;
+    --amber:#F8A722; --amber-ink:#A85F00; --amber-soft:rgba(248,167,34,.14);
+    --ok:#2a9d57; --err:#c2413f; --err-soft:rgba(194,65,63,.10);
+    --font-body:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    --font-display:"Noto Serif KR","Apple SD Gothic Neo",Georgia,serif;
+    --c-indigo:#4b48c4; --c-yellow:#e8a600; --c-blue:#2563eb; --c-teal:#0e9e90; --c-pink:#db5a93;
+    --c-red:#dc3f44; --c-purple:#7c3aed; --c-coral:#e4633b; --c-green:#2a9d57; --c-orange:#de7c13;
+    --on-yellow:#2b2a20; --on-dark:#ffffff;
+    --shadow:0 8px 24px rgba(44,45,45,.10), 0 2px 6px rgba(44,45,45,.06);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#1E1D1C; --surface:#2A2928; --ink:#EDE7DD; --muted:#A79E90; --line:#3C3A37;
+      --amber-ink:#F8A722; --amber-soft:rgba(248,167,34,.18); --err-soft:rgba(194,65,63,.18);
+      --shadow:0 8px 24px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.3); color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#1E1D1C; --surface:#2A2928; --ink:#EDE7DD; --muted:#A79E90; --line:#3C3A37;
+    --amber-ink:#F8A722; --amber-soft:rgba(248,167,34,.18); --err-soft:rgba(194,65,63,.18);
+    --shadow:0 8px 24px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.3); color-scheme:dark;
+  }
+  *{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65;
+    word-break:keep-all; overflow-wrap:anywhere; -webkit-font-smoothing:antialiased; min-height:100%;}
+  .wrap{max-width:480px; margin:0 auto; padding-inline:18px; padding-block:22px 96px;}
+  button,input,select{font:inherit; color:inherit}
+  button{-webkit-tap-highlight-color:transparent; cursor:pointer}
+  :focus-visible{outline:3px solid var(--amber); outline-offset:3px; border-radius:8px}
+  [hidden]{display:none!important}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+  .mark{display:flex; align-items:center; justify-content:space-between; margin:0 0 18px;
+    font-size:12px; letter-spacing:.08em; color:var(--muted); font-weight:700}
+  .mark b{color:var(--ink)} .mark .demo{font-weight:500; letter-spacing:0; background:var(--amber-soft); color:var(--amber-ink); padding:2px 8px; border-radius:999px; font-size:11px}
+  h1{font-family:var(--font-display); font-weight:700; font-size:26px; line-height:1.3; margin:0 0 8px; letter-spacing:-.01em; text-wrap:balance}
+  .lede{color:var(--muted); font-size:15px; margin:0 0 22px}
+  .view{animation:fade .3s ease both} @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+  .field{display:flex; flex-direction:column; gap:6px; margin:0 0 14px}
+  .field label{font-size:13px; font-weight:700; color:var(--muted)}
+  .field input,.field select{width:100%; padding:13px 14px; border:1px solid var(--line); border-radius:12px; background:var(--surface); font-size:16px}
+  .field input:focus{border-color:var(--amber)}
+  .hint{font-size:12.5px; color:var(--muted); margin:6px 0 0}
+  .err{display:block; background:var(--err-soft); color:var(--err); padding:10px 12px; border-radius:10px; font-size:13.5px; margin:0 0 12px}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:15px 18px; border-radius:14px; border:0;
+    background:var(--ink); color:var(--paper); font-weight:700; font-size:16px; transition:transform .08s ease}
+  .btn:active{transform:scale(.985)} .btn.amber{background:var(--amber); color:#2C2D2D}
+  .btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line)}
+  .btn.sm{width:auto; padding:10px 14px; font-size:14px; border-radius:11px}
+  .btn[disabled]{opacity:.55; cursor:default}
+  .row{display:flex; gap:10px; flex-wrap:wrap} .row>*{flex:1 1 140px; min-width:0}
+  .tabs{display:flex; border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:0 0 18px}
+  .tabs button{flex:1; padding:11px; border:0; background:var(--surface); font-weight:700; color:var(--muted)}
+  .tabs button[aria-selected="true"]{background:var(--ink); color:var(--paper)}
+  .check{display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--muted); margin:4px 0 16px}
+  .check input{margin-top:4px; accent-color:var(--amber); width:18px; height:18px; flex:none}
+  .note{border-left:3px solid var(--amber); background:var(--amber-soft); padding:10px 12px; border-radius:0 10px 10px 0; font-size:13.5px; margin:16px 0 0}
+
+  /* 색 타일 */
+  .tiles{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+  .tile{width:100%; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:14px 14px 12px; border:1px solid var(--line);
+    border-radius:16px; background:var(--surface); text-align:left; box-shadow:var(--shadow); transition:transform .08s ease}
+  .tile:active{transform:scale(.98)}
+  .tile .sw{width:100%; height:54px; border-radius:11px; background:var(--pick); position:relative; overflow:hidden}
+  .tile .sw::after{content:""; position:absolute; inset:auto 8px 6px auto; width:18px; height:18px; border-radius:50%; background:rgba(255,255,255,.35)}
+  .tile .nm{font-weight:700; font-size:15px} .tile .md{font-size:12.5px; color:var(--muted); margin-top:-6px}
+  .tile .pg{display:flex; gap:3px; margin-top:2px} .tile .pg i{width:9px; height:5px; border-radius:2px; background:var(--line)} .tile .pg i.on{background:var(--pick)}
+
+  /* 카드 */
+  .stage{perspective:1200px; margin:6px 0 18px}
+  .card{position:relative; width:100%; aspect-ratio:3/4.2; max-width:100%; border-radius:22px; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .card.flip{transform:rotateY(180deg)}
+  .face{position:absolute; inset:0; border-radius:22px; backface-visibility:hidden; -webkit-backface-visibility:hidden; box-shadow:var(--shadow); padding:22px}
+  .face.back{background:var(--pick); color:var(--pick-ink); display:flex; flex-direction:column; justify-content:space-between}
+  .face.back .logo{font-size:12px; letter-spacing:.14em; font-weight:700; opacity:.85}
+  .face.back .plus{font-family:var(--font-display); font-size:120px; line-height:1; text-align:center; opacity:.28; font-weight:700}
+  .face.back .cat{font-weight:700; font-size:18px} .face.back .cat small{display:block; font-weight:500; font-size:13px; opacity:.85}
+  .face.front{background:var(--surface); color:var(--ink); transform:rotateY(180deg); border:1px solid var(--line); display:flex; flex-direction:column; gap:14px}
+  .face.front .tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:var(--muted)}
+  .face.front .tag i{width:12px; height:12px; border-radius:50%; background:var(--pick)}
+  .face.front .q{font-family:var(--font-display); font-weight:600; font-size:22px; line-height:1.5; margin:auto 0; text-wrap:balance}
+  .face.front .foot{font-size:13px; color:var(--muted); border-top:1px dashed var(--line); padding-top:12px}
+  .again{font-size:12.5px; color:var(--amber-ink); font-weight:700}
+  @media (prefers-reduced-motion:reduce){ .card{transition:none} .view{animation:none} }
+
+  /* 내 카드 */
+  .stat{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:0 0 18px}
+  .stat div{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px; text-align:center}
+  .stat b{display:block; font-size:22px; font-variant-numeric:tabular-nums} .stat span{font-size:12px; color:var(--muted)}
+  .prog{list-style:none; margin:0 0 18px; padding:0; display:flex; flex-direction:column; gap:8px}
+  .prog li{display:grid; grid-template-columns:14px 84px 1fr auto; align-items:center; gap:10px; font-size:13.5px}
+  .prog i{width:14px; height:14px; border-radius:50%; background:var(--pick)}
+  .prog .dots{display:flex; gap:4px} .prog .dots b{width:100%; height:8px; border-radius:3px; background:var(--line); flex:1} .prog .dots b.on{background:var(--pick)}
+  .prog small{color:var(--muted); font-variant-numeric:tabular-nums}
+  .hist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+  .hist li{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:grid; grid-template-columns:10px 1fr; gap:10px; font-size:14px}
+  .hist i{width:10px; border-radius:4px; background:var(--pick); margin-top:3px} .hist small{display:block; color:var(--muted); font-size:12px}
+  h2{font-size:15px; margin:0 0 10px; color:var(--muted); letter-spacing:.04em}
+
+  /* 하단 탭 */
+  .nav{position:fixed; left:0; right:0; bottom:0; background:var(--surface); border-top:1px solid var(--line); display:flex; justify-content:center;
+    padding:6px 12px calc(6px + env(safe-area-inset-bottom,0px)); z-index:5}
+  .nav button{flex:1; max-width:200px; padding:10px 6px; border:0; background:transparent; font-size:12.5px; font-weight:700; color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:2px}
+  .nav button[aria-current="page"]{color:var(--amber-ink)} .nav button span{font-size:20px; line-height:1}
+  #toast{position:fixed; left:50%; bottom:84px; transform:translateX(-50%) translateY(10px); background:var(--ink); color:var(--paper); font-size:13.5px; padding:10px 16px; border-radius:10px; opacity:0; transition:.2s; pointer-events:none; z-index:9; max-width:88vw}
+  #toast.on{opacity:1; transform:translateX(-50%)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="mark"><b>하리 PLUS</b><span id="modeTag" class="demo" hidden>체험판 · 이 기기에만 저장</span></p>
+
+  <!-- 0. 인증코드 -->
+  <section class="view" id="s-gate">
+    <h1>오늘의 질문, 한 장.</h1>
+    <p class="lede">스터디 메이트 키트에 들어 있는 인증코드를 넣으면 시작할 수 있어요. 답은 다이어리에 손으로 씁니다.</p>
+    <span class="err" id="gateErr" hidden></span>
+    <div class="field"><label for="code">키트 인증코드</label><input id="code" inputmode="latin" autocapitalize="characters" autocomplete="one-time-code" placeholder="예) HARI-1234-ABCD"></div>
+    <button class="btn amber" id="gateBtn" type="button">시작하기</button>
+    <p class="hint" style="text-align:center; margin-top:14px">이미 가입했다면 <button class="btn sm ghost" id="toLogin" type="button">로그인</button></p>
+    <div class="note" id="demoNote" hidden>체험판입니다. 인증코드에 <b>HARI-DEMO</b>를 넣으면 들어갈 수 있고, 가입 정보와 뽑은 기록은 이 휴대폰(브라우저)에만 저장됩니다.</div>
+  </section>
+
+  <!-- 1. 가입 / 로그인 -->
+  <section class="view" id="s-auth" hidden>
+    <h1 id="authTitle">보호자 계정 만들기</h1>
+    <p class="lede">아이가 뽑은 카드를 기억해 두려면 계정이 필요해요. 14세 미만 아동은 보호자 이름으로 가입합니다.</p>
+    <div class="tabs" role="tablist"><button type="button" role="tab" id="tabUp" aria-selected="true">가입</button><button type="button" role="tab" id="tabIn" aria-selected="false">로그인</button></div>
+    <span class="err" id="authErr" hidden></span>
+    <form id="fUp" novalidate>
+      <div class="field"><label for="upEmail">보호자 이메일</label><input id="upEmail" type="email" autocomplete="email" placeholder="parent@example.com"></div>
+      <div class="field"><label for="upPw">비밀번호 (8자 이상)</label><input id="upPw" type="password" autocomplete="new-password"></div>
+      <div class="field"><label for="upNick">아이 별명</label><input id="upNick" autocomplete="off" placeholder="카드에 이름은 안 나와요"><p class="hint">실명 대신 별명을 권해요.</p></div>
+      <div class="field"><label for="upGrade">학년</label><select id="upGrade"><option value="e5">초등 5학년</option><option value="e6">초등 6학년</option><option value="m1">중학교 1학년</option><option value="m2">중학교 2학년</option><option value="m3">중학교 3학년</option></select></div>
+      <label class="check"><input type="checkbox" id="upAgree"><span>보호자로서 아이의 별명·학년·뽑은 카드 기록이 저장되는 것에 동의합니다. 이름·연락처 등 다른 정보는 받지 않습니다.</span></label>
+      <button class="btn amber" type="submit" id="upBtn">가입하고 시작하기</button>
+    </form>
+    <form id="fIn" hidden novalidate>
+      <div class="field"><label for="inEmail">보호자 이메일</label><input id="inEmail" type="email" autocomplete="email"></div>
+      <div class="field"><label for="inPw">비밀번호</label><input id="inPw" type="password" autocomplete="current-password"></div>
+      <button class="btn" type="submit" id="inBtn">로그인</button>
+    </form>
+  </section>
+
+  <!-- 2. 색 고르기 -->
+  <section class="view" id="s-pick" hidden>
+    <h1>지금 마음은 어떤 색이야?</h1>
+    <p class="lede">오늘 상태에 가까운 색을 골라. 그 색의 카드 한 장을 뽑을 수 있어.</p>
+    <ul class="tiles" id="tiles"></ul>
+  </section>
+
+  <!-- 3. 카드 -->
+  <section class="view" id="s-card" hidden>
+    <p class="hint" style="margin:0 0 10px"><button class="btn sm ghost" id="backPick" type="button">← 색 바꾸기</button></p>
+    <div class="stage"><div class="card" id="card">
+      <div class="face back"><span class="logo">HARI PLUS</span><span class="plus">+</span><span class="cat" id="backCat">이유 찾기<small>왜 하는지 모를 때</small></span></div>
+      <div class="face front"><span class="tag"><i></i><span id="frontCat">이유 찾기</span> · <span id="frontNo">1번째 카드</span></span>
+        <p class="q" id="qText" aria-live="polite"></p>
+        <div class="foot">이 질문의 답은 다이어리 오늘 칸에 손으로 써 보자. 정답은 없어. <span class="again" id="againNote" hidden>전에 한 번 뽑았던 카드야.</span></div></div>
+    </div></div>
+    <div class="row"><button class="btn amber" id="drawBtn" type="button">카드 뽑기</button><button class="btn ghost" id="redrawBtn" type="button" hidden>다른 카드 뽑기</button></div>
+  </section>
+
+  <!-- 4. 내 카드 -->
+  <section class="view" id="s-me" hidden>
+    <h1 id="meTitle">내 카드</h1>
+    <p class="lede" id="meLede"></p>
+    <div class="stat"><div><b id="stTotal">0</b><span>뽑은 카드</span></div><div><b id="stUniq">0</b><span>서로 다른 카드</span></div><div><b id="stDays">0</b><span>뽑은 날</span></div></div>
+    <h2>색별로 얼마나 뽑았나</h2>
+    <ul class="prog" id="prog"></ul>
+    <h2>최근 뽑은 카드</h2>
+    <ul class="hist" id="hist"></ul>
+    <p style="margin-top:22px"><button class="btn ghost sm" id="outBtn" type="button">로그아웃</button></p>
+  </section>
+</div>
+
+<nav class="nav" id="nav" hidden>
+  <button type="button" data-go="pick" aria-current="page"><span>◈</span>뽑기</button>
+  <button type="button" data-go="me"><span>▤</span>내 카드</button>
+</nav>
+<div id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+/* ===== 설정 =====
+   supabaseUrl/anonKey를 넣으면 실제 회원·기록이 서버(Supabase)에 저장된다(운영 모드).
+   비어 있으면 체험판: 이 브라우저 안에만 저장. 인증코드는 HARI-DEMO. */
+var CONFIG = { supabaseUrl:"https://ylmhkwetuodxhcgqxckf.supabase.co", supabaseAnonKey:"sb_publishable_rBEz3bJbiNIQu0Dd285rTQ_l-H3hVKI", demoCodes:["HARI-DEMO"] };
+var CATS = [
+  { code:"A", key:"indigo", name:"이유 찾기", mood:"왜 하는지 모를 때", status:"real",
+    questions:[
+      "목표를 달성하고 나면 뭐가 제일 좋아질까?",
+      "지금 나에게 목표를 달성하는 게 중요한 이유가 뭘까?",
+      "오늘 계획한 것을 해내야 할 나만의 이유를 찾아본다면 무엇일까?",
+      "약속했던 일을 하지 않는다면 어떤 기분이 들까?",
+      "내가 세운 계획을 실천하는 것은 누구를 위해서 하는 걸까?",
+      "예전의 나라면 지금 하려는 이 일을 어떻게 생각했을까?",
+      "이 행동을 해야 하는 이유가 없어져도, 그래도 하고 싶을까? 그 이유는?",
+      "이 행동을 계속하면 나는 어떤 사람에 가까워질까?",
+      "아무도 알아주지 않아도 계속한다면 무엇 때문일까?",
+      "하고 싶은 마음과 하기 싫은 마음, 어디가 더 커? 그 이유는?"
+    ] },
+  { code:"B", key:"yellow", name:"강점 확인", mood:"자신감이 흔들릴 때", status:"real",
+    questions:[
+      "내가 가장 잘하는 일은 뭐야?",
+      "나의 성격 중에 가장 마음에 드는 부분을 하나 고른다면?",
+      "친구가 나의 장점을 하나 말해준다면 뭐라고 할까?",
+      "힘든 걸 포기하지 않고 끝까지 하는 건, 나의 어떤 힘 덕분일까?",
+      "나의 능력 중 가장 자랑스러운 것은?",
+      "내가 어떤 행동을 할 때 가장 내 모습이 마음에 들어?",
+      "내가 다른 사람에게 무언가를 해준다면 어떤 것을 해줄 수 있을까?",
+      "힘든 상황에서도 여전히 남아있는 나만의 무기는 뭘까?",
+      "나만이 가지고 있는 특별한 것이 있다면?",
+      "나의 강점 3가지를 키워드로 써본다면?"
+    ] },
+  { code:"C", key:"blue", name:"상태 확인", mood:"컨디션이 떨어질 때", status:"real",
+    questions:[
+      "오늘 이 일을 하고 싶은 마음은 몇 %야?",
+      "오늘 나의 에너지 지수는 100점 만점에 몇 점이야?",
+      "지금 내 몸에서 느껴지는 감각은 어떤 게 있어?",
+      "평소보다 힘들게 느껴지는 일이 있다면 뭘까?",
+      "힘든 정도를 레벨로 표현한다면 몇 레벨일까?",
+      "오늘 집중도는 어때?",
+      "지금 기분을 날씨로 표현한다면 어떤 날씨야?",
+      "지금 집중을 방해하는 게 있다면 뭘까?",
+      "오늘 마음 상태는 어때?",
+      "지금 나에게 필요한 도움이 있다면 뭘까?"
+    ] },
+  { code:"D", key:"teal", name:"해결 찾기", mood:"막히거나 정리가 안 될 때", status:"real",
+    questions:[
+      "이대로 그냥 시작해도 될까, 무언가 바꿔야 할까?",
+      "전에 잘됐던 방법 중에서 이번에도 써볼 수 있는 것은 무엇일까?",
+      "만약 시간이 부족하다면 뭘 먼저 할까?",
+      "지금 막힌 일을 그림이나 표로 정리해본다면?",
+      "문제를 해결하기 위해 도움을 청한다면 떠오르는 사람이 누구일까?",
+      "문제를 해결하기 위해 필요한 정보를 어디에서 찾아볼 수 있을까?",
+      "지금 상황에서 내가 바꿀 수 있는 것과 바꿀 수 없는 것을 나눠본다면?",
+      "오늘 할 일 중에서 제일 중요한 것과 안 중요한 것을 나눠본다면?",
+      "지금 하려는 일을 가장 작게 쪼개본다면 어떻게 나눌 수 있을까?",
+      "다른 사람이라면 이 상황을 어떻게 풀었을까?"
+    ] },
+  { code:"E", key:"pink", name:"리워드·응원", mood:"응원이 필요할 때", status:"real",
+    questions:[
+      "오늘 해낸 것 중에 제일 뿌듯한 건 뭐야?",
+      "오늘의 나에게 상을 준다면 뭘 주고 싶어?",
+      "오늘 스스로에게 잘했다고 말해준다면 어떤 걸 칭찬하고 싶어?",
+      "오늘의 나를 응원하는 노래를 하나 고른다면?",
+      "오늘 하루, 나에게 몇 점을 주고 싶어?",
+      "오늘 애쓴 나에게 내일 아침 쪽지를 남긴다면 뭐라고 쓸까?",
+      "지금 나를 꼭 안아준다면 어떤 기분일까?",
+      "누군가 나에게 응원의 말을 해준다면 어떤 말을 듣고 싶어?",
+      "오늘 힘들었던 일 중에, 나에게 “괜찮아”라고 말해주고 싶은 게 있다면?",
+      "오늘 고생한 나에게 쉬는 시간을 준다면 무엇을 하면서 쉬면 좋을까?"
+    ] },
+  { code:"F", key:"red", name:"도전하기", mood:"용기를 내고 싶을 때", status:"real",
+    questions:[
+      "오늘 고마운 사람에게 짧은 편지나 문자를 써서 전해주고, 어떤 마음이 들었는지 적어보기",
+      "내 방이나 책상 서랍 하나를 골라서 정리하고, 어떤 기분이 들었는지 적어보기",
+      "거울을 보고 나를 큰 소리로 칭찬해보고, 어떤 느낌이 들었는지 적어보기",
+      "내가 나중에 반드시 하고 싶은 일 20가지를 적어보고, 어떤 기분이 들었는지 써보기",
+      "부모님께 어떤 집안일이 필요한지 여쭤보고 직접 해결해보고, 어떤 기분이 들었는지 적어보기",
+      "플랭크 1분 도전을 해보고, 어떤 느낌이 들었는지 적어보기",
+      "평소 안 읽던 장르의 책을 골라서 10페이지만 읽어보고, 어떤 느낌이 들었는지 적어보기",
+      "평소 안 써보던 공부 방법을 하나 골라 시도해보고(예: 소리 내어 읽기, 타이머로 시간 재며 공부하기, 문제부터 먼저 풀어보기 등), 어떤 느낌이 들었는지 적어보기",
+      "친해지고 싶은 친구에게 연락해보고, 어떤 느낌이 들었는지 적어보기",
+      "눈을 감고 한 발로 1분 동안 균형 잡기에 도전해보고, 어떤 느낌이 들었는지 적어보기"
+    ] },
+  { code:"G", key:"purple", name:"상상하기", mood:"동기가 필요할 때", status:"real",
+    questions:[
+      "미래의 내가 지금의 나에게 뭐라고 말해줄까?",
+      "하려는 일을 모두 다 끝낸 나는 어떤 표정을 하고 있을까?",
+      "성인이 된 나는 어떤 모습이었으면 좋겠어?",
+      "원하는 걸 다 이룬 나는 어떤 모습일까?",
+      "지금처럼 계속 노력하면, 나중에 나는 어떤 걸 해낼 수 있는 사람이 되어 있을까?",
+      "오늘 하루가 영화라면 마지막 장면은 어떻게 끝날까?",
+      "미래에 내가 쓴 책이 있다면 제목을 뭐라고 지을까?",
+      "오늘 해야 할 일이 게임이라면 1~100 중 얼마의 경험치를 얻을 수 있을까?",
+      "미래의 나에게 지금 딱 한 가지만 부탁한다면 뭐라고 할까?",
+      "어떤 일이든 어려움 없이 해내는 내 모습을 상상하면 어떤 기분이야?"
+    ] },
+  { code:"H", key:"coral", name:"감사하기", mood:"나·주변을 돌아보고 싶을 때", status:"real",
+    questions:[
+      "오늘 나 자신에게 고마운 점을 한 문장으로 써보기",
+      "내가 매일 쓰는 물건 중 하나를 골라, 그 물건에게 고마운 마음을 문장으로 써보기",
+      "당연하게 여겼지만 사실은 감사한 것을 하나 골라, 어떤 점이 감사한지 문장으로 써보기",
+      "오늘 하루 중 가장 감사했던 순간을 하나 골라, 그 순간에 대한 감사를 문장으로 써보기",
+      "지금 내 곁에 있는 것 중 가장 소중한 것에게 고마운 마음을 문장으로 써보기",
+      "나를 도와주는 사람들에게 감사 편지 써보기",
+      "건강하게 움직여주는 내 몸에게 고마운 마음을 문장으로 써보기",
+      "지금의 나를 만들어준 사람이나 경험에게 고맙다는 문장을 써보기",
+      "오늘 배운 것 중 하나를 골라, 그것에 대한 감사를 문장으로 써보기",
+      "지금 이 순간 감사한 것 세 가지를 각각 한 문장씩 써보기"
+    ] },
+  { code:"I", key:"green", name:"성장 마인드셋", mood:"포기하고 싶을 때", status:"real",
+    questions:[
+      "실수한 일에서도 배울 게 있다면 어떤 것일까?",
+      "한 번 실패했다고 해서, 그 일을 계속 성공할 수 없는 걸까?",
+      "“아직은 못해”와 “영영 못해”는 뭐가 다를까?",
+      "지금 어려운 것도 포기하지 않는다면 어떻게 달라질까?",
+      "포기하고 싶은 마음이 들 때 나에게 힘을 주는 것들을 생각해보면 어떤 느낌이 들어?",
+      "포기하지 않고 계속해서 해낸 일이 있다면 뭐야?",
+      "잘하는 친구를 보고 어떤 것을 배울 수 있을까?",
+      "예전의 나보다 지금의 내가 조금이라도 나아진 부분이 있다면 어떤 거야?",
+      "다른 사람들보다 조금 느린 것이 부족한 것과 같은 의미일까?",
+      "처음부터 잘하지 못한다고 그 일이 나랑 안 맞는 걸까?"
+    ] },
+  { code:"J", key:"orange", name:"흥미 찾기", mood:"뭘 할지 모를 때", status:"real",
+    questions:[
+      "요즘 시간 가는 줄 모르고 재밌게 하는 게 뭐야?",
+      "공부하는 과목 중에 제일 재밌는 건 뭐야?",
+      "요즘 자꾸 궁금해지는 게 있다면 뭐야?",
+      "배워보고 싶은 새로운 게 있다면 뭘까?",
+      "누가 시키지 않아도 스스로 찾아보게 되는 건 뭐야?",
+      "지금 제일 만들어보고 싶은 건 뭐야?",
+      "아직 해보진 않았지만 한번 해보고 싶은 건 뭐야?",
+      "친구랑 계속 이야기하고 싶은 주제가 있다면 뭐야?",
+      "해봤던 것 중에서 다시 해보고 싶은 건 뭐야?",
+      "지금 제일 하고 싶은 놀이나 활동은 뭐야?"
+    ] }
+];
+
+/* ===== 저장소 어댑터 ===== */
+function $(id){ return document.getElementById(id); }
+function sha(s){ return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then(function(b){ return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0");}).join(""); }); }
+function lsGet(k,d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+/* 체험판: 이 브라우저에만 저장 */
+var LocalStore = {
+  mode:"demo",
+  checkCode:function(code){ return Promise.resolve(CONFIG.demoCodes.indexOf(code)>=0); },
+  signUp:function(email,pw,nick,grade,code){
+    var users=lsGet("hp_users",{}); if(users[email]) return Promise.reject("이미 가입된 이메일이에요. 로그인해 주세요.");
+    return sha(pw).then(function(h){ users[email]={h:h,nick:nick,grade:grade,code:code,at:Date.now()}; lsSet("hp_users",users); lsSet("hp_session",email); return {email:email,nick:nick,grade:grade}; });
+  },
+  signIn:function(email,pw){
+    var u=lsGet("hp_users",{})[email]; if(!u) return Promise.reject("가입되지 않은 이메일이에요.");
+    return sha(pw).then(function(h){ if(h!==u.h) throw "비밀번호가 맞지 않아요."; lsSet("hp_session",email); return {email:email,nick:u.nick,grade:u.grade}; });
+  },
+  session:function(){ var e=lsGet("hp_session",null); var u=e&&lsGet("hp_users",{})[e]; return Promise.resolve(u?{email:e,nick:u.nick,grade:u.grade}:null); },
+  signOut:function(){ try{localStorage.removeItem("hp_session");}catch(e){} return Promise.resolve(); },
+  draws:function(email){ return Promise.resolve(lsGet("hp_draws_"+email,[])); },
+  addDraw:function(email,c,i){ var d=lsGet("hp_draws_"+email,[]); d.push({c:c,i:i,t:Date.now()}); lsSet("hp_draws_"+email,d); return Promise.resolve(); }
+};
+
+/* 운영: Supabase (이메일 로그인 + profiles/draws 테이블, RLS로 본인 것만) — 스키마는 supabase-schema.sql */
+function makeSupaStore(){
+  var sb = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey);
+  function toUser(u,p){ return {email:u.email, nick:(p&&p.nick)||(u.user_metadata&&u.user_metadata.nick)||"", grade:(p&&p.grade)||(u.user_metadata&&u.user_metadata.grade)||"", id:u.id}; }
+  return {
+    mode:"live",
+    checkCode:function(code){ return sb.rpc("check_code",{p_code:code}).then(function(r){ if(r.error) throw r.error.message; return !!r.data; }); },
+    signUp:function(email,pw,nick,grade,code){
+      return sb.auth.signUp({email:email,password:pw,options:{data:{nick:nick,grade:grade}}}).then(function(r){
+        if(r.error) throw r.error.message;
+        if(!r.data.session) throw "가입 확인 메일을 보냈어요. 메일의 링크를 누른 뒤 로그인해 주세요.";
+        return sb.rpc("redeem_code",{p_code:code,p_nick:nick,p_grade:grade}).then(function(x){ if(x.error) throw x.error.message; return toUser(r.data.user,{nick:nick,grade:grade}); });
+      });
+    },
+    signIn:function(email,pw){ return sb.auth.signInWithPassword({email:email,password:pw}).then(function(r){ if(r.error) throw "이메일 또는 비밀번호가 맞지 않아요."; return sb.from("profiles").select("nick,grade").eq("user_id",r.data.user.id).maybeSingle().then(function(p){ return toUser(r.data.user,p.data); }); }); },
+    session:function(){ return sb.auth.getSession().then(function(r){ var u=r.data.session&&r.data.session.user; if(!u) return null; return sb.from("profiles").select("nick,grade").eq("user_id",u.id).maybeSingle().then(function(p){ return toUser(u,p.data); }); }); },
+    signOut:function(){ return sb.auth.signOut(); },
+    draws:function(){ return sb.from("draws").select("cat,idx,created_at").order("created_at").then(function(r){ if(r.error) throw r.error.message; return r.data.map(function(x){ return {c:x.cat,i:x.idx,t:new Date(x.created_at).getTime()}; }); }); },
+    addDraw:function(email,c,i){ return sb.from("draws").insert({cat:c,idx:i}).then(function(r){ if(r.error) throw r.error.message; }); }
+  };
+}
+var STORE = (CONFIG.supabaseUrl && CONFIG.supabaseAnonKey && window.supabase) ? makeSupaStore() : LocalStore;
+
+/* ===== 상태 ===== */
+var USER=null, DRAWS=[], CUR=null, LAST=null, PENDING_CODE="";
+var GRADES={e5:"초등 5학년",e6:"초등 6학년",m1:"중학교 1학년",m2:"중학교 2학년",m3:"중학교 3학년"};
+var VIEWS=["gate","auth","pick","card","me"];
+function show(v){ VIEWS.forEach(function(k){ $("s-"+k).hidden=(k!==v); }); $("nav").hidden=!USER||v==="gate"||v==="auth";
+  Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){ if(b.dataset.go===v||(b.dataset.go==="pick"&&v==="card")) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
+  window.scrollTo(0,0); }
+function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._x); t._x=setTimeout(function(){t.classList.remove("on");},2200); }
+function err(id,m){ var e=$(id); if(!m){e.hidden=true;return;} e.textContent=String(m); e.hidden=false; }
+function catOf(code){ for(var i=0;i<CATS.length;i++) if(CATS[i].code===code) return CATS[i]; return null; }
+function onColor(key){ return key==="yellow"?"var(--on-yellow)":"var(--on-dark)"; }
+
+/* ===== 뽑기: 이미 뽑은 카드는 확률을 크게 낮춘다 (한 번 뽑힘=1/9, 두 번=1/17 …). 같은 색에서 직전 카드는 제외. ===== */
+function drawIndex(cat){
+  var n=cat.questions.length, cnt=[], w=[], tot=0, k;
+  for(k=0;k<n;k++) cnt[k]=0;
+  DRAWS.forEach(function(d){ if(d.c===cat.code && d.i<n) cnt[d.i]++; });
+  var lastSame=null; for(k=DRAWS.length-1;k>=0;k--){ if(DRAWS[k].c===cat.code){ lastSame=DRAWS[k].i; break; } }
+  for(k=0;k<n;k++){ w[k]=1/(1+8*cnt[k]); if(k===lastSame && n>1) w[k]=0; tot+=w[k]; }
+  var r=Math.random()*tot; for(k=0;k<n;k++){ r-=w[k]; if(r<=0) return {i:k,seen:cnt[k]}; }
+  return {i:n-1,seen:cnt[n-1]};
+}
+
+/* ===== 화면: 인증코드 ===== */
+$("gateBtn").addEventListener("click",function(){
+  var code=$("code").value.trim().toUpperCase(); err("gateErr",null);
+  if(!code) return err("gateErr","키트에 있는 인증코드를 넣어 주세요.");
+  $("gateBtn").disabled=true;
+  STORE.checkCode(code).then(function(ok){ if(!ok) throw "맞는 인증코드가 아니에요. 키트 안내 카드의 코드를 다시 확인해 주세요."; PENDING_CODE=code; openAuth("up"); })
+    .catch(function(e){ err("gateErr",e); }).then(function(){ $("gateBtn").disabled=false; });
+});
+$("toLogin").addEventListener("click",function(){ openAuth("in"); });
+function openAuth(tab){ err("authErr",null); show("auth"); setTab(tab); }
+function setTab(t){ var up=t==="up"; $("tabUp").setAttribute("aria-selected",up); $("tabIn").setAttribute("aria-selected",!up); $("fUp").hidden=!up; $("fIn").hidden=up; $("authTitle").textContent=up?"보호자 계정 만들기":"다시 만나서 반가워"; }
+$("tabUp").addEventListener("click",function(){ if(!PENDING_CODE){ err("authErr","가입하려면 먼저 키트 인증코드를 넣어 주세요."); show("gate"); return; } setTab("up"); });
+$("tabIn").addEventListener("click",function(){ setTab("in"); });
+
+$("fUp").addEventListener("submit",function(ev){ ev.preventDefault(); err("authErr",null);
+  var email=$("upEmail").value.trim().toLowerCase(), pw=$("upPw").value, nick=$("upNick").value.trim(), grade=$("upGrade").value;
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return err("authErr","이메일 형식을 확인해 주세요.");
+  if(pw.length<8) return err("authErr","비밀번호는 8자 이상이어야 해요.");
+  if(!nick) return err("authErr","아이 별명을 넣어 주세요.");
+  if(!$("upAgree").checked) return err("authErr","저장 동의에 체크해 주세요.");
+  if(!PENDING_CODE) return err("authErr","먼저 키트 인증코드를 넣어 주세요.");
+  $("upBtn").disabled=true;
+  STORE.signUp(email,pw,nick,grade,PENDING_CODE).then(function(u){ return enter(u); }).catch(function(e){ err("authErr",e); }).then(function(){ $("upBtn").disabled=false; });
+});
+$("fIn").addEventListener("submit",function(ev){ ev.preventDefault(); err("authErr",null);
+  var email=$("inEmail").value.trim().toLowerCase(), pw=$("inPw").value; if(!email||!pw) return err("authErr","이메일과 비밀번호를 넣어 주세요.");
+  $("inBtn").disabled=true;
+  STORE.signIn(email,pw).then(function(u){ return enter(u); }).catch(function(e){ err("authErr",e); }).then(function(){ $("inBtn").disabled=false; });
+});
+function enter(u){ USER=u; return STORE.draws(u.email).then(function(d){ DRAWS=d||[]; buildTiles(); show("pick"); toast(u.nick?u.nick+", 어서 와":"어서 와"); }); }
+
+/* ===== 색 타일 ===== */
+function buildTiles(){
+  var ul=$("tiles"); ul.innerHTML="";
+  CATS.forEach(function(c){
+    var seen={}; DRAWS.forEach(function(d){ if(d.c===c.code) seen[d.i]=1; });
+    var li=document.createElement("li"), b=document.createElement("button"); b.type="button"; b.className="tile"; b.style.setProperty("--pick","var(--c-"+c.key+")");
+    b.setAttribute("aria-label",c.name+" — "+c.mood);
+    var dots=""; for(var i=0;i<c.questions.length;i++) dots+='<i class="'+(seen[i]?"on":"")+'"></i>';
+    b.innerHTML='<span class="sw"></span><span class="nm"></span><span class="md"></span><span class="pg" aria-hidden="true">'+dots+'</span>';
+    b.querySelector(".nm").textContent=c.name; b.querySelector(".md").textContent=c.mood;
+    b.addEventListener("click",function(){ pick(c); }); li.appendChild(b); ul.appendChild(li);
+  });
+}
+function pick(c){ CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key));
+  $("backCat").innerHTML=""; $("backCat").appendChild(document.createTextNode(c.name)); var s=document.createElement("small"); s.textContent=c.mood; $("backCat").appendChild(s);
+  $("frontCat").textContent=c.name; $("card").classList.remove("flip"); $("drawBtn").hidden=false; $("redrawBtn").hidden=true; $("qText").textContent=""; show("card"); }
+$("backPick").addEventListener("click",function(){ buildTiles(); show("pick"); });
+
+/* ===== 뽑기 ===== */
+function doDraw(){
+  var r=drawIndex(CUR); var q=CUR.questions[r.i];
+  $("drawBtn").disabled=true; $("redrawBtn").disabled=true;
+  var card=$("card"); card.classList.remove("flip");
+  setTimeout(function(){
+    $("qText").textContent=q; $("againNote").hidden=!r.seen;
+    var cntSame=DRAWS.filter(function(d){return d.c===CUR.code;}).length+1; $("frontNo").textContent=cntSame+"번째 카드";
+    card.classList.add("flip");
+    STORE.addDraw(USER.email,CUR.code,r.i).then(function(){ DRAWS.push({c:CUR.code,i:r.i,t:Date.now()}); })
+      .catch(function(e){ toast("기록 저장에 실패했어요. 다시 뽑아 주세요."); })
+      .then(function(){ $("drawBtn").hidden=true; $("redrawBtn").hidden=false; $("drawBtn").disabled=false; $("redrawBtn").disabled=false; });
+  }, LAST===null?60:420);
+  LAST=r.i;
+}
+$("drawBtn").addEventListener("click",doDraw); $("redrawBtn").addEventListener("click",doDraw);
+
+/* ===== 내 카드 ===== */
+function renderMe(){
+  $("meTitle").textContent=(USER.nick||"내")+"의 카드"; $("meLede").textContent=(GRADES[USER.grade]||"")+" · 보호자 "+USER.email;
+  var uniq={}, days={}; DRAWS.forEach(function(d){ uniq[d.c+d.i]=1; days[new Date(d.t).toDateString()]=1; });
+  $("stTotal").textContent=DRAWS.length; $("stUniq").textContent=Object.keys(uniq).length; $("stDays").textContent=Object.keys(days).length;
+  var pr=$("prog"); pr.innerHTML="";
+  CATS.forEach(function(c){ var seen={},n=0; DRAWS.forEach(function(d){ if(d.c===c.code){ n++; seen[d.i]=1; } });
+    var li=document.createElement("li"); li.style.setProperty("--pick","var(--c-"+c.key+")"); var dots=""; for(var i=0;i<c.questions.length;i++) dots+='<b class="'+(seen[i]?"on":"")+'"></b>';
+    li.innerHTML='<i></i><span></span><span class="dots" aria-hidden="true">'+dots+'</span><small></small>'; li.children[1].textContent=c.name; li.children[3].textContent=Object.keys(seen).length+"/"+c.questions.length+"장 · "+n+"회"; pr.appendChild(li); });
+  var h=$("hist"); h.innerHTML="";
+  if(!DRAWS.length){ var e=document.createElement("li"); e.style.setProperty("--pick","var(--line)"); e.innerHTML="<i></i><span>아직 뽑은 카드가 없어. 오늘 첫 장을 뽑아 볼까?</span>"; h.appendChild(e); }
+  DRAWS.slice(-12).reverse().forEach(function(d){ var c=catOf(d.c); if(!c) return; var li=document.createElement("li"); li.style.setProperty("--pick","var(--c-"+c.key+")");
+    var dt=new Date(d.t); li.innerHTML='<i></i><span><span class="qq"></span><small></small></span>'; li.querySelector(".qq").textContent=c.questions[d.i]||""; li.querySelector("small").textContent=c.name+" · "+(dt.getMonth()+1)+"월 "+dt.getDate()+"일"; h.appendChild(li); });
+}
+Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){ b.addEventListener("click",function(){ if(b.dataset.go==="me"){ renderMe(); show("me"); } else { buildTiles(); show("pick"); } }); });
+$("outBtn").addEventListener("click",function(){ STORE.signOut().then(function(){ USER=null; DRAWS=[]; PENDING_CODE=""; $("code").value=""; show("gate"); }); });
+
+/* ===== 시작 ===== */
+(function boot(){
+  if(STORE.mode==="demo"){ $("modeTag").hidden=false; $("demoNote").hidden=false; }
+  STORE.session().then(function(u){ if(u) return enter(u); show("gate"); }).catch(function(){ show("gate"); });
+})();
+</script>
+
+</body>
+</html>
