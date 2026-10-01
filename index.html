@@ -8,20 +8,21 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   /* 레이아웃: 한 손 세로 폰 기준 한 화면 하나. 폭 480px 카드 한 장. 하단 고정 탭. */
   :root{
-    --paper:#FBF7F0; --surface:#FFFFFF; --ink:#2C2D2D; --muted:#6B6459; --line:#E7DECF;
+    --paper:#151A2E; --surface:#1E2440; --ink:#F3EEE4; --muted:#B4AEC4; --line:#333A5C;
     --amber:#F8A722; --amber-ink:#A85F00; --amber-soft:rgba(248,167,34,.14);
     --ok:#2a9d57; --err:#c2413f; --err-soft:rgba(194,65,63,.10);
     --font-body:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
-    --font-display:"Noto Serif KR","Apple SD Gothic Neo",Georgia,serif;
+    --font-display:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
     --c-indigo:#3A36E0; --c-yellow:#FFC400; --c-blue:#1E6BFF; --c-teal:#00B5A3; --c-pink:#FF4FA3;
     --c-red:#FF1E2D; --c-purple:#8A2BE2; --c-coral:#FFBE98; --c-green:#19B35A; --c-orange:#FF7A00;
     --on-yellow:#2b2a20; --on-dark:#ffffff;
     --shadow:0 8px 24px rgba(44,45,45,.10), 0 2px 6px rgba(44,45,45,.06);
-    color-scheme:light;
+    color-scheme:dark;
   }
   :root[data-palette="soft"]{ --c-indigo:#4b48c4; --c-yellow:#e8a600; --c-blue:#2563eb; --c-teal:#0e9e90; --c-pink:#db5a93; --c-red:#dc3f44; --c-purple:#7c3aed; --c-coral:#FFBE98; --c-green:#2a9d57; --c-orange:#de7c13 }
   @media (prefers-color-scheme: dark){
@@ -49,7 +50,7 @@
   .mark{display:flex; align-items:center; justify-content:space-between; margin:0 0 18px;
     font-size:12px; letter-spacing:.08em; color:var(--muted); font-weight:700}
   .mark b{color:var(--ink)} .mark .demo{font-weight:500; letter-spacing:0; background:var(--amber-soft); color:var(--amber-ink); padding:2px 8px; border-radius:999px; font-size:11px}
-  h1{font-family:var(--font-display); font-weight:700; font-size:26px; line-height:1.3; margin:0 0 8px; letter-spacing:-.01em; text-wrap:balance}
+  h1{font-family:var(--font-display); font-weight:800; font-size:27px; line-height:1.3; margin:0 0 8px; letter-spacing:-.01em; text-wrap:balance}
   .lede{color:var(--muted); font-size:15px; margin:0 0 22px}
   .view{animation:fade .3s ease both} @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
 
@@ -75,12 +76,12 @@
 
   /* 색 타일 */
   /* 뽑기 무대: 어두운 배경 */
-  html.stage{ --paper:#151A2E; --surface:#1E2440; --ink:#F3EEE4; --muted:#B4AEC4; --line:#333A5C; --shadow:0 12px 30px rgba(0,0,0,.45); color-scheme:dark }
-  html.stage body{background:
+  body{box-shadow:none; background:
       radial-gradient(circle at 20% 10%, rgba(242,162,12,.10), transparent 40%),
       radial-gradient(circle at 80% 90%, rgba(120,90,255,.12), transparent 45%),
       radial-gradient(rgba(255,255,255,.045) 1px, transparent 1.6px) 0 0/22px 22px, var(--paper)}
-  html.stage .face.front{background:#FBF8F2; color:#2B2C2C; border-color:#E6E0D4} html.stage .face.front .tag,html.stage .face.front .foot{color:#6F6A61} html.stage .face.front .foot{border-top-color:#E6E0D4}
+  
+  .face.front{background:#FBF8F2; color:#2B2C2C; border-color:#E6E0D4} .face.front .tag,.face.front .foot{color:#6F6A61} .face.front .foot{border-top-color:#E6E0D4}
   /* 부채꼴 */
   .fan{position:relative; --cw:clamp(78px, 23vw, 112px); --ch:calc(var(--cw) * 1.5); height:calc(var(--ch) + 70px); margin:14px auto 0; max-width:520px; overflow:visible}
   .fan .tile{position:absolute; left:50%; top:0; width:var(--cw); aspect-ratio:2/3; margin:0; padding:0; border:0; border-radius:5px; background:var(--pick); color:rgba(255,248,231,.92);
@@ -88,6 +89,9 @@
     box-shadow:-4px 6px 16px rgba(0,0,0,.35); transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .3s; overflow:hidden; cursor:pointer}
   .fan .tile.light{color:rgba(43,42,32,.62)}
   .fan .tile.sel{transform-origin:50% 50%; transform:translate(-50%, calc(var(--ch) * 1.21 + 86px)) rotate(0deg) scale(1.42); z-index:30; box-shadow:0 18px 40px rgba(0,0,0,.5), 0 0 0 3px rgba(255,248,231,.35)}
+  .deco{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; color:#F2A20C}
+  .wrap,.view,#nav,#toast{position:relative; z-index:1}
+  .mark .logo{height:22px; width:auto; display:block}
   .fan .tile.dim{filter:brightness(.72)}
   .fan .tile.lift:not(.sel){transform:translateX(-50%) rotate(calc((var(--i) - 4.5) * 6deg)) translateY(-22px); z-index:40; filter:none; box-shadow:0 16px 34px rgba(0,0,0,.5)}
   .fan .tile.lift{transition-duration:.22s}
@@ -137,8 +141,13 @@
 </head>
 <body>
 
+<svg class="deco" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="currentColor">
+  <g opacity=".10"><circle cx="330" cy="120" r="150" stroke-width="1" stroke-dasharray="0.1 7" stroke-linecap="round"/><circle cx="330" cy="120" r="190" stroke-width=".8" opacity=".6"/>
+  <circle cx="50" cy="690" r="110" stroke-width="1" stroke-dasharray="0.1 7" stroke-linecap="round"/><circle cx="50" cy="690" r="150" stroke-width=".8" opacity=".6"/></g>
+  <g opacity=".22" fill="currentColor" stroke="none"><path d="M60 140l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z"/><path d="M340 420l2 4.5 4.5 2-4.5 2-2 4.5-2-4.5-4.5-2 4.5-2z"/><path d="M110 560l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z"/><path d="M290 700l2.2 5 5 2.2-5 2.2-2.2 5-2.2-5-5-2.2 5-2.2z"/><circle cx="200" cy="90" r="1.4"/><circle cx="30" cy="330" r="1.2"/><circle cx="370" cy="300" r="1.6"/><circle cx="150" cy="760" r="1.3"/><circle cx="250" cy="520" r="1"/></g>
+</svg>
 <div class="wrap">
-  <p class="mark"><b>하리 PLUS</b><span id="modeTag" class="demo" hidden>체험판 · 이 기기에만 저장</span></p>
+  <p class="mark"><img class="logo" src="art/logo-dark.png" alt="하리 PLUS" height="22"><span id="modeTag" class="demo" hidden>체험판 · 이 기기에만 저장</span></p>
 
   <!-- 0. 인증코드 -->
   <section class="view" id="s-gate">
@@ -178,7 +187,7 @@
     <p class="lede">오늘 끌리는 색 하나를 골라 봐. 고른 카드가 아래로 내려와.</p>
     <div class="fan" id="tiles" role="group" aria-label="색 카드 10장"></div>
     <div class="slot" id="slot" aria-hidden="true"><span>여기에 내려온 카드가 오늘의 색</span></div>
-    <button class="btn primary" id="pickOk" type="button" disabled>이 색으로 뽑기</button>
+    <button class="btn primary" id="pickOk" type="button" disabled>이 카드로 뽑기</button>
   </section>
 
   <!-- 3. 카드 -->
@@ -502,7 +511,7 @@ var STORE = (CONFIG.supabaseUrl && CONFIG.supabaseAnonKey && window.supabase) ? 
 var USER=null, DRAWS=[], CUR=null, LAST=null, PENDING_CODE="";
 var GRADES={e5:"초등 5학년",e6:"초등 6학년",m1:"중학교 1학년",m2:"중학교 2학년",m3:"중학교 3학년"};
 var VIEWS=["gate","auth","pick","card","me"];
-function show(v){ VIEWS.forEach(function(k){ $("s-"+k).hidden=(k!==v); }); document.documentElement.classList.toggle("stage", v==="pick"||v==="card"); $("nav").hidden=!USER||v==="gate"||v==="auth";
+function show(v){ VIEWS.forEach(function(k){ $("s-"+k).hidden=(k!==v); });  $("nav").hidden=!USER||v==="gate"||v==="auth";
   Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){ if(b.dataset.go===v||(b.dataset.go==="pick"&&v==="card")) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
   window.scrollTo(0,0); }
 function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._x); t._x=setTimeout(function(){t.classList.remove("on");},2200); }
@@ -574,7 +583,7 @@ function selectTile(b,c){
   Array.prototype.forEach.call(all,function(x){ x.classList.remove("sel","dim"); x.setAttribute("aria-pressed","false"); });
   if(same){ SEL=null; $("pickOk").disabled=true; $("slot").classList.remove("has"); return; }
   b.classList.add("sel"); b.setAttribute("aria-pressed","true"); Array.prototype.forEach.call(all,function(x){ if(x!==b) x.classList.add("dim"); });
-  SEL={b:b,c:c}; $("pickOk").disabled=false; $("slot").classList.add("has"); $("pickOk").textContent="이 색으로 뽑기 · "+c.name;
+  SEL={b:b,c:c}; $("pickOk").disabled=false; $("slot").classList.add("has"); $("pickOk").textContent="이 카드로 뽑기";
 }
 $("pickOk").addEventListener("click",function(){ if(SEL) pick(SEL.c); });
 function pick(c){ CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key));
