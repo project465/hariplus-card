@@ -18,7 +18,7 @@
     --font-body:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
     --font-display:"Noto Serif KR","Apple SD Gothic Neo",Georgia,serif;
     --c-indigo:#4b48c4; --c-yellow:#e8a600; --c-blue:#2563eb; --c-teal:#0e9e90; --c-pink:#db5a93;
-    --c-red:#dc3f44; --c-purple:#7c3aed; --c-coral:#e4633b; --c-green:#2a9d57; --c-orange:#de7c13;
+    --c-red:#dc3f44; --c-purple:#7c3aed; --c-coral:#FFBE98; --c-green:#2a9d57; --c-orange:#de7c13;
     --on-yellow:#2b2a20; --on-dark:#ffffff;
     --shadow:0 8px 24px rgba(44,45,45,.10), 0 2px 6px rgba(44,45,45,.06);
     color-scheme:light;
@@ -74,13 +74,16 @@
 
   /* 색 타일 */
   .tiles{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
-  .tile{width:100%; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:14px 14px 12px; border:1px solid var(--line);
-    border-radius:16px; background:var(--surface); text-align:left; box-shadow:var(--shadow); transition:transform .08s ease}
+  .tile{position:relative; width:100%; aspect-ratio:1/1.08; display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; gap:4px; padding:12px 13px 12px; border:0;
+    border-radius:18px; background:var(--pick); color:var(--pick-ink,#fff); text-align:left; overflow:hidden; box-shadow:var(--shadow); transition:transform .08s ease; isolation:isolate}
   .tile:active{transform:scale(.98)}
-  .tile .sw{width:100%; height:54px; border-radius:11px; background:var(--pick); position:relative; overflow:hidden}
-  .tile .sw::after{content:""; position:absolute; inset:auto 8px 6px auto; width:18px; height:18px; border-radius:50%; background:rgba(255,255,255,.35)}
-  .tile .nm{font-weight:700; font-size:15px} .tile .md{font-size:12.5px; color:var(--muted); margin-top:-6px}
-  .tile .pg{display:flex; gap:3px; margin-top:2px} .tile .pg i{width:9px; height:5px; border-radius:2px; background:var(--line)} .tile .pg i.on{background:var(--pick)}
+  .tile .ph{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; display:block}
+  .tile .sw{position:absolute; inset:0; z-index:-1; background:linear-gradient(to top, var(--pick) 0%, color-mix(in srgb, var(--pick) 55%, transparent) 42%, transparent 72%)}
+  .tile.light{color:#2b2a20}
+  .tile .nm{font-family:var(--font-display); font-weight:800; font-size:20px; line-height:1.15; text-shadow:0 1px 2px rgba(0,0,0,.18)} .tile.light .nm{text-shadow:none}
+  .tile .md{font-size:12.5px; opacity:.92; line-height:1.3}
+  .tile .pg{display:flex; gap:2px; margin-top:4px; width:100%} .tile .pg i{flex:1; min-width:0; height:4px; border-radius:2px; background:rgba(255,255,255,.35)} .tile .pg i.on{background:#fff} .tile.light .pg i{background:rgba(0,0,0,.18)} .tile.light .pg i.on{background:#2b2a20}
+  @media (min-width:560px){ .tiles{grid-template-columns:repeat(3,1fr)} }
 
   /* 카드 */
   .stage{perspective:1200px; margin:6px 0 18px}
@@ -88,6 +91,7 @@
   .card.flip{transform:rotateY(180deg)}
   .face{position:absolute; inset:0; border-radius:22px; backface-visibility:hidden; -webkit-backface-visibility:hidden; box-shadow:var(--shadow); padding:22px}
   .face.back{background:var(--pick); color:var(--pick-ink); display:flex; flex-direction:column; justify-content:space-between}
+  .face.back{overflow:hidden; isolation:isolate} .face.back .bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1; opacity:.55; mix-blend-mode:multiply}
   .face.back .logo{font-size:12px; letter-spacing:.14em; font-weight:700; opacity:.85}
   .face.back .plus{font-family:var(--font-display); font-size:120px; line-height:1; text-align:center; opacity:.28; font-weight:700}
   .face.back .cat{font-weight:700; font-size:18px} .face.back .cat small{display:block; font-weight:500; font-size:13px; opacity:.85}
@@ -170,7 +174,7 @@
   <section class="view" id="s-card" hidden>
     <p class="hint" style="margin:0 0 10px"><button class="btn sm ghost" id="backPick" type="button">← 색 바꾸기</button></p>
     <div class="stage"><div class="card" id="card">
-      <div class="face back"><span class="logo">HARI PLUS</span><span class="plus">+</span><span class="cat" id="backCat">이유 찾기<small>왜 하는지 모를 때</small></span></div>
+      <div class="face back"><img class="bg" id="backImg" alt="" hidden><span class="logo">HARI PLUS</span><span class="plus">+</span><span class="cat" id="backCat">이유 찾기<small>왜 하는지 모를 때</small></span></div>
       <div class="face front"><span class="tag"><i></i><span id="frontCat">이유 찾기</span> · <span id="frontNo">1번째 카드</span></span>
         <p class="q" id="qText" aria-live="polite"></p>
         <div class="foot">이 질문의 답은 다이어리 오늘 칸에 손으로 써 보자. 정답은 없어. <span class="again" id="againNote" hidden>전에 한 번 뽑았던 카드야.</span></div></div>
@@ -215,7 +219,17 @@ var CATS = [
       "이 행동을 해야 하는 이유가 없어져도, 그래도 하고 싶을까? 그 이유는?",
       "이 행동을 계속하면 나는 어떤 사람에 가까워질까?",
       "아무도 알아주지 않아도 계속한다면 무엇 때문일까?",
-      "하고 싶은 마음과 하기 싫은 마음, 어디가 더 커? 그 이유는?"
+      "하고 싶은 마음과 하기 싫은 마음, 어디가 더 커? 그 이유는?",
+      "지금 하려는 일 중에서 내가 직접 정한 부분은 어디까지야?",
+      "이 일을 하는 방법을 내가 정할 수 있다면, 어떤 방식으로 해보고 싶어?",
+      "이 일이 나중에 내가 하고 싶은 일과 이어진다면, 어떤 식으로 이어질까?",
+      "이 일을 하면서 조금씩 늘고 있는 실력이 있다면 뭘까?",
+      "이 일이 다른 사람에게도 도움이 된다면, 누구에게 어떤 도움이 될까?",
+      "\"해야 해서\"를 \"하기로 해서\"로 바꿔 말해보면, 마음이 어떻게 달라질까?",
+      "이 일에서 그나마 재미있는 부분을 하나 찾는다면 어디일까?",
+      "남이 정해준 목표와 내가 정한 목표 중에, 어느 쪽에 더 마음이 가? 그 이유는?",
+      "이 일과 관련해서 내가 소중하게 여기는 것이 있다면 뭘까? (예: 약속, 꾸준함, 자유)",
+      "이 일을 해낸 이야기를 들려주고 싶은 사람이 있다면 누구야? 뭐라고 말하고 싶어?"
     ] },
   { code:"B", key:"yellow", name:"강점 확인", mood:"자신감이 흔들릴 때", status:"real",
     questions:[
@@ -228,7 +242,17 @@ var CATS = [
       "내가 다른 사람에게 무언가를 해준다면 어떤 것을 해줄 수 있을까?",
       "힘든 상황에서도 여전히 남아있는 나만의 무기는 뭘까?",
       "나만이 가지고 있는 특별한 것이 있다면?",
-      "나의 강점 3가지를 키워드로 써본다면?"
+      "나의 강점 3가지를 키워드로 써본다면?",
+      "가족이 나에게 자주 부탁하는 일이 있다면 뭐야? 내가 무엇을 잘해서일까?",
+      "친구가 고민이 있을 때 나를 찾는다면, 어떤 이유 때문일까?",
+      "남들은 어려워하는데 나는 별로 힘들지 않은 일이 있다면 뭐야?",
+      "호기심, 친절함, 끈기, 유머, 공정함 중에 나와 가장 가까운 건 뭐야? 그 모습이 드러났던 순간은?",
+      "단점이라고 생각했던 내 성격이 어떤 상황에서는 장점이 될 수도 있을까?",
+      "오늘 하루 중에 내 좋은 점이 조금이라도 드러난 순간이 있다면 언제야?",
+      "모둠이나 팀에서 나 덕분에 일이 잘 풀렸던 때가 있다면, 나는 어떤 역할을 했어?",
+      "내가 좋아하는 사람이나 캐릭터와 내가 닮은 좋은 점이 있다면 뭘까?",
+      "내 강점 하나를 오늘 할 일에 써본다면, 어떻게 쓸 수 있을까?",
+      "힘들어하는 친구를 봤을 때 내가 자연스럽게 하게 되는 행동이 있다면 뭐야? 그건 나의 어떤 힘일까?"
     ] },
   { code:"C", key:"blue", name:"상태 확인", mood:"컨디션이 떨어질 때", status:"real",
     questions:[
@@ -241,7 +265,17 @@ var CATS = [
       "지금 기분을 날씨로 표현한다면 어떤 날씨야?",
       "지금 집중을 방해하는 게 있다면 뭘까?",
       "오늘 마음 상태는 어때?",
-      "지금 나에게 필요한 도움이 있다면 뭘까?"
+      "지금 나에게 필요한 도움이 있다면 뭘까?",
+      "어젯밤 얼마나 푹 잤는지 1~10점으로 매긴다면 몇 점이야?",
+      "지금 걱정되거나 불안한 마음은 1~10점 중 몇 점이야?",
+      "오늘 할 일이 나에게 얼마나 많게 느껴지는지 1~10점으로 매긴다면 몇 점이야?",
+      "지금 머릿속이 정리된 정도는 1~10점 중 몇 점이야?",
+      "요즘 친구 사이에서 마음이 편한 정도는 1~10점 중 몇 점이야?",
+      "지금 혼자 있고 싶은 마음과 누군가와 함께 있고 싶은 마음은 각각 몇 점이야? (1~10점)",
+      "어제의 나와 비교하면, 오늘 컨디션은 몇 점쯤 올라갔을까, 내려갔을까?",
+      "지금 내 기분을 1~10점으로 매겨 봐. 1점이 아니라 그 점수인 건 무엇 덕분일까?",
+      "지금 내 상태를 1~10점으로 매긴다면 몇 점이야? 딱 1점만 올라간다면 무엇이 달라져 있을까?",
+      "오늘을 '이 정도면 괜찮은 날'이라고 부르려면 1~10점 중 몇 점이면 충분할까?"
     ] },
   { code:"D", key:"teal", name:"해결 찾기", mood:"막히거나 정리가 안 될 때", status:"real",
     questions:[
@@ -254,7 +288,17 @@ var CATS = [
       "지금 상황에서 내가 바꿀 수 있는 것과 바꿀 수 없는 것을 나눠본다면?",
       "오늘 할 일 중에서 제일 중요한 것과 안 중요한 것을 나눠본다면?",
       "지금 하려는 일을 가장 작게 쪼개본다면 어떻게 나눌 수 있을까?",
-      "다른 사람이라면 이 상황을 어떻게 풀었을까?"
+      "다른 사람이라면 이 상황을 어떻게 풀었을까?",
+      "자고 일어났더니 이 문제가 다 풀려 있다면, 가장 먼저 무엇이 달라져 있을까?",
+      "이 문제가 조금이라도 덜했던 때가 있었다면, 그때는 무엇이 달랐을까?",
+      "막힌 일은 잠깐 두고, 지금 할 수 있는 다른 일부터 하나 한다면 무엇일까?",
+      "이 일이 끝났다고 알 수 있는 기준을 하나 정한다면 뭘까?",
+      "이 문제 때문에 힘든데도 지금까지 버텨 온 방법이 있다면 뭐야?",
+      "지금 막힌 일에서 이미 해 놓은 부분은 어디까지야?",
+      "해결 방법을 떠오르는 대로 세 가지만 적어 본다면? 그중 제일 해볼 만한 건?",
+      "하는 장소나 시간을 바꿔 본다면, 언제 어디가 좋을까?",
+      "지금 막힌 문제를 한 문장으로 적어 본다면 어떻게 쓸 수 있을까?",
+      "'완벽하게'가 아니라 '일단 끝내기'를 목표로 한다면, 무엇을 빼도 될까?"
     ] },
   { code:"E", key:"pink", name:"리워드·응원", mood:"응원이 필요할 때", status:"real",
     questions:[
@@ -267,7 +311,17 @@ var CATS = [
       "지금 나를 꼭 안아준다면 어떤 기분일까?",
       "누군가 나에게 응원의 말을 해준다면 어떤 말을 듣고 싶어?",
       "오늘 힘들었던 일 중에, 나에게 “괜찮아”라고 말해주고 싶은 게 있다면?",
-      "오늘 고생한 나에게 쉬는 시간을 준다면 무엇을 하면서 쉬면 좋을까?"
+      "오늘 고생한 나에게 쉬는 시간을 준다면 무엇을 하면서 쉬면 좋을까?",
+      "내 이름을 불러서 \"○○아, 오늘 (    )했구나.\" 하고 오늘 하루를 한 문장으로 말해 준다면?",
+      "가장 친한 친구가 오늘 나와 똑같은 하루를 보냈다면, 나는 친구에게 뭐라고 말해 줄까?",
+      "계획대로 안 된 일이 있었어도, 그 와중에 해낸 일이 있다면 뭐야?",
+      "오늘 끝낸 일에 도장을 하나 찍어 준다면, 도장에 어떤 말을 새기고 싶어?",
+      "\"○○는 오늘 충분히 애썼다.\" ○○ 자리에 내 이름을 넣어 읽어 보면 어떤 느낌이야?",
+      "\"오늘 ○○는 (    ).\" 오늘 나의 하루를 뉴스 한 줄처럼 써 본다면?",
+      "오늘 가장 애쓴 순간에 이름을 붙여 준다면 뭐라고 부를까?",
+      "\"잘했어\" 말고, 오늘의 나에게 해 주고 싶은 다른 말을 찾는다면?",
+      "오늘의 나를 응원하는 짧은 구호를 만든다면 뭐라고 할까?",
+      "오늘 하루를 지낸 나를 동물이나 캐릭터로 표현한다면 뭘까? 그 캐릭터에게 뭐라고 말해 줄까?"
     ] },
   { code:"F", key:"red", name:"도전하기", mood:"용기를 내고 싶을 때", status:"real",
     questions:[
@@ -280,7 +334,17 @@ var CATS = [
       "평소 안 읽던 장르의 책을 골라서 10페이지만 읽어보고, 어떤 느낌이 들었는지 적어보기",
       "평소 안 써보던 공부 방법을 하나 골라 시도해보고(예: 소리 내어 읽기, 타이머로 시간 재며 공부하기, 문제부터 먼저 풀어보기 등), 어떤 느낌이 들었는지 적어보기",
       "친해지고 싶은 친구에게 연락해보고, 어떤 느낌이 들었는지 적어보기",
-      "눈을 감고 한 발로 1분 동안 균형 잡기에 도전해보고, 어떤 느낌이 들었는지 적어보기"
+      "눈을 감고 한 발로 1분 동안 균형 잡기에 도전해보고, 어떤 느낌이 들었는지 적어보기",
+      "처음 해보는 간단한 요리나 간식(예: 주먹밥, 샌드위치)을 보호자와 함께 만들어보고, 어떤 느낌이 들었는지 적어보기",
+      "정해 둔 시간(예: 1시간) 동안 휴대폰을 손이 닿지 않는 곳에 두어보고, 어떤 느낌이 들었는지 적어보기",
+      "보호자에게 말하고, 평소 지나치기만 하던 길을 10분 동안 천천히 걸어보고, 어떤 느낌이 들었는지 적어보기",
+      "수업 시간이나 가족과 이야기할 때 내 생각을 한 번 먼저 말해보고, 어떤 느낌이 들었는지 적어보기",
+      "평소 쓰지 않는 손으로 내 이름을 다섯 번 써보고, 어떤 느낌이 들었는지 적어보기",
+      "궁금했던 것 하나를 직접 찾아보고 가족이나 친구에게 설명해보고, 어떤 느낌이 들었는지 적어보기",
+      "미뤄 두었던 일 하나를 골라 오늘 끝내보고, 어떤 느낌이 들었는지 적어보기",
+      "내가 잘 모르는 것 하나를 가족이나 친구에게 물어보고 배워보고, 어떤 느낌이 들었는지 적어보기",
+      "그림, 종이접기, 노래처럼 한 번도 안 써본 방법으로 오늘 기분을 표현해보고, 어떤 느낌이 들었는지 적어보기",
+      "평소 인사를 잘 안 하던 이웃이나 학교 사람에게 먼저 인사해보고, 어떤 느낌이 들었는지 적어보기"
     ] },
   { code:"G", key:"purple", name:"상상하기", mood:"동기가 필요할 때", status:"real",
     questions:[
@@ -293,7 +357,17 @@ var CATS = [
       "미래에 내가 쓴 책이 있다면 제목을 뭐라고 지을까?",
       "오늘 해야 할 일이 게임이라면 1~100 중 얼마의 경험치를 얻을 수 있을까?",
       "미래의 나에게 지금 딱 한 가지만 부탁한다면 뭐라고 할까?",
-      "어떤 일이든 어려움 없이 해내는 내 모습을 상상하면 어떤 기분이야?"
+      "어떤 일이든 어려움 없이 해내는 내 모습을 상상하면 어떤 기분이야?",
+      "한 달 뒤의 나는 지금보다 어떤 점 하나가 달라져 있으면 좋겠어?",
+      "1년 뒤 오늘, 나는 어디에서 무엇을 하고 있을 것 같아?",
+      "되고 싶은 나와 되고 싶지 않은 나를 한 가지씩 적어 본다면?",
+      "되고 싶은 나에 가까워지려면, 이번 주에 할 수 있는 일 하나는 뭘까?",
+      "미래의 내가 지내는 방을 그려 본다면, 그 방에는 무엇이 놓여 있을까?",
+      "다음 학년이 된 내가 지금보다 익숙하게 하고 있을 일 하나는 뭘까?",
+      "미래의 내가 일하는 모습을 떠올리면, 누구와 함께 무엇을 하고 있어?",
+      "내가 멋있다고 생각하는 사람의 모습 중에, 미래의 내가 꼭 닮고 싶은 한 가지는 뭐야?",
+      "미래의 나에게 자주 하는 말버릇이 있다면 뭘까?",
+      "미래의 내가 하루 중 가장 좋아하는 시간은 언제이고, 그때 무엇을 하고 있을까?"
     ] },
   { code:"H", key:"coral", name:"감사하기", mood:"나·주변을 돌아보고 싶을 때", status:"real",
     questions:[
@@ -304,9 +378,19 @@ var CATS = [
       "지금 내 곁에 있는 것 중 가장 소중한 것에게 고마운 마음을 문장으로 써보기",
       "나를 도와주는 사람들에게 감사 편지 써보기",
       "건강하게 움직여주는 내 몸에게 고마운 마음을 문장으로 써보기",
-      "지금의 나를 만들어준 사람이나 경험에게 고맙다는 문장을 써보기",
+      "고마운 사람이나 감사한 일이 있나요? 내 마음을 한 줄로 짧게 적어 보세요.",
       "오늘 배운 것 중 하나를 골라, 그것에 대한 감사를 문장으로 써보기",
-      "지금 이 순간 감사한 것 세 가지를 각각 한 문장씩 써보기"
+      "지금 이 순간 감사한 것 세 가지를 각각 한 문장씩 써보기",
+      "오늘 먹은 음식 하나를 골라, 그 음식을 만든 사람에게 고마운 마음을 한 줄로 써보기",
+      "요즘 나에게 다정하게 대해 준 사람을 떠올려, 고마운 마음을 한 줄로 써보기",
+      "오늘 날씨나 계절에서 좋았던 점 하나를 한 줄로 써보기",
+      "우리 동네나 학교에서 고마운 장소를 하나 골라, 그곳에 고마운 마음을 한 줄로 써보기",
+      "좋아하는 노래·책·영상 하나를 골라, 그것을 만든 사람에게 고마운 마음을 한 줄로 써보기",
+      "오늘 있었던 좋은 일 하나를 적고, 그 일이 왜 일어났는지 한 줄 덧붙여 보기",
+      "나를 가르쳐 준 선생님 한 분을 떠올려, 고마운 마음을 한 줄로 써보기",
+      "가족 중 한 사람을 골라, 그 사람이 매일 해 주는 일에 고마운 마음을 한 줄로 써보기",
+      "친구에게 \"고마워\"라고 말하지 못했던 일이 있다면, 지금 한 줄로 적어 보기",
+      "오늘 감사한 것을 딱 한 단어로 적어 보기"
     ] },
   { code:"I", key:"green", name:"성장 마인드셋", mood:"포기하고 싶을 때", status:"real",
     questions:[
@@ -319,7 +403,17 @@ var CATS = [
       "잘하는 친구를 보고 어떤 것을 배울 수 있을까?",
       "예전의 나보다 지금의 내가 조금이라도 나아진 부분이 있다면 어떤 거야?",
       "다른 사람들보다 조금 느린 것이 부족한 것과 같은 의미일까?",
-      "처음부터 잘하지 못한다고 그 일이 나랑 안 맞는 걸까?"
+      "처음부터 잘하지 못한다고 그 일이 나랑 안 맞는 걸까?",
+      "\"만약 포기하고 싶어지면, 나는 (    ) 할 거야.\" 이 문장의 빈칸을 채운다면?",
+      "\"만약 문제가 안 풀리면, 나는 먼저 (    ) 해 볼 거야.\" 이 문장의 빈칸을 채운다면?",
+      "해 보기로 한 일을 \"언제, 어디서, 무엇을\" 넣어 한 줄로 적어 본다면?",
+      "할 일을 시작하기 전에 다른 게 하고 싶어지면, 그때 할 행동을 하나 정해 둔다면 뭘까?",
+      "지금 어려운 일에서 '여기까지는 할 수 있다'와 '여기부터 어렵다'의 경계는 어디야?",
+      "잘 안 될 때, 더 애쓰는 것과 방법을 바꾸는 것 중에 지금 필요한 건 어느 쪽일까?",
+      "실패했다고 생각한 일을 '연습 1회'라고 바꿔 부르면 어떤 느낌이 들어?",
+      "최근에 들은 지적이나 조언 중에 다음에 써 볼 만한 게 있다면 뭐야?",
+      "실수한 다음 다시 해 본다면, 이번엔 무엇을 딱 하나 바꿔 볼까?",
+      "조금 어려워서 오히려 해 볼 만하다고 느끼는 일이 있다면 뭐야?"
     ] },
   { code:"J", key:"orange", name:"흥미 찾기", mood:"뭘 할지 모를 때", status:"real",
     questions:[
@@ -332,7 +426,17 @@ var CATS = [
       "아직 해보진 않았지만 한번 해보고 싶은 건 뭐야?",
       "친구랑 계속 이야기하고 싶은 주제가 있다면 뭐야?",
       "해봤던 것 중에서 다시 해보고 싶은 건 뭐야?",
-      "지금 제일 하고 싶은 놀이나 활동은 뭐야?"
+      "지금 제일 하고 싶은 놀이나 활동은 뭐야?",
+      "최근에 \"어, 이거 뭐지?\" 하고 눈길이 멈췄던 것이 있다면 뭐야?",
+      "어릴 때 좋아했던 것 중에 지금도 마음이 가는 게 있다면 뭐야?",
+      "친구들보다 내가 조금 더 많이 아는 분야가 있다면 뭐야?",
+      "관심 있는 것을 더 알아보려면, 다음에 무엇을 찾아보거나 해 볼 수 있을까?",
+      "수업 중에 한 장면이라도 재미있었던 순간이 있다면 언제였어?",
+      "내가 좋아하는 것과 잘하는 것이 겹치는 부분이 있다면 어디야?",
+      "관심 있는 분야에서 일하는 사람을 한 명 만날 수 있다면, 누구에게 무엇을 묻고 싶어?",
+      "지루하다고 느꼈던 일 중에 다른 방식으로 해 보면 재미있을 것 같은 게 있다면?",
+      "다른 사람에게 5분 동안 설명할 수 있는 주제를 하나 고른다면 뭘까?",
+      "좋아하는 일을 할 때 나는 혼자 하는 쪽이야, 여럿이 하는 쪽이야? 만드는 쪽이야, 알아보는 쪽이야?"
     ] }
 ];
 
@@ -393,7 +497,8 @@ function show(v){ VIEWS.forEach(function(k){ $("s-"+k).hidden=(k!==v); }); $("na
 function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._x); t._x=setTimeout(function(){t.classList.remove("on");},2200); }
 function err(id,m){ var e=$(id); if(!m){e.hidden=true;return;} e.textContent=String(m); e.hidden=false; }
 function catOf(code){ for(var i=0;i<CATS.length;i++) if(CATS[i].code===code) return CATS[i]; return null; }
-function onColor(key){ return key==="yellow"?"var(--on-yellow)":"var(--on-dark)"; }
+var ART={indigo:1,yellow:1,blue:1,teal:1,pink:1,red:1,purple:1,coral:1,green:1,orange:1}; /* 색별 무드 사진 art/<key>.jpg 있으면 1 */
+function onColor(key){ return (key==="yellow"||key==="coral")?"var(--on-yellow)":"var(--on-dark)"; }
 
 /* ===== 뽑기: 이미 뽑은 카드는 확률을 크게 낮춘다 (한 번 뽑힘=1/9, 두 번=1/17 …). 같은 색에서 직전 카드는 제외. ===== */
 function drawIndex(cat){
@@ -442,15 +547,15 @@ function buildTiles(){
   var ul=$("tiles"); ul.innerHTML="";
   CATS.forEach(function(c){
     var seen={}; DRAWS.forEach(function(d){ if(d.c===c.code) seen[d.i]=1; });
-    var li=document.createElement("li"), b=document.createElement("button"); b.type="button"; b.className="tile"; b.style.setProperty("--pick","var(--c-"+c.key+")");
+    var li=document.createElement("li"), b=document.createElement("button"); b.type="button"; b.className="tile"+(onColor(c.key)==="var(--on-yellow)"?" light":""); b.style.setProperty("--pick","var(--c-"+c.key+")");
     b.setAttribute("aria-label",c.name+" — "+c.mood);
     var dots=""; for(var i=0;i<c.questions.length;i++) dots+='<i class="'+(seen[i]?"on":"")+'"></i>';
-    b.innerHTML='<span class="sw"></span><span class="nm"></span><span class="md"></span><span class="pg" aria-hidden="true">'+dots+'</span>';
+    b.innerHTML=(ART[c.key]?'<img class="ph" src="art/'+c.key+'.jpg" alt="" loading="lazy">':'')+'<span class="sw"></span><span class="nm"></span><span class="md"></span><span class="pg" aria-hidden="true">'+dots+'</span>';
     b.querySelector(".nm").textContent=c.name; b.querySelector(".md").textContent=c.mood;
     b.addEventListener("click",function(){ pick(c); }); li.appendChild(b); ul.appendChild(li);
   });
 }
-function pick(c){ CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key));
+function pick(c){ CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key)); var bi=$("backImg"); if(ART[c.key]){ bi.src="art/"+c.key+".jpg"; bi.hidden=false; } else { bi.hidden=true; bi.removeAttribute("src"); }
   $("backCat").innerHTML=""; $("backCat").appendChild(document.createTextNode(c.name)); var s=document.createElement("small"); s.textContent=c.mood; $("backCat").appendChild(s);
   $("frontCat").textContent=c.name; $("card").classList.remove("flip"); $("drawBtn").hidden=false; $("redrawBtn").hidden=true; $("qText").textContent=""; show("card"); }
 $("backPick").addEventListener("click",function(){ buildTiles(); show("pick"); });
@@ -461,7 +566,7 @@ function doDraw(){
   $("drawBtn").disabled=true; $("redrawBtn").disabled=true;
   var card=$("card"); card.classList.remove("flip");
   setTimeout(function(){
-    $("qText").textContent=q; $("againNote").hidden=!r.seen;
+    $("qText").textContent=q; $("qText").style.fontSize=q.length>70?"18px":""; $("againNote").hidden=!r.seen;
     var cntSame=DRAWS.filter(function(d){return d.c===CUR.code;}).length+1; $("frontNo").textContent=cntSame+"번째 카드";
     card.classList.add("flip");
     STORE.addDraw(USER.email,CUR.code,r.i).then(function(){ DRAWS.push({c:CUR.code,i:r.i,t:Date.now()}); })
