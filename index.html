@@ -75,19 +75,21 @@
 
   /* 색 타일 */
   .tiles{list-style:none; margin:4px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
-  .tile{position:relative; width:100%; aspect-ratio:2/3; display:flex; align-items:flex-end; justify-content:center; padding:0 0 14px; border:0;
-    border-radius:18px; background:var(--pick); box-shadow:0 10px 24px color-mix(in srgb, var(--pick) 35%, transparent), 0 2px 6px rgba(0,0,0,.08); transition:transform .08s ease}
+  .tile{position:relative; width:100%; aspect-ratio:2/3; display:block; padding:0; border:0; border-radius:14px; background:var(--pick); color:rgba(255,248,231,.92);
+    box-shadow:0 10px 24px color-mix(in srgb, var(--pick) 35%, transparent), 0 2px 6px rgba(0,0,0,.08); transition:transform .08s ease; overflow:hidden}
   .tile:active{transform:scale(.97)}
-  .tile .mk{width:22%; max-width:56px; height:auto; opacity:.95; display:block}
-  .tile.light .mk{filter:brightness(0) opacity(.8)}
+  .tile.light{color:rgba(43,42,32,.62)}
+  .fr{position:absolute; inset:0; width:100%; height:100%; display:block; pointer-events:none}
+  .tile .mk{position:absolute; left:50%; bottom:9.5%; transform:translateX(-50%); width:24%; max-width:60px; height:auto; opacity:.95; display:block}
+  .tile.light .mk{filter:brightness(0) opacity(.75)}
   @media (min-width:560px){ .tiles{grid-template-columns:repeat(5,1fr); gap:12px} }
 
   /* 카드 */
   .stage{perspective:1200px; margin:6px 0 18px}
-  .card{position:relative; width:100%; aspect-ratio:3/4.2; max-width:100%; border-radius:22px; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .card{position:relative; width:100%; aspect-ratio:2/3; max-width:100%; border-radius:22px; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.2,.7,.2,1)}
   .card.flip{transform:rotateY(180deg)}
   .face{position:absolute; inset:0; border-radius:22px; backface-visibility:hidden; -webkit-backface-visibility:hidden; box-shadow:var(--shadow); padding:22px}
-  .face.back{background:var(--pick); color:var(--pick-ink); display:flex; align-items:center; justify-content:center} .face.back .mk{width:26%; max-width:110px; opacity:.95} .face.back.light .mk{filter:brightness(0) opacity(.8)}
+  .face.back{background:var(--pick); color:rgba(255,248,231,.92); display:flex; align-items:center; justify-content:center; padding:0; overflow:hidden} .face.back.light{color:rgba(43,42,32,.62)} .face.back .mk{width:26%; max-width:110px; opacity:.95; position:relative} .face.back.light .mk{filter:brightness(0) opacity(.75)}
   .face.front{background:var(--surface); color:var(--ink); transform:rotateY(180deg); border:1px solid var(--line); display:flex; flex-direction:column; gap:14px}
   .face.front .tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:var(--muted)}
   .face.front .tag i{width:12px; height:12px; border-radius:50%; background:var(--pick)}
@@ -167,7 +169,7 @@
   <section class="view" id="s-card" hidden>
     <p class="hint" style="margin:0 0 10px"><button class="btn sm ghost" id="backPick" type="button">← 색 바꾸기</button></p>
     <div class="stage"><div class="card" id="card">
-      <div class="face back"><img class="mk" src="art/mark-white.png" alt=""></div>
+      <div class="face back"><svg class="fr" viewBox="0 0 200 300" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor"><path d="M26 11H174A15 15 0 0 0 189 26V274A15 15 0 0 0 174 289H26A15 15 0 0 0 11 274V26A15 15 0 0 0 26 11Z" stroke-width="1.6" vector-effect="non-scaling-stroke"/><rect x="18" y="18" width="164" height="264" rx="3" stroke-width=".8" opacity=".75" vector-effect="non-scaling-stroke"/><path d="M100 24l2.2 4.8L107 31l-4.8 2.2L100 38l-2.2-4.8L93 31l4.8-2.2z" fill="currentColor" stroke="none"/><path d="M62 31H88M112 31H138" stroke-width=".8" opacity=".75" vector-effect="non-scaling-stroke"/><path d="M62 269H88M112 269H138" stroke-width=".8" opacity=".75" vector-effect="non-scaling-stroke"/></svg><img class="mk" src="art/mark-white.png" alt=""></div>
       <div class="face front"><span class="tag"><i></i><span id="frontNo">1번째 카드</span></span>
         <p class="q" id="qText" aria-live="polite"></p>
         <div class="foot">이 질문의 답은 다이어리 오늘 칸에 손으로 써 보자. 정답은 없어. <span class="again" id="againNote" hidden>전에 한 번 뽑았던 카드야.</span></div></div>
@@ -541,7 +543,7 @@ function buildTiles(){
   CATS.forEach(function(c){
     var li=document.createElement("li"), b=document.createElement("button"); b.type="button"; b.className="tile"+(onColor(c.key)==="var(--on-yellow)"?" light":""); b.style.setProperty("--pick","var(--c-"+c.key+")");
     b.setAttribute("aria-label",c.name+" 색 카드");
-    b.innerHTML='<img class="mk" src="art/mark-white.png" alt="">';
+    b.innerHTML='<svg class="fr" viewBox="0 0 200 300" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor"><path d="M26 11H174A15 15 0 0 0 189 26V274A15 15 0 0 0 174 289H26A15 15 0 0 0 11 274V26A15 15 0 0 0 26 11Z" stroke-width="1.6" vector-effect="non-scaling-stroke"/><rect x="18" y="18" width="164" height="264" rx="3" stroke-width=".8" opacity=".75" vector-effect="non-scaling-stroke"/><path d="M100 24l2.2 4.8L107 31l-4.8 2.2L100 38l-2.2-4.8L93 31l4.8-2.2z" fill="currentColor" stroke="none"/><path d="M62 31H88M112 31H138" stroke-width=".8" opacity=".75" vector-effect="non-scaling-stroke"/><path d="M62 269H88M112 269H138" stroke-width=".8" opacity=".75" vector-effect="non-scaling-stroke"/></svg><img class="mk" src="art/mark-white.png" alt="">';
     b.addEventListener("click",function(){ pick(c); }); li.appendChild(b); ul.appendChild(li);
   });
 }
