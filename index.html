@@ -113,20 +113,24 @@
   @media (prefers-reduced-motion:reduce){ .card{transition:none} .view{animation:none} }
 
   /* 내 카드 */
-  .cal{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 10px 10px; margin:0 0 18px}
-  .calhd{display:flex; align-items:center; justify-content:space-between; margin:0 4px 8px} .calhd b{font-size:16px} .calhd button{border:1px solid var(--line); background:transparent; color:var(--ink); border-radius:10px; width:36px; height:34px; font-size:20px; line-height:1}
-  .calwk{display:grid; grid-template-columns:repeat(7,1fr); font-size:11.5px; color:var(--muted); text-align:center; margin-bottom:4px}
+  #s-me{ --cbg:#FBF8F2; --cink:#2B2C2C; --cmuted:#6F6A61; --cline:#E6E0D4 }
+  .cal{background:var(--cbg); color:var(--cink); border:1px solid var(--cline); border-radius:14px; padding:12px 10px 10px; margin:0 0 18px; box-shadow:var(--shadow)}
+  .calhd{display:flex; align-items:center; justify-content:space-between; margin:0 4px 8px} .calhd b{font-size:16px} .calhd button{border:1px solid var(--cline); background:#fff; color:var(--cink); border-radius:10px; width:36px; height:34px; font-size:20px; line-height:1}
+  .calwk{display:grid; grid-template-columns:repeat(7,1fr); font-size:11.5px; color:var(--cmuted); text-align:center; margin-bottom:4px}
   .calgrid{display:grid; grid-template-columns:repeat(7,1fr); gap:4px}
-  .day{border:1px solid transparent; background:transparent; color:var(--ink); border-radius:10px; min-height:48px; padding:5px 2px 4px; display:flex; flex-direction:column; align-items:center; gap:3px; font-size:13.5px; font-variant-numeric:tabular-nums}
-  .day.has{background:rgba(255,255,255,.04); border-color:var(--line)} .day.today{color:var(--amber)} .day.sel{border-color:var(--amber); background:var(--amber-soft)} .day:disabled{opacity:.35}
+  .day{border:1px solid transparent; background:transparent; color:var(--cink); border-radius:10px; min-height:48px; padding:5px 2px 4px; display:flex; flex-direction:column; align-items:center; gap:3px; font-size:13.5px; font-variant-numeric:tabular-nums}
+  .day.has{background:#fff; border-color:var(--cline)} .day.today{color:var(--amber-ink); font-weight:700} .day.sel{border-color:var(--amber); background:var(--amber-soft)}
   .day .d{display:flex; gap:2px; min-height:7px} .day .d i{width:7px; height:7px; border-radius:50%; display:block}
-  .prog{list-style:none; margin:0 0 18px; padding:0; display:grid; grid-template-columns:repeat(5,1fr); gap:8px}
-  .prog li{display:flex; flex-direction:column; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 4px; font-size:13.5px}
-  .prog i{width:18px; height:18px; border-radius:50%; background:var(--pick)}
+  .hist li{background:var(--cbg); color:var(--cink); border:1px solid var(--cline); border-radius:12px; padding:10px 12px; display:grid; grid-template-columns:10px 1fr; gap:10px; font-size:14px; box-shadow:var(--shadow)}
+  .hist small{display:block; color:var(--cmuted); font-size:12px}
+  .prog{list-style:none; margin:0 0 18px; padding:0; display:flex; flex-direction:column; gap:8px; background:var(--cbg); color:var(--cink); border:1px solid var(--cline); border-radius:14px; padding:12px 14px; box-shadow:var(--shadow)}
+  .prog li{display:grid; grid-template-columns:14px 1fr 44px; align-items:center; gap:10px; font-size:13.5px}
+  .prog i{width:14px; height:14px; border-radius:50%; background:var(--pick)}
+  .prog .bar{height:8px; border-radius:4px; background:var(--cline); overflow:hidden} .prog .bar b{display:block; height:100%; width:var(--w,0%); background:var(--pick); border-radius:4px}
+  .prog small{color:var(--cmuted); font-variant-numeric:tabular-nums; text-align:right; font-size:13px}
   .prog small{color:var(--muted); font-variant-numeric:tabular-nums}
   .hist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
-  .hist li{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:grid; grid-template-columns:10px 1fr; gap:10px; font-size:14px}
-  .hist i{width:10px; border-radius:4px; background:var(--pick); margin-top:3px} .hist small{display:block; color:var(--muted); font-size:12px}
+  .hist i{width:10px; border-radius:4px; background:var(--pick); margin-top:3px}
   h2{font-size:15px; margin:0 0 10px; color:var(--muted); letter-spacing:.04em}
 
   /* 하단 탭 */
@@ -611,9 +615,9 @@ function renderMe(){
   $("meTitle").textContent=(USER.nick||"내")+"의 카드"; $("meLede").textContent=(GRADES[USER.grade]||"")+" · 보호자 "+USER.email;
   var now=new Date(); if(!CAL){ CAL={y:now.getFullYear(), m:now.getMonth()}; SELDAY=dkey(now.getTime()); }
   renderCal(); renderDay();
-  var pr=$("prog"); pr.innerHTML="";
+  var pr=$("prog"); pr.innerHTML=""; var MAXN=0; catsInOrder().forEach(function(c){ var k=0; DRAWS.forEach(function(d){ if(d.c===c.code) k++; }); if(k>MAXN) MAXN=k; });
   catsInOrder().forEach(function(c){ var n=0; DRAWS.forEach(function(d){ if(d.c===c.code) n++; });
-    var li=document.createElement("li"); li.style.setProperty("--pick","var(--c-"+c.key+")"); li.innerHTML='<i></i><b></b>'; li.querySelector("b").textContent=n+"회"; li.setAttribute("aria-label",c.name+" "+n+"회"); pr.appendChild(li); });
+    var li=document.createElement("li"); li.style.setProperty("--pick","var(--c-"+c.key+")"); li.innerHTML='<i></i><span class="bar"><b></b></span><small></small>'; li.querySelector("b").style.setProperty("--w",(MAXN?Math.round(n/MAXN*100):0)+"%"); li.querySelector("small").textContent=n+"회"; li.setAttribute("aria-label",c.name+" "+n+"회"); pr.appendChild(li); });
 }
 function renderCal(){
   var y=CAL.y, m=CAL.m, first=new Date(y,m,1), days=new Date(y,m+1,0).getDate(), today=dkey(Date.now());
