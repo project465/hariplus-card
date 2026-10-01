@@ -17,12 +17,13 @@
     --ok:#2a9d57; --err:#c2413f; --err-soft:rgba(194,65,63,.10);
     --font-body:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
     --font-display:"Noto Serif KR","Apple SD Gothic Neo",Georgia,serif;
-    --c-indigo:#4b48c4; --c-yellow:#e8a600; --c-blue:#2563eb; --c-teal:#0e9e90; --c-pink:#db5a93;
-    --c-red:#dc3f44; --c-purple:#7c3aed; --c-coral:#FFBE98; --c-green:#2a9d57; --c-orange:#de7c13;
+    --c-indigo:#3A36E0; --c-yellow:#FFC400; --c-blue:#1E6BFF; --c-teal:#00B5A3; --c-pink:#FF4FA3;
+    --c-red:#FF1E2D; --c-purple:#8A2BE2; --c-coral:#FFBE98; --c-green:#19B35A; --c-orange:#FF7A00;
     --on-yellow:#2b2a20; --on-dark:#ffffff;
     --shadow:0 8px 24px rgba(44,45,45,.10), 0 2px 6px rgba(44,45,45,.06);
     color-scheme:light;
   }
+  :root[data-palette="soft"]{ --c-indigo:#4b48c4; --c-yellow:#e8a600; --c-blue:#2563eb; --c-teal:#0e9e90; --c-pink:#db5a93; --c-red:#dc3f44; --c-purple:#7c3aed; --c-coral:#FFBE98; --c-green:#2a9d57; --c-orange:#de7c13 }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --paper:#1E1D1C; --surface:#2A2928; --ink:#EDE7DD; --muted:#A79E90; --line:#3C3A37;
@@ -73,28 +74,20 @@
   .note{border-left:3px solid var(--amber); background:var(--amber-soft); padding:10px 12px; border-radius:0 10px 10px 0; font-size:13.5px; margin:16px 0 0}
 
   /* 색 타일 */
-  .tiles{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
-  .tile{position:relative; width:100%; aspect-ratio:1/1.08; display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; gap:4px; padding:12px 13px 12px; border:0;
-    border-radius:18px; background:var(--pick); color:var(--pick-ink,#fff); text-align:left; overflow:hidden; box-shadow:var(--shadow); transition:transform .08s ease; isolation:isolate}
-  .tile:active{transform:scale(.98)}
-  .tile .ph{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; display:block}
-  .tile .sw{position:absolute; inset:0; z-index:-1; background:linear-gradient(to top, var(--pick) 0%, color-mix(in srgb, var(--pick) 55%, transparent) 42%, transparent 72%)}
-  .tile.light{color:#2b2a20}
-  .tile .nm{font-family:var(--font-display); font-weight:800; font-size:20px; line-height:1.15; text-shadow:0 1px 2px rgba(0,0,0,.18)} .tile.light .nm{text-shadow:none}
-  .tile .md{font-size:12.5px; opacity:.92; line-height:1.3}
-  .tile .pg{display:flex; gap:2px; margin-top:4px; width:100%} .tile .pg i{flex:1; min-width:0; height:4px; border-radius:2px; background:rgba(255,255,255,.35)} .tile .pg i.on{background:#fff} .tile.light .pg i{background:rgba(0,0,0,.18)} .tile.light .pg i.on{background:#2b2a20}
-  @media (min-width:560px){ .tiles{grid-template-columns:repeat(3,1fr)} }
+  .tiles{list-style:none; margin:4px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .tile{position:relative; width:100%; aspect-ratio:2/3; display:flex; align-items:flex-end; justify-content:center; padding:0 0 14px; border:0;
+    border-radius:18px; background:var(--pick); box-shadow:0 10px 24px color-mix(in srgb, var(--pick) 35%, transparent), 0 2px 6px rgba(0,0,0,.08); transition:transform .08s ease}
+  .tile:active{transform:scale(.97)}
+  .tile .mk{width:22%; max-width:56px; height:auto; opacity:.95; display:block}
+  .tile.light .mk{filter:brightness(0) opacity(.8)}
+  @media (min-width:560px){ .tiles{grid-template-columns:repeat(5,1fr); gap:12px} }
 
   /* 카드 */
   .stage{perspective:1200px; margin:6px 0 18px}
   .card{position:relative; width:100%; aspect-ratio:3/4.2; max-width:100%; border-radius:22px; transform-style:preserve-3d; transition:transform .7s cubic-bezier(.2,.7,.2,1)}
   .card.flip{transform:rotateY(180deg)}
   .face{position:absolute; inset:0; border-radius:22px; backface-visibility:hidden; -webkit-backface-visibility:hidden; box-shadow:var(--shadow); padding:22px}
-  .face.back{background:var(--pick); color:var(--pick-ink); display:flex; flex-direction:column; justify-content:space-between}
-  .face.back{overflow:hidden; isolation:isolate} .face.back .bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1; opacity:.55; mix-blend-mode:multiply}
-  .face.back .logo{font-size:12px; letter-spacing:.14em; font-weight:700; opacity:.85}
-  .face.back .plus{font-family:var(--font-display); font-size:120px; line-height:1; text-align:center; opacity:.28; font-weight:700}
-  .face.back .cat{font-weight:700; font-size:18px} .face.back .cat small{display:block; font-weight:500; font-size:13px; opacity:.85}
+  .face.back{background:var(--pick); color:var(--pick-ink); display:flex; align-items:center; justify-content:center} .face.back .mk{width:26%; max-width:110px; opacity:.95} .face.back.light .mk{filter:brightness(0) opacity(.8)}
   .face.front{background:var(--surface); color:var(--ink); transform:rotateY(180deg); border:1px solid var(--line); display:flex; flex-direction:column; gap:14px}
   .face.front .tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:var(--muted)}
   .face.front .tag i{width:12px; height:12px; border-radius:50%; background:var(--pick)}
@@ -166,7 +159,7 @@
   <!-- 2. 색 고르기 -->
   <section class="view" id="s-pick" hidden>
     <h1>지금 마음은 어떤 색이야?</h1>
-    <p class="lede">오늘 상태에 가까운 색을 골라. 그 색의 카드 한 장을 뽑을 수 있어.</p>
+    <p class="lede">오늘 끌리는 색 하나를 골라. 그 색의 카드 한 장을 뽑을 수 있어.</p>
     <ul class="tiles" id="tiles"></ul>
   </section>
 
@@ -174,8 +167,8 @@
   <section class="view" id="s-card" hidden>
     <p class="hint" style="margin:0 0 10px"><button class="btn sm ghost" id="backPick" type="button">← 색 바꾸기</button></p>
     <div class="stage"><div class="card" id="card">
-      <div class="face back"><img class="bg" id="backImg" alt="" hidden><span class="logo">HARI PLUS</span><span class="plus">+</span><span class="cat" id="backCat">이유 찾기<small>왜 하는지 모를 때</small></span></div>
-      <div class="face front"><span class="tag"><i></i><span id="frontCat">이유 찾기</span> · <span id="frontNo">1번째 카드</span></span>
+      <div class="face back"><img class="mk" src="art/mark-white.png" alt=""></div>
+      <div class="face front"><span class="tag"><i></i><span id="frontNo">1번째 카드</span></span>
         <p class="q" id="qText" aria-live="polite"></p>
         <div class="foot">이 질문의 답은 다이어리 오늘 칸에 손으로 써 보자. 정답은 없어. <span class="again" id="againNote" hidden>전에 한 번 뽑았던 카드야.</span></div></div>
     </div></div>
@@ -497,7 +490,7 @@ function show(v){ VIEWS.forEach(function(k){ $("s-"+k).hidden=(k!==v); }); $("na
 function toast(m){ var t=$("toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._x); t._x=setTimeout(function(){t.classList.remove("on");},2200); }
 function err(id,m){ var e=$(id); if(!m){e.hidden=true;return;} e.textContent=String(m); e.hidden=false; }
 function catOf(code){ for(var i=0;i<CATS.length;i++) if(CATS[i].code===code) return CATS[i]; return null; }
-var ART={indigo:1,yellow:1,blue:1,teal:1,pink:1,red:1,purple:1,coral:1,green:1,orange:1}; /* 색별 무드 사진 art/<key>.jpg 있으면 1 */
+var ART={}; /* 10-01 대표: 색 카드에 사진 안 씀 */ /* 색별 무드 사진 art/<key>.jpg 있으면 1 */
 function onColor(key){ return (key==="yellow"||key==="coral")?"var(--on-yellow)":"var(--on-dark)"; }
 
 /* ===== 뽑기: 이미 뽑은 카드는 확률을 크게 낮춘다 (한 번 뽑힘=1/9, 두 번=1/17 …). 같은 색에서 직전 카드는 제외. ===== */
@@ -546,18 +539,15 @@ function enter(u){ USER=u; return STORE.draws(u.email).then(function(d){ DRAWS=d
 function buildTiles(){
   var ul=$("tiles"); ul.innerHTML="";
   CATS.forEach(function(c){
-    var seen={}; DRAWS.forEach(function(d){ if(d.c===c.code) seen[d.i]=1; });
     var li=document.createElement("li"), b=document.createElement("button"); b.type="button"; b.className="tile"+(onColor(c.key)==="var(--on-yellow)"?" light":""); b.style.setProperty("--pick","var(--c-"+c.key+")");
-    b.setAttribute("aria-label",c.name+" — "+c.mood);
-    var dots=""; for(var i=0;i<c.questions.length;i++) dots+='<i class="'+(seen[i]?"on":"")+'"></i>';
-    b.innerHTML=(ART[c.key]?'<img class="ph" src="art/'+c.key+'.jpg" alt="" loading="lazy">':'')+'<span class="sw"></span><span class="nm"></span><span class="md"></span><span class="pg" aria-hidden="true">'+dots+'</span>';
-    b.querySelector(".nm").textContent=c.name; b.querySelector(".md").textContent=c.mood;
+    b.setAttribute("aria-label",c.name+" 색 카드");
+    b.innerHTML='<img class="mk" src="art/mark-white.png" alt="">';
     b.addEventListener("click",function(){ pick(c); }); li.appendChild(b); ul.appendChild(li);
   });
 }
-function pick(c){ CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key)); var bi=$("backImg"); if(ART[c.key]){ bi.src="art/"+c.key+".jpg"; bi.hidden=false; } else { bi.hidden=true; bi.removeAttribute("src"); }
-  $("backCat").innerHTML=""; $("backCat").appendChild(document.createTextNode(c.name)); var s=document.createElement("small"); s.textContent=c.mood; $("backCat").appendChild(s);
-  $("frontCat").textContent=c.name; $("card").classList.remove("flip"); $("drawBtn").hidden=false; $("redrawBtn").hidden=true; $("qText").textContent=""; show("card"); }
+function pick(c){ CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key));
+  $("card").querySelector(".face.back").classList.toggle("light", onColor(c.key)==="var(--on-yellow)");
+  $("card").classList.remove("flip"); $("drawBtn").hidden=false; $("redrawBtn").hidden=true; $("qText").textContent=""; show("card"); }
 $("backPick").addEventListener("click",function(){ buildTiles(); show("pick"); });
 
 /* ===== 뽑기 ===== */
@@ -585,11 +575,11 @@ function renderMe(){
   var pr=$("prog"); pr.innerHTML="";
   CATS.forEach(function(c){ var seen={},n=0; DRAWS.forEach(function(d){ if(d.c===c.code){ n++; seen[d.i]=1; } });
     var li=document.createElement("li"); li.style.setProperty("--pick","var(--c-"+c.key+")"); var dots=""; for(var i=0;i<c.questions.length;i++) dots+='<b class="'+(seen[i]?"on":"")+'"></b>';
-    li.innerHTML='<i></i><span></span><span class="dots" aria-hidden="true">'+dots+'</span><small></small>'; li.children[1].textContent=c.name; li.children[3].textContent=Object.keys(seen).length+"/"+c.questions.length+"장 · "+n+"회"; pr.appendChild(li); });
+    li.innerHTML='<i></i><span></span><span class="dots" aria-hidden="true">'+dots+'</span><small></small>'; li.children[1].textContent=""; li.children[3].textContent=Object.keys(seen).length+"/"+c.questions.length+"장 · "+n+"회"; pr.appendChild(li); });
   var h=$("hist"); h.innerHTML="";
   if(!DRAWS.length){ var e=document.createElement("li"); e.style.setProperty("--pick","var(--line)"); e.innerHTML="<i></i><span>아직 뽑은 카드가 없어. 오늘 첫 장을 뽑아 볼까?</span>"; h.appendChild(e); }
   DRAWS.slice(-12).reverse().forEach(function(d){ var c=catOf(d.c); if(!c) return; var li=document.createElement("li"); li.style.setProperty("--pick","var(--c-"+c.key+")");
-    var dt=new Date(d.t); li.innerHTML='<i></i><span><span class="qq"></span><small></small></span>'; li.querySelector(".qq").textContent=c.questions[d.i]||""; li.querySelector("small").textContent=c.name+" · "+(dt.getMonth()+1)+"월 "+dt.getDate()+"일"; h.appendChild(li); });
+    var dt=new Date(d.t); li.innerHTML='<i></i><span><span class="qq"></span><small></small></span>'; li.querySelector(".qq").textContent=c.questions[d.i]||""; li.querySelector("small").textContent=(dt.getMonth()+1)+"월 "+dt.getDate()+"일"; h.appendChild(li); });
 }
 Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){ b.addEventListener("click",function(){ if(b.dataset.go==="me"){ renderMe(); show("me"); } else { buildTiles(); show("pick"); } }); });
 $("outBtn").addEventListener("click",function(){ STORE.signOut().then(function(){ USER=null; DRAWS=[]; PENDING_CODE=""; $("code").value=""; show("gate"); }); });
