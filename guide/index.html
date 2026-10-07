@@ -77,6 +77,9 @@ p.ex.ok .mark { color:var(--amber-ink); }
 .callout.no { background:transparent; border-left-color:var(--fg-2); border:1px solid var(--line); border-left:4px solid var(--fg-2); }
 .callout + .callout { margin-top:-6px; }
 .tw + h4, .callout + h4, .steps + h4, .roles + h4, p + h4 { margin-top:42px; }
+.roles.plain .role { grid-template-columns:1fr; }
+.roles.plain .role::before { display:none; }
+.roles.plain .role b { color:var(--amber-ink); }
 /* 역할 카드·원칙 상자 */
 .roles { display:grid; gap:8px; margin:0 auto 14px; counter-reset:role; }
 .role { display:grid; grid-template-columns:30px 1fr; gap:4px 10px; align-items:start; background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:10px; padding:11px 12px; counter-increment:role; }
@@ -341,15 +344,17 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <h2><span class="num">5</span>컬러카드 활용법</h2>
 <p>컬러카드는 아이가 하루 한 번, 자기 마음을 들여다보는 짧은 시간입니다. 정답을 맞히는 문제가 아니라, 스스로에게 질문하는 연습입니다.</p>
 <h3 class="ptitle">사이트 메뉴와 진행 순서</h3>
-<div class="roles">
-<div class="role"><b>뽑기</b><span>"지금 마음은 어떤 색이야?" 아래 10가지 색 카드. 끌리는 색을 하나 고르면 그 색의 오늘의 카드가 나옵니다.</span></div>
+<h4>사이트에는 메뉴가 두 개뿐입니다</h4>
+<div class="roles plain">
+<div class="role"><b>뽑기</b><span>"지금 마음은 어떤 색이야?" 아래 10가지 색 카드가 펼쳐집니다. 끌리는 색을 하나 고르면 그 색의 오늘의 카드가 나옵니다.</span></div>
 <div class="role"><b>내 카드</b><span>달력에 날짜마다 뽑은 색이 점으로 남습니다. 날짜를 누르면 그날 카드와 질문을 다시 볼 수 있습니다.</span></div>
 </div>
+<h4>아이는 매일 이 순서로 합니다</h4>
 <div class="steps">
-<div class="step"><b>색 고르기</b><em>'뽑기'</em><span>끌리는 색을 고릅니다. 색의 뜻(6번 '스티커 색이 의미하는 것')을 알고 골라도 괜찮습니다.</span></div>
-<div class="step"><b>적고 붙이기</b><em>데일리 '오늘의 카드'</em><span>질문과 답을 적고, 같은 색 스티커를 붙입니다.</span></div>
+<div class="step"><b>'뽑기'에서 색 고르기</b><span>끌리는 색을 고릅니다. 색의 뜻(6번 '스티커 색이 의미하는 것')을 알고 골라도 괜찮습니다.</span></div>
+<div class="step"><b>질문과 답 적기</b><em>데일리 '오늘의 카드' 칸</em><span>적은 뒤 같은 색 스티커를 붙입니다.</span></div>
 <div class="step"><b>하루 한 장</b><span>더 뽑아도 괜찮지만, 데일리에는 한 장만 기록합니다.</span></div>
-<div class="step"><b>시간은 아이가</b><span>공부 전이나 자기 전처럼 정해 두면 이어가기 쉽습니다.</span></div>
+<div class="step"><b>시간은 아이가 정합니다</b><span>공부 전이나 자기 전처럼 정해 두면 이어가기 쉽습니다.</span></div>
 </div>
 </article><article class="page sub" id="c5-2" data-i="19"><div class="crumb"><span class="num">5</span>컬러카드 활용법</div><h3 class="ptitle">보호자는 이렇게 함께합니다</h3>
 <ul>
