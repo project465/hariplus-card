@@ -115,19 +115,20 @@ p.ex.ok .mark { color:var(--amber-ink); }
 .toc ol.sub .n { font-size:11px; }
 /* 요약 카드 */
 #csum h2 { display:none; }
-#csum .card { background:var(--card); color:var(--card-fg); border-radius:14px; padding:20px 18px 14px; }
-#csum .card h4 { color:var(--card-amber); font-size:13px; letter-spacing:.06em; margin:14px 0 4px; }
-#csum .card h4:first-child { margin-top:0; }
-#csum .card p, #csum .card li { color:var(--card-fg); }
-#csum .card p strong { color:var(--card-amber); }
-#csum .card ul { padding-left:18px; margin-bottom:4px; }
-#csum .card li { margin-bottom:3px; }
-#csum .card a.ref { color:var(--card-amber); border-color:var(--card-amber); }
-#csum .card .arr { color:var(--card-amber); }
-#csum .card h4:last-of-type { margin-top:12px; padding-top:12px; border-top:1px solid rgba(128,128,128,.35); }
-#csum .card ul:last-child { margin-bottom:0; }
+#csum .sumlead p { font-size:17px; line-height:1.65; margin:0 0 10px; }
+#csum .sumlead p strong { color:var(--amber-ink); }
+#csum .sumgrid { display:grid; gap:10px; margin-top:6px; }
+@media (min-width:560px) { #csum .sumgrid { grid-template-columns:1fr 1fr; } #csum .sumbox:nth-child(n+3) { grid-column:1 / -1; } }
+#csum .sumbox { background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:12px; padding:13px 15px 11px; }
+#csum .sumbox h4 { margin:0 0 6px; font-size:12.5px; letter-spacing:.06em; color:var(--amber-ink); text-transform:none; }
+#csum .sumbox ul { margin:0; padding-left:0; list-style:none; }
+#csum .sumbox li { margin:0 0 5px; padding-left:14px; position:relative; font-size:15px; line-height:1.55; }
+#csum .sumbox li::before { content:''; position:absolute; left:0; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--amber); }
+#csum .sumbox a.ref { border-bottom:0; }
+#csum .sumbox .arr { color:var(--fg-2); }
 /* 넘김 바 */
-.bar { position:fixed; left:0; right:0; bottom:0; padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px)); background:var(--paper-2); border-top:1px solid var(--line); display:grid; grid-template-columns:44px 1fr 44px; align-items:center; gap:8px; z-index:5; }
+.bar { position:fixed; left:0; right:0; bottom:0; z-index:5; background:var(--paper-2); border-top:1px solid var(--line); padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px)); }
+.bar .in { max-width:640px; margin:0 auto; display:grid; grid-template-columns:44px 1fr 44px; align-items:center; gap:8px; }
 .bar button { height:40px; border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--fg); font-size:20px; font-weight:900; cursor:pointer; }
 .bar button:disabled { opacity:.35; cursor:default; }
 .bar .mid { text-align:center; min-width:0; }
@@ -385,7 +386,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <tr><td>주황</td><td>흥미 찾기</td><td>뭘 하면 좋을지 모르겠을 때</td></tr>
 </tbody></table></div>
 <div class="callout"><b>한 달쯤 모이면 패턴이 보입니다</b>"월요일엔 파랑이 많구나", "시험 전엔 터콰이즈를 고르는구나" 같은 발견은 아이를 이해하는 단서가 됩니다.</div>
-<div class="callout no"><b>"왜 또 파랑이야?"는 묻지 않기</b>아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 8번 '하기 싫은 것과 힘든 것'을 참고해 주세요.</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>"왜 또 파랑이야?"라고 묻지 않기. 아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 8번 '하기 싫은 것과 힘든 것'을 참고해 주세요.</div>
 </article><article class="page sub" id="c7" data-i="21">
 <h2><span class="num">7</span>칭찬과 보상</h2>
 <p>칭찬은 결과보다 과정을, 보상은 매일보다 구간마다 주는 것이 오래갑니다.</p>
@@ -406,15 +407,15 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <tr><td>누가 정하나</td><td>시작할 때 아이와 함께</td></tr>
 <tr><td>무엇으로</td><td>물건보다 함께하는 경험</td></tr>
 </tbody></table></div>
-<div class="callout no"><b>매일 물건으로 주지 않기</b>보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>매일 물건으로 보상하지 않기. 보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.</div>
 </article><article class="page sub" id="c8" data-i="23">
 <h2><span class="num">8</span>"그냥 하기 싫은 것"과 "진짜 힘든 것"</h2>
-<p>"하기 싫어"는 대부분 지나갑니다. 가끔은 지쳤다는 신호입니다.</p>
+<p>"하기 싫어"는 대부분 지나갑니다. 하지만 가끔은 같은 "하기 싫다"라는 말이 지쳤다는 신호일 수도 있습니다.</p>
 <h3 class="ptitle">나눠서 묻기</h3>
 <p>아이들은 이유를 설명하지 못하고 "그냥"이라고 답할 때가 많습니다. "하기 싫어"를 나눠서 물으면 아이도 자기 마음을 알아차리기 쉬워집니다.</p>
 <div class="tw"><table><thead><tr><th>이렇게 물어보기</th><th>그렇다고 하면</th></tr></thead><tbody>
 <tr><td>"왜 해야 하는지 모르겠어?"</td><td>목표를 다시 이야기합니다</td></tr>
-<tr><td>"매일이 힘들어?" "어려워?"</td><td>실천을 줄이거나 쉽게 바꿉니다. 처음 2주는 바꿔도 되는 기간입니다 (<a class="ref" href="#c3">3번 '첫날 세팅'</a>)</td></tr>
+<tr><td>"할 일을 끝내기가 힘들거나 어려워?"</td><td>실천을 줄이거나 쉽게 바꿉니다. 처음 2주는 바꿔도 되는 기간입니다 (<a class="ref" href="#c3">3번 '첫날 세팅'</a>)</td></tr>
 <tr><td>"요즘 다른 일로 마음이 쓰여?"</td><td>과제보다 이야기를 먼저 듣습니다</td></tr>
 </tbody></table></div>
 </article><article class="page sub" id="c8-2" data-i="24"><div class="crumb"><span class="num">8</span>&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;</div><h3 class="ptitle">파랑이 2주 넘게 이어질 때</h3>
@@ -454,11 +455,11 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <div class="step"><b>인증서와 보상</b><em>'100일 완주 인증서'</em><span>아이가 지킨 세 가지 행동을 적고, 보호자가 완주 확인 도장을 찍습니다. 약속한 보상을 함께 즐깁니다.</span></div>
 </div>
 </article></div>
-<nav class="bar" aria-label="쪽 넘기기">
+<nav class="bar" aria-label="쪽 넘기기"><div class="in">
   <button id="prev" aria-label="이전 쪽">‹</button>
   <div class="mid"><div class="where" id="where"></div><div class="prog"><i id="progfill"></i></div></div>
   <button id="next" aria-label="다음 쪽">›</button>
-</nav>
+</div></nav>
 <script>
 (function(){
   var book=document.getElementById('book'), pages=[].slice.call(book.querySelectorAll(':scope > .page'));
@@ -475,7 +476,9 @@ p.ex.ok .mark { color:var(--amber-ink); }
   book.addEventListener('scroll',function(){ clearTimeout(book._t); book._t=setTimeout(paint,80); },{passive:true});
   document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')go(cur()+1); if(e.key==='ArrowLeft')go(cur()-1); });
   document.addEventListener('click',function(e){ var a=e.target.closest('a[href^="#"]'); if(!a) return; var id=a.getAttribute('href').slice(1); var k=pages.findIndex(function(p){return p.id===id;}); if(k>=0){ e.preventDefault(); go(k); } });
-  var s=document.getElementById('csum'); if(s){var h=s.querySelector('h2'); var c=document.createElement('div'); c.className='card'; while(h&&h.nextSibling) c.appendChild(h.nextSibling); s.appendChild(c);}
+  var s=document.getElementById('csum'); if(s){ var h=s.querySelector('h2'); var lead=document.createElement('div'); lead.className='sumlead'; var grid=document.createElement('div'); grid.className='sumgrid'; var box=null;
+    while(h&&h.nextSibling){ var el=h.nextSibling; if(el.nodeType===1&&el.tagName==='H4'){ box=document.createElement('div'); box.className='sumbox'; grid.appendChild(box); box.appendChild(el); } else if(box){ box.appendChild(el); } else { lead.appendChild(el); } }
+    s.appendChild(lead); s.appendChild(grid); var last=grid.lastElementChild; if(last) last.classList.add('wide'); }
   document.querySelectorAll('ul.check input').forEach(function(b){ try{ b.checked=localStorage.getItem('pg-'+b.id)==='1'; }catch(e){}
     b.addEventListener('change',function(){ try{ localStorage.setItem('pg-'+b.id,b.checked?'1':'0'); }catch(e){} }); });
   var h=location.hash.replace('#',''); var k=pages.findIndex(function(p){return p.id===h;});

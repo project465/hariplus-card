@@ -100,17 +100,17 @@ p.ex.no .mark { color:var(--fg-2); }
 /* 요약 카드 */
 #csum { padding-top:20px; }
 #csum h2 { display:none; }
-#csum .card { background:var(--card); color:var(--card-fg); border-radius:14px; padding:22px 20px 16px; }
-#csum .card h4 { color:var(--card-amber); font-size:13px; letter-spacing:.06em; margin:16px 0 4px; }
-#csum .card h4:first-child { margin-top:0; }
-#csum .card p, #csum .card li { color:var(--card-fg); }
-#csum .card p strong { color:var(--card-amber); }
-#csum .card ul { padding-left:18px; margin-bottom:4px; }
-#csum .card li { margin-bottom:3px; }
-#csum .card a.ref { color:var(--card-amber); border-color:var(--card-amber); }
-#csum .card .arr { color:var(--card-amber); }
-#csum .card h4:last-of-type { margin-top:14px; padding-top:12px; border-top:1px solid rgba(128,128,128,.35); }
-#csum .card ul:last-child { margin-bottom:0; }
+#csum .sumlead p { font-size:17px; line-height:1.65; margin:0 0 10px; }
+#csum .sumlead p strong { color:var(--amber-ink); }
+#csum .sumgrid { display:grid; gap:10px; margin-top:6px; }
+@media (min-width:560px) { #csum .sumgrid { grid-template-columns:1fr 1fr; } #csum .sumbox:nth-child(n+3) { grid-column:1 / -1; } }
+#csum .sumbox { background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:12px; padding:13px 15px 11px; }
+#csum .sumbox h4 { margin:0 0 6px; font-size:12.5px; letter-spacing:.06em; color:var(--amber-ink); text-transform:none; }
+#csum .sumbox ul { margin:0; padding-left:0; list-style:none; }
+#csum .sumbox li { margin:0 0 5px; padding-left:14px; position:relative; font-size:15px; line-height:1.55; }
+#csum .sumbox li::before { content:''; position:absolute; left:0; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--amber); }
+#csum .sumbox a.ref { border-bottom:0; }
+#csum .sumbox .arr { color:var(--fg-2); }
 footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:var(--fg-2); }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior:smooth } }
 @media print { nav.chips { display:none } section.chapter { break-inside:auto } h2 { break-after:avoid } }
@@ -377,7 +377,7 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <tr><td>주황</td><td>흥미 찾기</td><td>뭘 하면 좋을지 모르겠을 때</td></tr>
 </tbody></table></div>
 <div class="callout"><b>한 달쯤 모이면 패턴이 보입니다</b>"월요일엔 파랑이 많구나", "시험 전엔 터콰이즈를 고르는구나" 같은 발견은 아이를 이해하는 단서가 됩니다.</div>
-<div class="callout no"><b>"왜 또 파랑이야?"는 묻지 않기</b>아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 8번 '하기 싫은 것과 힘든 것'을 참고해 주세요.</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>"왜 또 파랑이야?"라고 묻지 않기. 아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 8번 '하기 싫은 것과 힘든 것'을 참고해 주세요.</div>
 </section>
 <section id="c7" class="chapter">
 <h2><span class="num">7</span>칭찬과 보상</h2>
@@ -399,16 +399,16 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <tr><td>누가 정하나</td><td>시작할 때 아이와 함께</td></tr>
 <tr><td>무엇으로</td><td>물건보다 함께하는 경험</td></tr>
 </tbody></table></div>
-<div class="callout no"><b>매일 물건으로 주지 않기</b>보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>매일 물건으로 보상하지 않기. 보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.</div>
 </section>
 <section id="c8" class="chapter">
 <h2><span class="num">8</span>"그냥 하기 싫은 것"과 "진짜 힘든 것"</h2>
-<p>"하기 싫어"는 대부분 지나갑니다. 가끔은 지쳤다는 신호입니다.</p>
+<p>"하기 싫어"는 대부분 지나갑니다. 하지만 가끔은 같은 "하기 싫다"라는 말이 지쳤다는 신호일 수도 있습니다.</p>
 <h3>나눠서 묻기</h3>
 <p>아이들은 이유를 설명하지 못하고 "그냥"이라고 답할 때가 많습니다. "하기 싫어"를 나눠서 물으면 아이도 자기 마음을 알아차리기 쉬워집니다.</p>
 <div class="tw"><table><thead><tr><th>이렇게 물어보기</th><th>그렇다고 하면</th></tr></thead><tbody>
 <tr><td>"왜 해야 하는지 모르겠어?"</td><td>목표를 다시 이야기합니다</td></tr>
-<tr><td>"매일이 힘들어?" "어려워?"</td><td>실천을 줄이거나 쉽게 바꿉니다. 처음 2주는 바꿔도 되는 기간입니다 (<a class="ref" href="#c3">3번 '첫날 세팅'</a>)</td></tr>
+<tr><td>"할 일을 끝내기가 힘들거나 어려워?"</td><td>실천을 줄이거나 쉽게 바꿉니다. 처음 2주는 바꿔도 되는 기간입니다 (<a class="ref" href="#c3">3번 '첫날 세팅'</a>)</td></tr>
 <tr><td>"요즘 다른 일로 마음이 쓰여?"</td><td>과제보다 이야기를 먼저 듣습니다</td></tr>
 </tbody></table></div>
 <h3>파랑이 2주 넘게 이어질 때</h3>
@@ -455,7 +455,9 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <script>
 (function(){
   // 요약 장을 카드로 감싸기
-  var s=document.getElementById('csum'); if(s){var h=s.querySelector('h2'); var c=document.createElement('div'); c.className='card'; while(h&&h.nextSibling) c.appendChild(h.nextSibling); s.appendChild(c);}
+  var s=document.getElementById('csum'); if(s){ var h=s.querySelector('h2'); var lead=document.createElement('div'); lead.className='sumlead'; var grid=document.createElement('div'); grid.className='sumgrid'; var box=null;
+    while(h&&h.nextSibling){ var el=h.nextSibling; if(el.nodeType===1&&el.tagName==='H4'){ box=document.createElement('div'); box.className='sumbox'; grid.appendChild(box); box.appendChild(el); } else if(box){ box.appendChild(el); } else { lead.appendChild(el); } }
+    s.appendChild(lead); s.appendChild(grid); var last=grid.lastElementChild; if(last) last.classList.add('wide'); }
   // 체크리스트: 이 기기에서만 기억
   var boxes=document.querySelectorAll('ul.check input');
   boxes.forEach(function(b){ try{ b.checked=localStorage.getItem('pg-'+b.id)==='1'; }catch(e){}
