@@ -7,39 +7,45 @@
 <title>스터디 메이트 학부모 가이드</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@700;900&display=swap">
 <style>
-/* 레이아웃: 화면 하나 = 한 쪽. 옆으로 스냅 스크롤. 아래에 넘김 바. 표지·차례·장별 쪽. */
+/* 레이아웃: 한 열, 가운데 640px. 위에 붙는 장 이동 칩. 요약은 먹색 카드로 제일 먼저. */
 :root {
-  --bg:#EDE7DC; --paper:#FBF7F0; --paper-2:#FFFFFF; --fg:#2C2D2D; --fg-2:#5E5F5F; --line:#D9D3C7;
+  --bg:#FBF7F0; --bg-2:#FFFFFF; --fg:#2C2D2D; --fg-2:#5E5F5F; --line:#D9D3C7;
   --amber:#F8A722; --amber-ink:#8A5A00; --amber-tint:#FDE9C4;
-  --card:#2C2D2D; --card-fg:#FBF7F0; --card-amber:#F8A722; --shadow:rgba(44,45,45,.18);
+  --card:#2C2D2D; --card-fg:#FBF7F0; --card-amber:#F8A722;
   --sans:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --serif:'Noto Serif KR','AppleMyungjo','Batang',serif;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg:#151514; --paper:#222120; --paper-2:#2A2927; --fg:#F1ECE3; --fg-2:#B5AFA3; --line:#3B3A36;
+  --bg:#1C1C1B; --bg-2:#262624; --fg:#F1ECE3; --fg-2:#B5AFA3; --line:#3B3A36;
   --amber:#F8A722; --amber-ink:#F2B94E; --amber-tint:#3D2E12;
-  --card:#F1ECE3; --card-fg:#1C1C1B; --card-amber:#8A5A00; --shadow:rgba(0,0,0,.5); color-scheme:dark } }
+  --card:#F1ECE3; --card-fg:#1C1C1B; --card-amber:#8A5A00; color-scheme:dark } }
 :root[data-theme="dark"] {
-  --bg:#151514; --paper:#222120; --paper-2:#2A2927; --fg:#F1ECE3; --fg-2:#B5AFA3; --line:#3B3A36;
+  --bg:#1C1C1B; --bg-2:#262624; --fg:#F1ECE3; --fg-2:#B5AFA3; --line:#3B3A36;
   --amber:#F8A722; --amber-ink:#F2B94E; --amber-tint:#3D2E12;
-  --card:#F1ECE3; --card-fg:#1C1C1B; --card-amber:#8A5A00; --shadow:rgba(0,0,0,.5); color-scheme:dark }
+  --card:#F1ECE3; --card-fg:#1C1C1B; --card-amber:#8A5A00; color-scheme:dark }
 * { box-sizing:border-box }
-html, body { height:100%; }
-body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.7; word-break:keep-all; overflow:hidden; }
-.book { height:100%; display:flex; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
-.book::-webkit-scrollbar { display:none }
-.page { flex:0 0 100%; min-width:0; height:100%; scroll-snap-align:start; scroll-snap-stop:always; overflow-y:auto; overscroll-behavior:contain;
-  background:var(--paper); padding-block:20px calc(84px + env(safe-area-inset-bottom,0px)); padding-inline:22px 18px;
-  box-shadow:inset 10px 0 18px -14px var(--shadow); border-left:1px solid var(--line); }
-.page > * { max-width:600px; margin-left:auto; margin-right:auto; }
-.page h2 { font-family:var(--serif); font-weight:900; font-size:23px; line-height:1.3; margin:6px auto 16px; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; text-wrap:balance; }
-.page h2 .num { font-family:var(--sans); font-weight:900; font-size:13px; color:var(--amber-ink); border:1.5px solid var(--amber-ink); border-radius:6px; padding:0 7px; line-height:1.6; align-self:center; }
-.page h2 small { flex-basis:100%; font-family:var(--sans); font-weight:500; font-size:14px; color:var(--fg-2); }
-h3 { font-size:17px; font-weight:700; margin:26px auto 8px; padding-left:10px; border-left:3px solid var(--amber); line-height:1.4; }
-h4 { font-size:15.5px; font-weight:700; margin:20px auto 6px; }
-h4.pg { margin-top:28px; padding:6px 10px; background:var(--amber-tint); border-radius:6px; display:table; }
-p { margin:0 auto 12px; }
-ul, ol { margin:0 auto 12px; padding-left:22px; }
+body { background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.75; word-break:keep-all; margin:0; }
+.wrap { max-width:640px; margin:0 auto; padding-block:0 64px; padding-inline:16px; }
+header.top { padding-block:28px 12px; }
+header.top .brand { font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--amber-ink); }
+header.top h1 { font-family:var(--serif); font-weight:900; font-size:30px; line-height:1.25; margin:4px 0 6px; letter-spacing:-.01em; text-wrap:balance; }
+header.top p { margin:0; color:var(--fg-2); font-size:14px; }
+nav.chips { position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--bg); padding-block:8px; margin-inline:-16px; padding-inline:16px; border-bottom:1px solid var(--line); }
+nav.chips .row { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+nav.chips .row::-webkit-scrollbar { display:none }
+nav.chips a { flex:0 0 auto; font-size:13px; font-weight:700; color:var(--fg); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:4px 11px; background:var(--bg-2); }
+nav.chips a:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+nav.chips a.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+section.chapter { padding-block:36px 8px; scroll-margin-top:64px; border-top:1px solid var(--line); }
+section.chapter:first-of-type { border-top:0; }
+h2 { font-family:var(--serif); font-weight:900; font-size:24px; line-height:1.3; margin:0 0 16px; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; text-wrap:balance; }
+h2 .num { font-family:var(--sans); font-weight:900; font-size:13px; color:var(--amber-ink); border:1.5px solid var(--amber-ink); border-radius:6px; padding:0 7px; line-height:1.6; align-self:center; }
+h2 small { flex-basis:100%; font-family:var(--sans); font-weight:500; font-size:14px; color:var(--fg-2); }
+h3 { font-size:17px; font-weight:700; margin:28px 0 8px; padding-left:10px; border-left:3px solid var(--amber); line-height:1.4; }
+h4 { font-size:15.5px; font-weight:700; margin:22px 0 6px; color:var(--fg); }
+h4.pg { margin-top:30px; padding:6px 10px; background:var(--amber-tint); border-radius:6px; display:inline-block; }
+p { margin:0 0 12px; }
+ul, ol { margin:0 0 12px; padding-left:22px; }
 li { margin:0 0 6px; }
 li ul, li ol { margin-top:6px; }
 ul.check { list-style:none; padding-left:0; }
@@ -48,9 +54,9 @@ ul.check label { display:grid; grid-template-columns:22px 1fr; gap:8px; align-it
 ul.check input { width:18px; height:18px; margin:5px 0 0 1px; accent-color:var(--amber-ink); }
 ul.check input:checked + span { color:var(--fg-2); text-decoration:line-through; text-decoration-color:var(--line); }
 ul.check li > ol, ul.check li > div.sub, ul.check li > h4 { margin-left:30px; }
-.sub { margin:4px 0 8px; }
+.sub { margin:4px 0 8px; color:var(--fg); }
 .sub strong { display:block; margin-top:10px; }
-.tw { overflow-x:auto; margin:0 auto 14px; }
+.tw { overflow-x:auto; margin:0 0 14px; }
 table { border-collapse:collapse; width:100%; font-size:14.5px; line-height:1.55; }
 th, td { text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--line); min-width:0; }
 th { font-weight:700; color:var(--fg-2); font-size:12.5px; letter-spacing:.04em; border-bottom:2px solid var(--fg); }
@@ -58,7 +64,7 @@ td:first-child { font-weight:700; white-space:nowrap; }
 code { font-family:inherit; font-size:.92em; background:var(--amber-tint); padding:1px 5px; border-radius:4px; }
 .todo { display:inline-block; font-size:12px; font-weight:700; color:var(--amber-ink); border:1px dashed var(--amber-ink); border-radius:4px; padding:0 6px; line-height:1.6; vertical-align:middle; }
 a.ref { color:var(--amber-ink); font-weight:700; text-decoration:none; border-bottom:1px dotted var(--amber-ink); }
-a.ref:focus-visible, ul.check input:focus-visible, .bar button:focus-visible, .toc a:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+a.ref:focus-visible, ul.check input:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
 .arr { color:var(--amber-ink); }
 p.ex { margin:0 0 6px; padding-left:28px; position:relative; }
 p.ex .mark { position:absolute; left:4px; font-weight:900; }
@@ -79,34 +85,13 @@ p.ex.ok .mark { color:var(--amber-ink); }
 .role a.ref { font-size:13px; justify-self:start; }
 .callout { background:var(--amber-tint); border-left:4px solid var(--amber); border-radius:0 8px 8px 0; padding:11px 13px; margin:0 auto 16px; font-size:15px; line-height:1.6; }
 .callout b { display:block; margin-bottom:4px; }
- p.ex.no .mark { color:var(--fg-2); }
-/* 표지 */
-#cover { background:var(--card); color:var(--card-fg); display:flex; align-items:center; }
-.cover { width:100%; }
-.cover .brand { font-size:12px; font-weight:700; letter-spacing:.1em; color:var(--card-amber); }
-.cover h1 { font-family:var(--serif); font-weight:900; font-size:46px; line-height:1.15; margin:10px 0 18px; letter-spacing:-.01em; }
-.cover .lead { font-size:17px; line-height:1.6; margin-bottom:28px; }
-.cover .hint { font-size:13px; color:var(--card-amber); margin:0; }
-/* 소쪽 머리 */
-.crumb { font-size:12px; font-weight:700; color:var(--fg-2); letter-spacing:.04em; display:flex; align-items:center; gap:6px; margin:0 auto 10px; }
-.crumb .num { font-weight:900; font-size:11px; color:var(--amber-ink); border:1.5px solid var(--amber-ink); border-radius:5px; padding:0 5px; line-height:1.6; }
-.page h3.ptitle { font-family:var(--serif); font-weight:900; font-size:23px; line-height:1.3; margin:0 auto 16px; padding:0; border:0; text-wrap:balance; }
-/* 차례 */
-.toc h2 { font-family:var(--serif); font-weight:900; font-size:23px; margin:6px auto 14px; }
-.toc ol { list-style:none; padding:0; }
-.toc li { margin:0; border-bottom:1px solid var(--line); }
-.toc a { display:grid; grid-template-columns:34px 1fr; align-items:start; gap:8px; padding:11px 2px; color:var(--fg); text-decoration:none; font-weight:700; font-size:16px; line-height:1.4; }
-.toc .t small { display:block; font-size:13px; font-weight:400; color:var(--fg-2); margin-top:2px; line-height:1.45; }
-.toc .n { padding-top:2px; }
-.toc .n { font-size:12px; font-weight:900; color:var(--amber-ink); }
-.toc ol.sub { margin:0 0 6px 34px; }
-.toc ol.sub li { border:0; }
-.toc ol.sub a { padding:5px 2px; font-weight:500; font-size:14.5px; color:var(--fg-2); grid-template-columns:30px 1fr; }
-.toc ol.sub .n { font-size:11px; }
+
+p.ex.no .mark { color:var(--fg-2); }
 /* 요약 카드 */
+#csum { padding-top:20px; }
 #csum h2 { display:none; }
-#csum .card { background:var(--card); color:var(--card-fg); border-radius:14px; padding:20px 18px 14px; }
-#csum .card h4 { color:var(--card-amber); font-size:13px; letter-spacing:.06em; margin:14px 0 4px; }
+#csum .card { background:var(--card); color:var(--card-fg); border-radius:14px; padding:22px 20px 16px; }
+#csum .card h4 { color:var(--card-amber); font-size:13px; letter-spacing:.06em; margin:16px 0 4px; }
 #csum .card h4:first-child { margin-top:0; }
 #csum .card p, #csum .card li { color:var(--card-fg); }
 #csum .card p strong { color:var(--card-amber); }
@@ -114,21 +99,22 @@ p.ex.ok .mark { color:var(--amber-ink); }
 #csum .card li { margin-bottom:3px; }
 #csum .card a.ref { color:var(--card-amber); border-color:var(--card-amber); }
 #csum .card .arr { color:var(--card-amber); }
-#csum .card h4:last-of-type { margin-top:12px; padding-top:12px; border-top:1px solid rgba(128,128,128,.35); }
+#csum .card h4:last-of-type { margin-top:14px; padding-top:12px; border-top:1px solid rgba(128,128,128,.35); }
 #csum .card ul:last-child { margin-bottom:0; }
-/* 넘김 바 */
-.bar { position:fixed; left:0; right:0; bottom:0; padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px)); background:var(--paper-2); border-top:1px solid var(--line); display:grid; grid-template-columns:44px 1fr 44px; align-items:center; gap:8px; z-index:5; }
-.bar button { height:40px; border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--fg); font-size:20px; font-weight:900; cursor:pointer; }
-.bar button:disabled { opacity:.35; cursor:default; }
-.bar .mid { text-align:center; min-width:0; }
-.bar .where { font-size:13px; font-weight:700; color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.bar .prog { height:4px; border-radius:2px; background:var(--line); margin:6px auto 0; max-width:220px; overflow:hidden; }
-.bar .prog i { display:block; height:100%; width:0; background:var(--amber-ink); border-radius:2px; transition:width .25s; }
-@media (prefers-reduced-motion: no-preference) { .book { scroll-behavior:smooth } }
+footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:var(--fg-2); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior:smooth } }
+@media print { nav.chips { display:none } section.chapter { break-inside:auto } h2 { break-after:avoid } }
 </style>
 </head>
 <body>
-<div class="book" id="book"><article class="page cover" id="cover" data-i="0"><div class="cover"><div class="brand">하리 PLUS · 스터디 메이트</div><h1>학부모<br>가이드</h1><p class="lead">아이에게 시키는 대신,<br>스스로에게 물어보게 하는 100일.</p><p class="hint">옆으로 넘기거나 아래 화살표를 눌러 읽습니다.</p></div></article><article class="page toc" id="toc" data-i="1"><div class="toc"><h2>차례</h2><ol><li><a href="#csum"><span class="n"></span><span class="t">한 장 요약<small>보호자가 할 일 세 가지, 하지 않을 것, 기억할 것</small></span></a></li><li><a href="#c1"><span class="n">1</span><span class="t">이 키트는 무엇인가요<small>할 일만 적는 플래너와 무엇이 다른지</small></span></a></li><li><a href="#c2"><span class="n">2</span><span class="t">보호자의 역할<small>챙기는 사람이 아니라 기다리는 사람. 아이가 쓴 것은 아이 것</small></span></a></li><li><a href="#c3"><span class="n">3</span><span class="t">첫날 세팅<small>보호자 먼저 10분, 아이와 함께 30분. 체크리스트로</small></span></a></li><li><a href="#c4"><span class="n">4</span><span class="t">페이지별 활용법<small>다이어리 열 페이지를 어떻게 쓰는지, 보호자는 무엇을 하는지</small></span></a></li><li><a href="#c5"><span class="n">5</span><span class="t">컬러카드 활용법<small>하루 한 장. 사이트 메뉴, 진행 순서, 보호자가 함께하는 법</small></span></a></li><li><a href="#c6"><span class="n">6</span><span class="t">스티커 색이 의미하는 것<small>열 가지 색이 뜻하는 그날의 마음</small></span></a></li><li><a href="#c7"><span class="n">7</span><span class="t">칭찬과 보상<small>&quot;잘했어&quot; 대신 이렇게. 보상은 30일마다, 함께 정해서</small></span></a></li><li><a href="#c8"><span class="n">8</span><span class="t">&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;<small>&quot;하기 싫어&quot;를 나눠서 묻는 법, 파랑이 길어질 때 살펴볼 것</small></span></a></li><li><a href="#c9"><span class="n">9</span><span class="t">며칠 빠뜨렸을 때<small>처음부터 다시 하지 않습니다. 하지 않을 것과 할 것</small></span></a></li><li><a href="#c10"><span class="n">10</span><span class="t">100일이 끝나면<small>완주 인터뷰, 비전보드 다시 보기, 인증서와 보상</small></span></a></li></ol></div></article><article class="page chap" id="csum" data-i="2">
+<div class="wrap">
+<header class="top">
+  <div class="brand">하리 PLUS · 스터디 메이트</div>
+  <h1>학부모 가이드</h1>
+  <p>초안 4판 · 2026-10-06 · 디자인 확정 전이라 글만 담았습니다. 점선 표시는 아직 확정 전인 항목입니다.</p>
+</header>
+<nav class="chips" aria-label="장 이동"><div class="row"><a href="#csum">요약</a><a href="#c1">1 키트</a><a href="#c2">2 보호자</a><a href="#c3">3 첫날 세팅</a><a href="#c4">4 페이지</a><a href="#c5">5 컬러카드</a><a href="#c6">6 색</a><a href="#c7">7 칭찬·보상</a><a href="#c8">8 힘든 날</a><a href="#c9">9 빠뜨림</a><a href="#c10">10 끝</a></div></nav>
+<section id="csum" class="chapter">
 <h2>한 장 요약</h2>
 <p><strong>스터디 메이트는</strong> 아이가 매일 자기 마음을 알아차리고 스스로 고르는 연습을 하는 100일 키트입니다.</p>
 <p><strong>아이는 매일</strong> 카드 한 장 뽑기 <span class="arr">→</span> 데일리 쓰기 <span class="arr">→</span> 색 스티커 한 칸.</p>
@@ -168,7 +154,8 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>100일이 끝나면 <span class="arr">→</span> <a class="ref" href="#c10">10번 '100일이 끝나면'</a>
 </li></ul>
-</article><article class="page chap" id="c1" data-i="3">
+</section>
+<section id="c1" class="chapter">
 <h2><span class="num">1</span>이 키트는 무엇인가요</h2>
 <ul>
 <li>할 일을 적는 플래너가 아닙니다. 아이가 오늘 자기 마음을 알아차리고 스스로 고르는 연습을 하는 키트입니다.
@@ -177,7 +164,8 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>매일 고르고, 해보고, 돌아보는 경험이 쌓이는 것을 자기주도의 출발로 봅니다.
 </li></ul>
-</article><article class="page chap" id="c2" data-i="4">
+</section>
+<section id="c2" class="chapter">
 <h2><span class="num">2</span>보호자의 역할</h2>
 <p>보호자는 챙기는 사람이 아니라, 옆에서 보고 기다리는 사람입니다. 하는 일은 세 가지뿐입니다.</p>
 <div class="roles">
@@ -192,10 +180,11 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <tr><td>초등 5~6</td><td>한 발 물러나 지켜보는 사람</td><td>무엇을 할지는 아이가 정하고, 보호자는 주 1회 함께 보며 본 것을 말합니다</td></tr>
 <tr><td>중학생</td><td>필요할 때 기댈 수 있는 사람</td><td>기록보다 대화의 문을 열어 둡니다. 쉬어가는 기간도 과정입니다</td></tr>
 </tbody></table></div>
-</article><article class="page sub" id="c3" data-i="5">
+</section>
+<section id="c3" class="chapter">
 <h2><span class="num">3</span>첫날 세팅</h2>
 <p>보호자 먼저 10분, 아이와 함께 30분. 한 시간이면 끝납니다.</p>
-<h3 class="ptitle">보호자가 먼저 (10분)</h3>
+<h3>3-1. 보호자가 먼저 (10분)</h3>
 <h4>구성품 확인</h4>
 <div class="tw"><table><thead><tr><th>구성품</th><th>수량</th><th>메모</th></tr></thead><tbody>
 <tr><td>스터디 메이트(다이어리)</td><td>1권</td><td></td></tr>
@@ -216,7 +205,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li></ol>
 <p>인증코드는 키트 하나에 하나, 한 번만 쓸 수 있습니다. 가입한 뒤에는 휴대폰을 바꿔도 같은 이메일로 로그인하면 계속 쓸 수 있습니다. (분실 시 문의처: 확정 후 기재) <span class="todo" title="사이트 학년 선택지가 초5~중3뿐 — 초3~4 포함 시 수정 필요">확정 전 · 대표 확인</span></p>
 <p><strong>보상 범위</strong> — 비용과 시간의 한도만 미리 정해 둡니다. 무엇을 받을지는 아이와 함께 정합니다. 보상을 정하는 요령은 <a class="ref" href="#c7">7번 '칭찬과 보상'</a>에 있습니다.</p>
-</article><article class="page sub" id="c3-2" data-i="6"><div class="crumb"><span class="num">3</span>첫날 세팅</div><h3 class="ptitle">아이와 함께 (30분)</h3>
+<h3>3-2. 아이와 함께 (30분)</h3>
 <p>보호자는 정하지 않고 묻기만 합니다. 비전보드(되고 싶은 모습) <span class="arr">→</span> 100일 목표 하나 <span class="arr">→</span> 매일 실천 3가지, 이 순서로 이어집니다. <span class="todo" title="30일 목표 칸(한 쪽에 두 칸, 세 쪽)을 한 번에 하나만 쓸지">확정 전 · 효옥 결정</span></p>
 <div class="steps">
 <div class="step"><b>왜 하는지 한마디</b><span>"시키는 노트가 아니라 네가 고르는 노트야. 검사 안 해. 보여주고 싶을 때만 보여줘."</span></div>
@@ -234,13 +223,13 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <tr><td>영어 단어 5개 외우기</td><td>영어 공부하기</td></tr>
 <tr><td>잠자기 전 책 10쪽 읽기</td><td>책 많이 읽기</td></tr>
 </tbody></table></div>
-</article><article class="page sub" id="c3-3" data-i="7"><div class="crumb"><span class="num">3</span>첫날 세팅</div><h3 class="ptitle">자리와 약속 (5분)</h3>
+<h3>3-3. 자리와 약속 (5분)</h3>
 <ul>
 <li>스터디 메이트 두는 자리, 비전보드 붙일 곳 — 아이가 정합니다. 보호자가 옮기지 않습니다.
 </li>
 <li>다시 이어가는 날 — 주말 중 하루를 정합니다. 주중에 빠져도 그날 다시 이어가면 됩니다.
 </li></ul>
-</article><article class="page sub" id="c3-4" data-i="8"><div class="crumb"><span class="num">3</span>첫날 세팅</div><h3 class="ptitle">첫날 끝 체크</h3>
+<h3>3-4. 첫날 끝 체크</h3>
 <ul class="check">
 <li><label><input type="checkbox" id="ck1"><span>사이트 등록, '뽑기'·'내 카드' 보임</span></label>
 </li>
@@ -259,7 +248,8 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <li><label><input type="checkbox" id="ck8"><span>다시 이어가는 날</span></label>
 </li></ul>
 <p>여덟 개가 끝나면 세팅은 끝입니다. 이제 보호자가 할 일은 일주일에 한 번 보는 것뿐입니다.</p>
-</article><article class="page chap" id="c4" data-i="9">
+</section>
+<section id="c4" class="chapter">
 <h2><span class="num">4</span>페이지별 활용법</h2>
 <div class="tw"><table><thead><tr><th>페이지</th><th>무엇</th></tr></thead><tbody>
 <tr><td>나의 프로필 (1쪽)</td><td>지금의 나</td></tr>
@@ -274,14 +264,14 @@ p.ex.ok .mark { color:var(--amber-ink); }
 <tr><td>스터디 메이트 로고 페이지 (1쪽)</td><td>맨 뒤 로고 페이지 <span class="todo" title="QR이 여기에도 들어가는지">확정 전 · 효옥 확인</span></td></tr>
 </tbody></table></div>
 <p>99~100일(마지막 이틀)에는 주간 계획·돌아보기 페이지가 없습니다. 마지막 돌아보기는 98일차입니다.</p>
-</article><article class="page sub" id="c4-1" data-i="10"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">나의 프로필</h3>
+<h4 class="pg">나의 프로필</h4>
 <p>이름, 좋아하는 것, 잘하는 것, 소중한 것, 나의 장단점, 나를 표현하는 해시태그, 나의 꿈 그리기를 씁니다. '나의 꿈' 칸에는 비전보드에서 가장 마음에 드는 장면 하나를 작게 옮겨 적으면 됩니다. <span class="todo" title="프로필 꿈 칸과 비전보드">확정 전 · 효옥 확인</span></p>
 <ul>
 <li>"왜 그게 좋아?", "언제 알았어?"처럼 묻습니다. 답은 정해주지 않습니다.
 </li>
 <li>100일 뒤 다시 펼치면 달라진 점이 보입니다.
 </li></ul>
-</article><article class="page sub" id="c4-2" data-i="11"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">나의 꿈을 위한 약속</h3>
+<h4 class="pg">나의 꿈을 위한 약속</h4>
 <ul>
 <li>너무 크면 "하루에 몇 쪽이면 되겠어?"로 줄입니다.
 </li>
@@ -289,7 +279,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>아이가 흔들릴 때 함께 읽는 페이지입니다. 지키지 못한 것을 따지는 용도로는 쓰지 않습니다.
 </li></ul>
-</article><article class="page sub" id="c4-3" data-i="12"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">나의 30일 목표</h3>
+<h4 class="pg">나의 30일 목표</h4>
 <ul>
 <li>보상은 함께 정해 적어 두고 꼭 지킵니다. 보상을 정하는 요령은 <a class="ref" href="#c7">7번 '칭찬과 보상'</a>을 참고해 주세요.
 </li>
@@ -297,7 +287,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>30일을 채운 날에는 결과보다 "30번을 해냈네" 하고 과정을 알아봐 줍니다.
 </li></ul>
-</article><article class="page sub" id="c4-4" data-i="13"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일간의 기록</h3>
+<h4 class="pg">100일간의 기록</h4>
 <ul>
 <li>데일리를 쓴 날이면 한 칸. 세 가지를 다 못 지켜도 한 칸.
 </li>
@@ -305,7 +295,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>같은 색, 특히 파랑이 오래 이어지면 <a class="ref" href="#c8">8번 '하기 싫은 것과 힘든 것'</a>을 참고해 주세요.
 </li></ul>
-</article><article class="page sub" id="c4-5" data-i="14"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">이번 주 계획하기</h3>
+<h4 class="pg">이번 주 계획하기</h4>
 <ul>
 <li>Day 1에 한 번, 그 뒤로는 7일마다 돌아보기와 함께 씁니다.
 </li>
@@ -313,7 +303,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>빽빽하면 "꼭 할 것 하나만 고르면?"
 </li></ul>
-</article><article class="page sub" id="c4-6" data-i="15"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">오늘의 스터디 메이트 (데일리)</h3>
+<h4 class="pg">오늘의 스터디 메이트 (데일리)</h4>
 <p>할 일 · 공부(과목별) · 오늘의 카드 · 메모. 메모 칸은 준비물, 명언, 짧은 일기 등 자유입니다. <span class="todo" title="">확정 전 · 디자인 확정 후 칸 이름 맞춤</span></p>
 <ul>
 <li>매일 검사하지 않습니다. 아이가 보여주고 싶어 할 때만 봅니다.
@@ -322,7 +312,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>완료가 적은 날이 이어지면 계획이 많은지 함께 봅니다.
 </li></ul>
-</article><article class="page sub" id="c4-7" data-i="16"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">이번 주 돌아보기</h3>
+<h4 class="pg">이번 주 돌아보기</h4>
 <ul>
 <li>잘한 점: 과하게 반응하지 않습니다. 과한 칭찬은 칭찬받을 내용만 쓰게 합니다.
 </li>
@@ -330,7 +320,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>'다음 주에 다시 해볼래요'도 실패가 아닙니다.
 </li></ul>
-</article><article class="page sub" id="c4-8" data-i="17"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일 완주 인증서</h3>
+<h4 class="pg">100일 완주 인증서</h4>
 <ul>
 <li>도장 찍는 순간을 작은 의식처럼 만들어 줍니다. 가족 앞에서 읽어 주거나 사진으로 남겨도 좋습니다.
 </li>
@@ -338,7 +328,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>완주 뒤 체크포인트는 '성공'과 '다시 도전' 중 아이가 고릅니다. <span class="todo" title="두 선택의 뜻과 &quot;다 못 지켜도 완주&quot;의 관계">확정 전 · 효옥 확인</span>
 </li></ul>
-</article><article class="page sub" id="c4-9" data-i="18"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일 완주 인터뷰</h3>
+<h4 class="pg">100일 완주 인터뷰</h4>
 <ul>
 <li>보호자가 기자가 되어 읽어주고, 아이가 말로 답한 뒤 적습니다.
 </li>
@@ -346,10 +336,11 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>첫날 쓴 프로필·약속 페이지를 함께 펼쳐 놓으면 이야기가 풍성해집니다. 마지막 날 순서는 <a class="ref" href="#c10">10번 '100일이 끝나면'</a>에 있습니다.
 </li></ul>
-</article><article class="page sub" id="c5" data-i="19">
+</section>
+<section id="c5" class="chapter">
 <h2><span class="num">5</span>컬러카드 활용법</h2>
 <p>컬러카드는 아이가 하루 한 번, 자기 마음을 들여다보는 짧은 시간입니다. 정답을 맞히는 문제가 아니라, 스스로에게 질문하는 연습입니다.</p>
-<h3 class="ptitle">사이트 메뉴와 진행 순서</h3>
+<h3>사이트 메뉴와 진행 순서</h3>
 <h4>사이트 메뉴 두 개</h4>
 <ul>
 <li><strong>뽑기</strong> — "지금 마음은 어떤 색이야?"라는 질문 아래 10가지 색 카드가 펼쳐집니다. 끌리는 색을 하나 고르면 그 색의 오늘의 카드가 나옵니다.
@@ -366,7 +357,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>뽑는 시간은 아이가 정합니다. 공부 전이나 자기 전처럼 정해 두면 이어가기 쉽습니다.
 </li></ul>
-</article><article class="page sub" id="c5-2" data-i="20"><div class="crumb"><span class="num">5</span>컬러카드 활용법</div><h3 class="ptitle">보호자는 이렇게 함께합니다</h3>
+<h3>보호자는 이렇게 함께합니다</h3>
 <ul>
 <li><strong>색은 아이가 고릅니다.</strong> "오늘은 노랑 뽑아봐"처럼 권하면 아이는 자기 마음 대신 보호자의 마음을 고르게 됩니다.
 </li>
@@ -386,7 +377,8 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>카드 답을 훈계의 근거로 쓰기 — "네가 노력한다고 써놓고 왜 안 해?"
 </li></ul>
-</article><article class="page chap" id="c6" data-i="21">
+</section>
+<section id="c6" class="chapter">
 <h2><span class="num">6</span>스티커 색이 의미하는 것</h2>
 <p>점수가 아니라 그날 마음의 날씨. 좋은 색, 나쁜 색은 없습니다.</p>
 <div class="tw"><table><thead><tr><th>색</th><th>카테고리</th><th>이런 날</th></tr></thead><tbody>
@@ -406,10 +398,11 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>다만 "왜 또 파랑이야?"라고 묻지는 않습니다. 아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 <a class="ref" href="#c8">8번 '하기 싫은 것과 힘든 것'</a>을 참고해 주세요.
 </li></ul>
-</article><article class="page sub" id="c7" data-i="22">
+</section>
+<section id="c7" class="chapter">
 <h2><span class="num">7</span>칭찬과 보상</h2>
 <p>칭찬은 결과보다 과정을, 보상은 매일보다 구간마다 주는 것이 오래갑니다.</p>
-<h3 class="ptitle">칭찬 — 본 것을 그대로, 구체적으로</h3>
+<h3>칭찬 — 본 것을 그대로, 구체적으로</h3>
 <p>매일 하지 않아도 됩니다. 아이가 잘했을 때 한마디면 충분합니다. "잘했어"는 기분은 좋지만 행동을 유지하게 만들어 주지는 못합니다. 아이가 행동을 유지하게 하려면, 잘한 행동에 대해 구체적으로 피드백을 주는 것이 좋습니다.</p>
 <div class="tw"><table><thead><tr><th>이런 말 대신</th><th>이렇게 말해 주세요</th></tr></thead><tbody>
 <tr><td>"역시 최고!"</td><td>"하기 싫다고 했지만 끝까지 해냈구나"</td></tr>
@@ -424,7 +417,7 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>결과에 크게 반응할수록 아이는 결과에 더 민감해집니다.
 </li></ul>
-</article><article class="page sub" id="c7-2" data-i="23"><div class="crumb"><span class="num">7</span>칭찬과 보상</div><h3 class="ptitle">보상 — 구간마다, 함께 정해서</h3>
+<h3>보상 — 구간마다, 함께 정해서</h3>
 <ul>
 <li>30일, 60일, 90일, 그리고 100일 완주 때.
 </li>
@@ -434,17 +427,18 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>매일 물건으로 보상하면, 보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.
 </li></ul>
-</article><article class="page sub" id="c8" data-i="24">
+</section>
+<section id="c8" class="chapter">
 <h2><span class="num">8</span>"그냥 하기 싫은 것"과 "진짜 힘든 것"</h2>
 <p>"하기 싫어"는 대부분 지나갑니다. 가끔은 지쳤다는 신호입니다.</p>
-<h3 class="ptitle">나눠서 묻기</h3>
+<h3>나눠서 묻기</h3>
 <p>아이들은 이유를 설명하지 못하고 "그냥"이라고 답할 때가 많습니다. "하기 싫어"를 나눠서 물으면 아이도 자기 마음을 알아차리기 쉬워집니다.</p>
 <ul>
 <li>"왜 해야 하는지 모르겠어?" "매일이 힘들어?" "어려워?" <span class="arr">→</span> 목표나 실천을 조정합니다. <a class="ref" href="#c3">3번 '첫날 세팅'</a>의 '처음 2주는 시험 기간'을 참고해 주세요.
 </li>
 <li>"요즘 다른 일로 마음이 쓰여?" <span class="arr">→</span> 과제보다 이야기를 먼저 듣습니다.
 </li></ul>
-</article><article class="page sub" id="c8-2" data-i="25"><div class="crumb"><span class="num">8</span>&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;</div><h3 class="ptitle">파랑이 2주 넘게 이어질 때</h3>
+<h3>파랑이 2주 넘게 이어질 때</h3>
 <p>파랑을 고른 것 자체는 좋은 일입니다. 자기 상태를 솔직하게 알아차린 것입니다. 다만 파랑이 2주 넘게 이어지면서 아래 변화가 같이 보인다면, 아이가 요즘 많이 지쳐 있을 수 있습니다.</p>
 <ul class="check">
 <li><label><input type="checkbox" id="ck9"><span>잠드는 시간이나 자는 양이 눈에 띄게 달라졌다</span></label>
@@ -466,7 +460,8 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>청소년상담 1388 (전화·문자·카카오톡)
 </li></ul>
-</article><article class="page chap" id="c9" data-i="26">
+</section>
+<section id="c9" class="chapter">
 <h2><span class="num">9</span>며칠 빠뜨렸을 때</h2>
 <p>100칸은 달력이 아니라 쓴 날을 셉니다. 사흘 쉬었으면 다음 날이 다음 칸. 처음부터 다시 하지 않습니다.</p>
 <h4>하지 않기</h4>
@@ -487,7 +482,8 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li>주말 중 하루를 "다시 이어가는 날"로 정해 두면, 주중에 끊겨도 부담 없이 돌아올 수 있습니다.
 </li></ul>
-</article><article class="page chap" id="c10" data-i="27">
+</section>
+<section id="c10" class="chapter">
 <h2><span class="num">10</span>100일이 끝나면</h2>
 <p>평가하는 날이 아니라 돌아보는 날입니다.</p>
 <ul>
@@ -497,35 +493,22 @@ p.ex.ok .mark { color:var(--amber-ink); }
 </li>
 <li><strong>인증서</strong> — 아이가 지킨 세 가지 행동을 적고, 보호자가 완주 확인 도장을 찍습니다. 그리고 시작할 때 약속한 보상을 함께 즐깁니다.
 </li></ul>
-</article></div>
-<nav class="bar" aria-label="쪽 넘기기">
-  <button id="prev" aria-label="이전 쪽">‹</button>
-  <div class="mid"><div class="where" id="where"></div><div class="prog"><i id="progfill"></i></div></div>
-  <button id="next" aria-label="다음 쪽">›</button>
-</nav>
+</section>
+<footer>하리 PLUS는 주식회사 에이치에이연구원(HARI)의 브랜드입니다. 이 가이드는 보호자가 무엇을 하고 무엇을 하지 않으면 되는지를 적은 것이며, 특정 결과를 약속하지 않습니다.</footer>
+</div>
 <script>
 (function(){
-  var book=document.getElementById('book'), pages=[].slice.call(book.querySelectorAll(':scope > .page'));
-  var labels=["표지", "차례", "한 장 요약", "1 이 키트는 무엇인가요", "2 보호자의 역할", "3-1 보호자가 먼저 (10분)", "3-2 아이와 함께 (30분)", "3-3 자리와 약속 (5분)", "3-4 첫날 끝 체크", "4 페이지별 활용법", "4-1 나의 프로필", "4-2 나의 꿈을 위한 약속", "4-3 나의 30일 목표", "4-4 100일간의 기록", "4-5 이번 주 계획하기", "4-6 오늘의 스터디 메이트 (데일리)", "4-7 이번 주 돌아보기", "4-8 100일 완주 인증서", "4-9 100일 완주 인터뷰", "5-1 사이트 메뉴와 진행 순서", "5-2 보호자는 이렇게 함께합니다", "6 스티커 색이 의미하는 것", "7-1 칭찬 — 본 것을 그대로, 구체적으로", "7-2 보상 — 구간마다, 함께 정해서", "8-1 나눠서 묻기", "8-2 파랑이 2주 넘게 이어질 때", "9 며칠 빠뜨렸을 때", "10 100일이 끝나면"], nBody=26;
-  var fill=document.getElementById('progfill'), where=document.getElementById('where');
-  var prev=document.getElementById('prev'), next=document.getElementById('next');
-  function cur(){ return Math.round(book.scrollLeft/book.clientWidth); }
-  function go(i){ i=Math.max(0,Math.min(pages.length-1,i)); book.scrollTo({left:i*book.clientWidth,top:0}); pages[i].scrollTop=0; }
-  function paint(){ var i=cur(); fill.style.width=Math.round(100*i/(pages.length-1))+'%';
-    where.textContent = i<2 ? labels[i] : (i-1)+' / '+nBody+' · '+labels[i];
-    prev.disabled=i===0; next.disabled=i===pages.length-1;
-    try{ history.replaceState(null,'','#'+pages[i].id); }catch(e){} }
-  prev.onclick=function(){go(cur()-1)}; next.onclick=function(){go(cur()+1)};
-  book.addEventListener('scroll',function(){ clearTimeout(book._t); book._t=setTimeout(paint,80); },{passive:true});
-  document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')go(cur()+1); if(e.key==='ArrowLeft')go(cur()-1); });
-  document.addEventListener('click',function(e){ var a=e.target.closest('a[href^="#"]'); if(!a) return; var id=a.getAttribute('href').slice(1); var k=pages.findIndex(function(p){return p.id===id;}); if(k>=0){ e.preventDefault(); go(k); } });
+  // 요약 장을 카드로 감싸기
   var s=document.getElementById('csum'); if(s){var h=s.querySelector('h2'); var c=document.createElement('div'); c.className='card'; while(h&&h.nextSibling) c.appendChild(h.nextSibling); s.appendChild(c);}
-  document.querySelectorAll('ul.check input').forEach(function(b){ try{ b.checked=localStorage.getItem('pg-'+b.id)==='1'; }catch(e){}
+  // 체크리스트: 이 기기에서만 기억
+  var boxes=document.querySelectorAll('ul.check input');
+  boxes.forEach(function(b){ try{ b.checked=localStorage.getItem('pg-'+b.id)==='1'; }catch(e){}
     b.addEventListener('change',function(){ try{ localStorage.setItem('pg-'+b.id,b.checked?'1':'0'); }catch(e){} }); });
-  var h=location.hash.replace('#',''); var k=pages.findIndex(function(p){return p.id===h;});
-  if(k>0){ book.scrollLeft=k*book.clientWidth; }
-  window.addEventListener('resize',function(){ go(cur()); });
-  paint();
+  // 현재 장 칩 강조
+  var links=[].slice.call(document.querySelectorAll('nav.chips a')); var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function mark(){ var y=window.scrollY+90, cur=0; secs.forEach(function(s,i){ if(s&&s.offsetTop<=y) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); }); var on=links[cur]; if(on&&on.scrollIntoView) on.scrollIntoView({block:'nearest',inline:'center'}); }
+  window.addEventListener('scroll',mark,{passive:true}); mark();
 })();
 </script>
 
