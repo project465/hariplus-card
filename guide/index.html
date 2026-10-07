@@ -1,0 +1,509 @@
+<meta name="robots" content="noindex">
+<title>스터디 메이트 학부모 가이드</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@700;900&display=swap">
+<style>
+/* 레이아웃: 한 열, 가운데 640px. 위에 붙는 장 이동 칩. 요약은 먹색 카드로 제일 먼저. */
+:root {
+  --bg:#FBF7F0; --bg-2:#FFFFFF; --fg:#2C2D2D; --fg-2:#5E5F5F; --line:#D9D3C7;
+  --amber:#F8A722; --amber-ink:#8A5A00; --amber-tint:#FDE9C4;
+  --card:#2C2D2D; --card-fg:#FBF7F0; --card-amber:#F8A722;
+  --sans:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --serif:'Noto Serif KR','AppleMyungjo','Batang',serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#1C1C1B; --bg-2:#262624; --fg:#F1ECE3; --fg-2:#B5AFA3; --line:#3B3A36;
+  --amber:#F8A722; --amber-ink:#F2B94E; --amber-tint:#3D2E12;
+  --card:#F1ECE3; --card-fg:#1C1C1B; --card-amber:#8A5A00; color-scheme:dark } }
+:root[data-theme="dark"] {
+  --bg:#1C1C1B; --bg-2:#262624; --fg:#F1ECE3; --fg-2:#B5AFA3; --line:#3B3A36;
+  --amber:#F8A722; --amber-ink:#F2B94E; --amber-tint:#3D2E12;
+  --card:#F1ECE3; --card-fg:#1C1C1B; --card-amber:#8A5A00; color-scheme:dark }
+* { box-sizing:border-box }
+body { background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.75; word-break:keep-all; margin:0; }
+.wrap { max-width:640px; margin:0 auto; padding-block:0 64px; padding-inline:16px; }
+header.top { padding-block:28px 12px; }
+header.top .brand { font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--amber-ink); }
+header.top h1 { font-family:var(--serif); font-weight:900; font-size:30px; line-height:1.25; margin:4px 0 6px; letter-spacing:-.01em; text-wrap:balance; }
+header.top p { margin:0; color:var(--fg-2); font-size:14px; }
+nav.chips { position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--bg); padding-block:8px; margin-inline:-16px; padding-inline:16px; border-bottom:1px solid var(--line); }
+nav.chips .row { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+nav.chips .row::-webkit-scrollbar { display:none }
+nav.chips a { flex:0 0 auto; font-size:13px; font-weight:700; color:var(--fg); text-decoration:none; border:1px solid var(--line); border-radius:999px; padding:4px 11px; background:var(--bg-2); }
+nav.chips a:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+nav.chips a.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+section.chapter { padding-block:36px 8px; scroll-margin-top:64px; border-top:1px solid var(--line); }
+section.chapter:first-of-type { border-top:0; }
+h2 { font-family:var(--serif); font-weight:900; font-size:24px; line-height:1.3; margin:0 0 16px; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; text-wrap:balance; }
+h2 .num { font-family:var(--sans); font-weight:900; font-size:13px; color:var(--amber-ink); border:1.5px solid var(--amber-ink); border-radius:6px; padding:0 7px; line-height:1.6; align-self:center; }
+h2 small { flex-basis:100%; font-family:var(--sans); font-weight:500; font-size:14px; color:var(--fg-2); }
+h3 { font-size:17px; font-weight:700; margin:28px 0 8px; padding-left:10px; border-left:3px solid var(--amber); line-height:1.4; }
+h4 { font-size:15.5px; font-weight:700; margin:22px 0 6px; color:var(--fg); }
+h4.pg { margin-top:30px; padding:6px 10px; background:var(--amber-tint); border-radius:6px; display:inline-block; }
+p { margin:0 0 12px; }
+ul, ol { margin:0 0 12px; padding-left:22px; }
+li { margin:0 0 6px; }
+li ul, li ol { margin-top:6px; }
+ul.check { list-style:none; padding-left:0; }
+ul.check > li { margin-bottom:10px; }
+ul.check label { display:grid; grid-template-columns:22px 1fr; gap:8px; align-items:start; cursor:pointer; }
+ul.check input { width:18px; height:18px; margin:5px 0 0 1px; accent-color:var(--amber-ink); }
+ul.check input:checked + span { color:var(--fg-2); text-decoration:line-through; text-decoration-color:var(--line); }
+ul.check li > ol, ul.check li > div.sub, ul.check li > h4 { margin-left:30px; }
+.sub { margin:4px 0 8px; color:var(--fg); }
+.sub strong { display:block; margin-top:10px; }
+.tw { overflow-x:auto; margin:0 0 14px; }
+table { border-collapse:collapse; width:100%; font-size:14.5px; line-height:1.55; }
+th, td { text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--line); min-width:0; }
+th { font-weight:700; color:var(--fg-2); font-size:12.5px; letter-spacing:.04em; border-bottom:2px solid var(--fg); }
+td:first-child { font-weight:700; white-space:nowrap; }
+code { font-family:inherit; font-size:.92em; background:var(--amber-tint); padding:1px 5px; border-radius:4px; }
+.todo { display:inline-block; font-size:12px; font-weight:700; color:var(--amber-ink); border:1px dashed var(--amber-ink); border-radius:4px; padding:0 6px; line-height:1.6; vertical-align:middle; }
+a.ref { color:var(--amber-ink); font-weight:700; text-decoration:none; border-bottom:1px dotted var(--amber-ink); }
+a.ref:focus-visible, ul.check input:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+.arr { color:var(--amber-ink); }
+p.ex { margin:0 0 6px; padding-left:28px; position:relative; }
+p.ex .mark { position:absolute; left:4px; font-weight:900; }
+p.ex.ok .mark { color:var(--amber-ink); }
+/* 역할 카드·원칙 상자 */
+.roles { display:grid; gap:8px; margin:0 auto 14px; counter-reset:role; }
+.role { display:grid; grid-template-columns:30px 1fr; gap:4px 10px; align-items:start; background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:10px; padding:11px 12px; counter-increment:role; }
+.role::before { content:counter(role); grid-row:1 / span 3; width:26px; height:26px; border-radius:50%; background:var(--amber); color:#2C2D2D; font-weight:900; font-size:13px; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.role b { font-size:16px; }
+.role span { font-size:14.5px; color:var(--fg-2); line-height:1.55; }
+.role a.ref { font-size:13px; justify-self:start; }
+.callout { background:var(--amber-tint); border-left:4px solid var(--amber); border-radius:0 8px 8px 0; padding:11px 13px; margin:0 auto 16px; font-size:15px; line-height:1.6; }
+.callout b { display:block; margin-bottom:4px; }
+
+p.ex.no .mark { color:var(--fg-2); }
+/* 요약 카드 */
+#csum { padding-top:20px; }
+#csum h2 { display:none; }
+#csum .card { background:var(--card); color:var(--card-fg); border-radius:14px; padding:22px 20px 16px; }
+#csum .card h4 { color:var(--card-amber); font-size:13px; letter-spacing:.06em; margin:16px 0 4px; }
+#csum .card h4:first-child { margin-top:0; }
+#csum .card p, #csum .card li { color:var(--card-fg); }
+#csum .card p strong { color:var(--card-amber); }
+#csum .card ul { padding-left:18px; margin-bottom:4px; }
+#csum .card li { margin-bottom:3px; }
+#csum .card a.ref { color:var(--card-amber); border-color:var(--card-amber); }
+#csum .card .arr { color:var(--card-amber); }
+#csum .card h4:last-of-type { margin-top:14px; padding-top:12px; border-top:1px solid rgba(128,128,128,.35); }
+#csum .card ul:last-child { margin-bottom:0; }
+footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:var(--fg-2); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior:smooth } }
+@media print { nav.chips { display:none } section.chapter { break-inside:auto } h2 { break-after:avoid } }
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="brand">하리 PLUS · 스터디 메이트</div>
+  <h1>학부모 가이드</h1>
+  <p>초안 4판 · 2026-10-06 · 디자인 확정 전이라 글만 담았습니다. 점선 표시는 아직 확정 전인 항목입니다.</p>
+</header>
+<nav class="chips" aria-label="장 이동"><div class="row"><a href="#csum">요약</a><a href="#c1">1 키트</a><a href="#c2">2 보호자</a><a href="#c3">3 첫날 세팅</a><a href="#c4">4 페이지</a><a href="#c5">5 컬러카드</a><a href="#c6">6 색</a><a href="#c7">7 칭찬·보상</a><a href="#c8">8 힘든 날</a><a href="#c9">9 빠뜨림</a><a href="#c10">10 끝</a></div></nav>
+<section id="csum" class="chapter">
+<h2>한 장 요약</h2>
+<p><strong>스터디 메이트는</strong> 아이가 매일 자기 마음을 알아차리고 스스로 고르는 연습을 하는 100일 키트입니다.</p>
+<p><strong>아이는 매일</strong> 카드 한 장 뽑기 <span class="arr">→</span> 데일리 쓰기 <span class="arr">→</span> 색 스티커 한 칸.</p>
+<h4>보호자는</h4>
+<ul>
+<li>첫날 30분, 함께 정하기 — 비전보드 · 100일 목표 1개 · 매일 실천 3가지
+</li>
+<li>일주일에 한 번, 돌아보기 페이지를 함께 보기
+</li>
+<li>나머지는 기다리기
+</li></ul>
+<h4>하지 않기</h4>
+<ul>
+<li>허락 없이 읽기 · 답 고치기 · 훈계에 쓰기
+</li>
+<li>색 권하기 · 색 따지기
+</li>
+<li>빠진 날 추궁 · 몰아서 채우기 · 대신 채우기
+</li></ul>
+<h4>기억하기</h4>
+<ul>
+<li>색은 점수가 아니라 그날 마음의 날씨
+</li>
+<li>100칸 = 데일리를 쓴 날. 다 못 지켜도 한 칸
+</li>
+<li>처음 2주는 바꿔도 되는 시험 기간
+</li>
+<li>칭찬은 본 것 그대로, 보상은 30·60·90·100일에
+</li>
+<li>가이드 카드 뒷면 = 인증코드. 버리지 않기
+</li></ul>
+<h4>이럴 때는</h4>
+<ul>
+<li>아이가 힘들어 보이면 <span class="arr">→</span> <a class="ref" href="#c8">8번 '하기 싫은 것과 힘든 것'</a>
+</li>
+<li>며칠 빠뜨렸으면 <span class="arr">→</span> <a class="ref" href="#c9">9번 '며칠 빠뜨렸을 때'</a>
+</li>
+<li>100일이 끝나면 <span class="arr">→</span> <a class="ref" href="#c10">10번 '100일이 끝나면'</a>
+</li></ul>
+</section>
+<section id="c1" class="chapter">
+<h2><span class="num">1</span>이 키트는 무엇인가요</h2>
+<ul>
+<li>할 일을 적는 플래너가 아닙니다. 아이가 오늘 자기 마음을 알아차리고 스스로 고르는 연습을 하는 키트입니다.
+</li>
+<li>흔한 플래너는 "무엇을 할지"에서 시작합니다. 스터디 메이트는 "오늘 나는 어떤 상태인지"에서 시작합니다.
+</li>
+<li>매일 고르고, 해보고, 돌아보는 경험이 쌓이는 것을 자기주도의 출발로 봅니다.
+</li></ul>
+</section>
+<section id="c2" class="chapter">
+<h2><span class="num">2</span>보호자의 역할</h2>
+<p>보호자는 챙기는 사람이 아니라, 옆에서 보고 기다리는 사람입니다. 하는 일은 세 가지뿐입니다.</p>
+<div class="roles">
+<div class="role"><b>함께 시작하기</b><span>첫날 30분, 비전보드·100일 목표·매일 실천 3가지를 아이와 정합니다.</span><a class="ref" href="#c3">3번 '첫날 세팅'</a></div>
+<div class="role"><b>일주일에 한 번 보기</b><span>돌아보기 페이지를 아이와 함께 봅니다. 그때 하는 말은 칭찬 장에.</span><a class="ref" href="#c7">7번 '칭찬과 보상'</a></div>
+<div class="role"><b>흔들릴 때 기다리기</b><span>빠뜨린 날이나 힘든 날에 다그치지 않고, 다시 이어갈 수 있게 기다립니다.</span><a class="ref" href="#c9">9번 '며칠 빠뜨렸을 때'</a></div>
+</div>
+<div class="callout"><b>아이가 쓴 것은 아이 것입니다</b>보호자는 꾸준히 쓰고 있는지만 봅니다. 내용은 아이가 보여주고 싶을 때 함께 봅니다. 허락 없이 펼친 노트에는 아이가 다시 솔직하게 쓰기 어렵습니다.</div>
+<p><strong>학년별 거리</strong> — 학년은 참고일 뿐입니다. 아이 반응을 보며 조절합니다. <span class="todo" title="초등 3~4학년 포함 여부">확정 전 · 대표 확인</span></p>
+<div class="tw"><table><thead><tr><th>학년</th><th>보호자의 자리</th><th>이렇게</th></tr></thead><tbody>
+<tr><td>초등 3~4</td><td>함께 정하고 함께 시작하는 사람</td><td>첫 2주는 옆에서 같이 합니다</td></tr>
+<tr><td>초등 5~6</td><td>한 발 물러나 지켜보는 사람</td><td>무엇을 할지는 아이가 정하고, 보호자는 주 1회 함께 보며 본 것을 말합니다</td></tr>
+<tr><td>중학생</td><td>필요할 때 기댈 수 있는 사람</td><td>기록보다 대화의 문을 열어 둡니다. 쉬어가는 기간도 과정입니다</td></tr>
+</tbody></table></div>
+</section>
+<section id="c3" class="chapter">
+<h2><span class="num">3</span>첫날 세팅</h2>
+<p>보호자 먼저 10분, 아이와 함께 30분. 한 시간이면 끝납니다.</p>
+<h3>3-1. 보호자가 먼저 (10분)</h3>
+<ul class="check">
+<li><label><input type="checkbox" id="ck1"><span><strong>구성품 확인</strong> — 스터디 메이트(다이어리), 비전보드, 스티커 2종(30일 목표용 180개, 컬러 스티커 150개 2장), 가이드 카드. 가이드 카드 앞면에 QR 두 개(학부모 가이드·컬러카드), 뒷면에 인증코드가 있습니다. 이 카드는 버리지 마세요.</span></label>
+</li>
+<li><label><input type="checkbox" id="ck2"><span><strong>컬러카드 사이트 등록</strong> — card.hariplus.kr, 앱 설치 없음. 아이 휴대폰이 없으면 보호자 휴대폰이나 집 태블릿.</span></label>
+<ol>
+<li>가이드 카드 앞면의 컬러카드 QR을 찍어 사이트 열기. 홈 화면에 추가.
+</li>
+<li>인증코드 입력. 가이드 카드 뒷면에 있고, HARI-0000-0000 모양입니다. 대문자와 줄표까지 그대로 넣습니다.
+</li>
+<li>보호자 이메일 + 비밀번호로 가입. 아이 별명과 학년을 고르고 저장 동의에 체크합니다. 이름·연락처는 받지 않습니다.
+</li>
+<li>'뽑기'·'내 카드'가 보이면 끝.
+</li></ol>
+</li></ul>
+<p>인증코드는 키트 하나에 하나, 한 번만 쓸 수 있습니다. 가입한 뒤에는 휴대폰을 바꿔도 같은 이메일로 로그인하면 계속 쓸 수 있습니다. (분실 시 문의처: 확정 후 기재) <span class="todo" title="사이트 학년 선택지가 초5~중3뿐 — 초3~4 포함 시 수정 필요">확정 전 · 대표 확인</span></p>
+<ul class="check">
+<li><label><input type="checkbox" id="ck3"><span><strong>매주 돌아보는 요일·시간</strong> — 예: 일요일 저녁.</span></label>
+</li>
+<li><label><input type="checkbox" id="ck4"><span><strong>보상 범위</strong> — 비용과 시간의 한도만 미리 정해 둡니다. 무엇을 받을지는 아이와 함께 정합니다. 보상을 정하는 요령은 <a class="ref" href="#c7">7번 '칭찬과 보상'</a>에 있습니다.</span></label>
+</li></ul>
+<h3>3-2. 아이와 함께 (30분)</h3>
+<p>보호자는 정하지 않고 묻기만 합니다. 세 가지가 이어집니다: 비전보드(되고 싶은 모습) <span class="arr">→</span> 100일 목표 하나 <span class="arr">→</span> 매일 실천 3가지. <span class="todo" title="30일 목표 칸(한 쪽에 두 칸, 세 쪽)을 한 번에 하나만 쓸지">확정 전 · 효옥 결정</span></p>
+<h4>1. 왜 하는지 한마디</h4>
+<p>"시키는 노트가 아니라 네가 고르는 노트야. 검사 안 해. 보여주고 싶을 때만 보여줘."</p>
+<h4>2. 프로필</h4>
+<p>이름, 좋아하는 것, 잘하는 것, 소중한 것, 나의 장단점, 나를 표현하는 해시태그, 나의 꿈 그리기. 장점 칸을 어려워하면 보호자가 본 장점을 하나만 말해 주고, 적을지는 아이가 정합니다.</p>
+<h4>3. 비전보드</h4>
+<p>"어떤 사람이 되고 싶어?", "그 모습이면 어떤 기분일까?" 그림·글·사진 뭐든, 여러 개여도 됩니다. 프로필의 '나의 꿈' 칸에는 그중 하나를 작게 옮겨 적습니다. <span class="todo" title="프로필 꿈 칸과 비전보드">확정 전 · 효옥 확인</span></p>
+<h4>4. 100일 목표 하나</h4>
+<p>"100일 뒤에 뭐가 달라져 있으면 좋겠어?" 하나만 고릅니다. '나의 30일 목표' 첫 칸에 보상과 함께 적습니다.</p>
+<h4>5. 매일 실천 3가지</h4>
+<p>작고 셀 수 있게. '나의 꿈을 위한 약속'에 적고 <strong>아이가 서명</strong>합니다.</p>
+<div class="tw"><table><thead><tr><th>이렇게</th><th>이렇게 말고</th></tr></thead><tbody>
+<tr><td>수학 문제집 2쪽 풀기</td><td>수학 열심히 하기</td></tr>
+<tr><td>영어 단어 5개 외우기</td><td>영어 공부하기</td></tr>
+<tr><td>잠자기 전 책 10쪽 읽기</td><td>책 많이 읽기</td></tr>
+</tbody></table></div>
+<h4>6. 카드 뽑는 시간</h4>
+<p>공부 전인지, 자기 전인지 아이가 정합니다.</p>
+<h4>7. 이번 주 계획하기 (Day 1 페이지)</h4>
+<p>첫 주 요일별로 할 일·일정·준비물을 적습니다. 가족 일정이나 시험 같은 정보만 알려 주고, 무엇을 할지는 아이가 정합니다.</p>
+<h4>8. 첫 카드 + 데일리 1일 차</h4>
+<p>끌리는 색을 하나 고릅니다. 질문과 답을 데일리의 '오늘의 카드' 칸에 적고, 같은 색 스티커를 '100일간의 기록' 1번 칸에 붙입니다. 첫 칸은 오늘 채웁니다.</p>
+<h4>9. 처음 2주는 시험 기간이라고 알려 주기</h4>
+<p>처음 2주는 해보면서 맞추는 기간이라고 미리 말해 줍니다. 너무 쉽거나 어려우면 2주 뒤에 목표나 실천을 고쳐도 됩니다.</p>
+<h3>3-3. 자리와 약속 (5분)</h3>
+<ul>
+<li>스터디 메이트 두는 자리, 비전보드 붙일 곳 — 아이가 정합니다. 보호자가 옮기지 않습니다.
+</li>
+<li>돌아보기 요일·시간 — 아이에게 알리고 괜찮은지 묻습니다.
+</li>
+<li>다시 이어가는 날 — 주말 중 하루를 정합니다. 주중에 빠져도 그날 다시 이어가면 됩니다.
+</li></ul>
+<h3>3-4. 첫날 끝 체크</h3>
+<ul class="check">
+<li><label><input type="checkbox" id="ck5"><span>사이트 등록, '뽑기'·'내 카드' 보임</span></label>
+</li>
+<li><label><input type="checkbox" id="ck6"><span>프로필</span></label>
+</li>
+<li><label><input type="checkbox" id="ck7"><span>비전보드 작성·붙임</span></label>
+</li>
+<li><label><input type="checkbox" id="ck8"><span>100일 목표 하나, 30일 목표·보상</span></label>
+</li>
+<li><label><input type="checkbox" id="ck9"><span>매일 실천 3가지, 아이 서명</span></label>
+</li>
+<li><label><input type="checkbox" id="ck10"><span>카드 뽑는 시간</span></label>
+</li>
+<li><label><input type="checkbox" id="ck11"><span>이번 주 계획하기 (Day 1)</span></label>
+</li>
+<li><label><input type="checkbox" id="ck12"><span>첫 카드, 데일리 1일 차, 스티커 1칸</span></label>
+</li>
+<li><label><input type="checkbox" id="ck13"><span>돌아보기 요일·시간, 다시 이어가는 날</span></label>
+</li></ul>
+<p>아홉 개가 끝나면 세팅은 끝입니다. 이제 보호자가 할 일은 일주일에 한 번 보는 것뿐입니다.</p>
+</section>
+<section id="c4" class="chapter">
+<h2><span class="num">4</span>페이지별 활용법</h2>
+<div class="tw"><table><thead><tr><th>페이지</th><th>무엇</th></tr></thead><tbody>
+<tr><td>나의 프로필 (1쪽)</td><td>지금의 나</td></tr>
+<tr><td>나의 꿈을 위한 약속 (1쪽)</td><td>매일 실천 3가지와 서명</td></tr>
+<tr><td>30일 목표 트래킹 (3쪽)</td><td>30일 단위 목표·보상·스티커, 여섯 칸</td></tr>
+<tr><td>100일간의 기록 (2쪽)</td><td>쓴 날마다 카드 색 스티커, 50일씩</td></tr>
+<tr><td>이번 주 계획하기 (14쪽)</td><td>Day 1과 7일마다. 한 주 내다보기</td></tr>
+<tr><td>오늘의 스터디 메이트 (100쪽)</td><td>매일 쓰는 데일리</td></tr>
+<tr><td>이번 주 돌아보기 (14쪽)</td><td>7일마다. 한 주 점검</td></tr>
+<tr><td>100일 완주 인증서 (1쪽)</td><td>보호자 도장, 완주 체크포인트</td></tr>
+<tr><td>100일 완주 인터뷰 (1쪽)</td><td>100일을 돌아보는 질문</td></tr>
+<tr><td>스터디 메이트 로고 페이지 (1쪽)</td><td>맨 뒤 로고 페이지 <span class="todo" title="QR이 여기에도 들어가는지">확정 전 · 효옥 확인</span></td></tr>
+</tbody></table></div>
+<p>99~100일(마지막 이틀)에는 주간 계획·돌아보기 페이지가 없습니다. 마지막 돌아보기는 98일차입니다.</p>
+<h4 class="pg">나의 프로필</h4>
+<ul>
+<li>"왜 그게 좋아?", "언제 알았어?"처럼 묻습니다. 답은 정해주지 않습니다.
+</li>
+<li>100일 뒤 다시 펼치면 달라진 점이 보입니다.
+</li></ul>
+<h4 class="pg">나의 꿈을 위한 약속</h4>
+<ul>
+<li>너무 크면 "하루에 몇 쪽이면 되겠어?"로 줄입니다.
+</li>
+<li>서명은 아이가 직접 합니다. 보호자가 아니라 자기 자신과 한 약속이기 때문입니다.
+</li>
+<li>아이가 흔들릴 때 함께 읽는 페이지입니다. 지키지 못한 것을 따지는 용도로는 쓰지 않습니다.
+</li></ul>
+<h4 class="pg">나의 30일 목표</h4>
+<ul>
+<li>보상은 함께 정해 적어 두고 꼭 지킵니다. 보상을 정하는 요령은 <a class="ref" href="#c7">7번 '칭찬과 보상'</a>을 참고해 주세요.
+</li>
+<li>목표는 구체적이고 셀 수 있게.
+</li>
+<li>30일을 채운 날에는 결과보다 "30번을 해냈네" 하고 과정을 알아봐 줍니다.
+</li></ul>
+<h4 class="pg">100일간의 기록</h4>
+<ul>
+<li>데일리를 쓴 날이면 한 칸. 세 가지를 다 못 지켜도 한 칸.
+</li>
+<li>빨리 안 채워져도 괜찮습니다. 쉬어가더라도 100칸을 채우는 것이 목표라고 알려 줍니다.
+</li>
+<li>같은 색, 특히 파랑이 오래 이어지면 <a class="ref" href="#c8">8번 '하기 싫은 것과 힘든 것'</a>을 참고해 주세요.
+</li></ul>
+<h4 class="pg">이번 주 계획하기</h4>
+<ul>
+<li>Day 1에 한 번, 그 뒤로는 7일마다 돌아보기와 함께 씁니다.
+</li>
+<li>정해진 시간에 함께 앉아, 가족 일정·시험·준비물 정보만 알려줍니다.
+</li>
+<li>빽빽하면 "꼭 할 것 하나만 고르면?"
+</li></ul>
+<h4 class="pg">오늘의 스터디 메이트 (데일리)</h4>
+<p>할 일 · 공부(과목별) · 오늘의 카드 · 메모. 메모 칸은 준비물, 명언, 짧은 일기 등 자유입니다. <span class="todo" title="">확정 전 · 디자인 확정 후 칸 이름 맞춤</span></p>
+<ul>
+<li>매일 검사하지 않습니다. 아이가 보여주고 싶어 할 때만 봅니다.
+</li>
+<li>'오늘의 카드' 칸에는 아이의 속마음이 담길 수 있습니다. 허락 없이 읽거나 평가하지 않습니다.
+</li>
+<li>완료가 적은 날이 이어지면 계획이 많은지 함께 봅니다.
+</li></ul>
+<h4 class="pg">이번 주 돌아보기</h4>
+<ul>
+<li>잘한 점: 과하게 반응하지 않습니다. 과한 칭찬은 칭찬받을 내용만 쓰게 합니다.
+</li>
+<li>아쉬운 점: 해결책·훈계 대신 마음을 알아주고, 다음 주를 이야기합니다.
+</li>
+<li>'다음 주에 다시 해볼래요'도 실패가 아닙니다.
+</li></ul>
+<h4 class="pg">100일 완주 인증서</h4>
+<ul>
+<li>도장 찍는 순간을 작은 의식처럼 만들어 줍니다. 가족 앞에서 읽어 주거나 사진으로 남겨도 좋습니다.
+</li>
+<li>다 못 지켰어도 완주. 100칸을 채운 것을 축하합니다.
+</li>
+<li>완주 뒤 체크포인트는 '성공'과 '다시 도전' 중 아이가 고릅니다. <span class="todo" title="두 선택의 뜻과 &quot;다 못 지켜도 완주&quot;의 관계">확정 전 · 효옥 확인</span>
+</li></ul>
+<h4 class="pg">100일 완주 인터뷰</h4>
+<ul>
+<li>보호자가 기자가 되어 읽어주고, 아이가 말로 답한 뒤 적습니다.
+</li>
+<li>답에 무언가를 덧붙이기보다 "그런 마음이었구나" 하고 들어 줍니다.
+</li>
+<li>첫날 쓴 프로필·약속 페이지를 함께 펼쳐 놓으면 이야기가 풍성해집니다. 마지막 날 순서는 <a class="ref" href="#c10">10번 '100일이 끝나면'</a>에 있습니다.
+</li></ul>
+</section>
+<section id="c5" class="chapter">
+<h2><span class="num">5</span>컬러카드 활용법</h2>
+<p>컬러카드는 아이가 하루 한 번, 자기 마음을 들여다보는 짧은 시간입니다. 정답을 맞히는 문제가 아니라, 스스로에게 질문하는 연습입니다.</p>
+<h3>사이트 메뉴와 진행 순서</h3>
+<h4>사이트 메뉴 두 개</h4>
+<ul>
+<li><strong>뽑기</strong> — "지금 마음은 어떤 색이야?"라는 질문 아래 10가지 색 카드가 펼쳐집니다. 끌리는 색을 하나 고르면 그 색의 오늘의 카드가 나옵니다.
+</li>
+<li><strong>내 카드</strong> — 달력에 날짜마다 뽑은 카드 색이 점으로 남습니다. 날짜를 누르면 그날 어떤 카드를 뽑았는지, 질문이 무엇이었는지 다시 볼 수 있습니다.
+</li></ul>
+<h4>이렇게 진행됩니다</h4>
+<ul>
+<li>아이가 '뽑기'에서 끌리는 색을 고릅니다. 색의 뜻(<a class="ref" href="#c6">6번 '스티커 색이 의미하는 것'</a>)을 알고 오늘 필요한 색을 골라도 괜찮습니다.
+</li>
+<li>카드의 질문과 답을 데일리 페이지의 '오늘의 카드' 칸에 적고, 같은 색 스티커를 붙입니다.
+</li>
+<li>카드는 하루 한 장이 원칙입니다. 더 뽑아도 괜찮지만, 데일리에는 한 장만 기록합니다.
+</li>
+<li>뽑는 시간은 아이가 정합니다. 공부 전이나 자기 전처럼 정해 두면 이어가기 쉽습니다.
+</li></ul>
+<h3>보호자는 이렇게 함께합니다</h3>
+<ul>
+<li><strong>색은 아이가 고릅니다.</strong> "오늘은 노랑 뽑아봐"처럼 권하면 아이는 자기 마음 대신 보호자의 마음을 고르게 됩니다.
+</li>
+<li><strong>짧은 답도 충분합니다.</strong> 한 줄이나 한 단어, "잘 모르겠다"도 답입니다. 길게 쓰라고 하지 않습니다.
+</li>
+<li><strong>가끔은 같은 질문에 보호자도 답해 봅니다.</strong> 보호자가 먼저 답을 나누면 아이도 부담 없이 이야기를 꺼냅니다. 일주일에 한 번 "가족 카드 시간"으로 정해도 좋습니다.
+</li>
+<li><strong>아이가 답을 보여주면 평가보다 공감으로 받습니다.</strong> "그랬구나", "그런 생각을 했네" 정도면 충분합니다.
+</li>
+<li><strong>행동 미션 카드에는 함께합니다.</strong> 빨강(도전하기)과 코랄(감사하기)에는 직접 해보는 미션이 있습니다. 아이가 편지를 쓰거나 집안일을 해보겠다고 하면 기꺼이 받아주고 반응합니다.
+</li></ul>
+<h4>하지 않기</h4>
+<ul>
+<li>허락 없이 카드 답을 읽거나, 다른 사람 앞에서 답을 이야기하기
+</li>
+<li>답의 맞춤법이나 내용을 고치기
+</li>
+<li>카드 답을 훈계의 근거로 쓰기 — "네가 노력한다고 써놓고 왜 안 해?"
+</li></ul>
+</section>
+<section id="c6" class="chapter">
+<h2><span class="num">6</span>스티커 색이 의미하는 것</h2>
+<p>점수가 아니라 그날 마음의 날씨. 좋은 색, 나쁜 색은 없습니다.</p>
+<div class="tw"><table><thead><tr><th>색</th><th>카테고리</th><th>이런 날</th></tr></thead><tbody>
+<tr><td>인디고</td><td>이유 찾기</td><td>왜 하는지 모르겠을 때</td></tr>
+<tr><td>노랑</td><td>강점 확인</td><td>자신감이 떨어질 때</td></tr>
+<tr><td>파랑</td><td>상태 확인</td><td>마음이 힘들거나 컨디션이 떨어질 때</td></tr>
+<tr><td>터콰이즈</td><td>해결 찾기</td><td>막혀서 안 풀릴 때</td></tr>
+<tr><td>분홍</td><td>리워드·응원</td><td>힘든 하루 끝에 응원이 필요할 때</td></tr>
+<tr><td>빨강</td><td>도전하기</td><td>용기 내어 해보고 싶을 때</td></tr>
+<tr><td>보라</td><td>상상하기</td><td>동기부여가 필요할 때</td></tr>
+<tr><td>코랄</td><td>감사하기</td><td>나와 주변을 돌아보고 싶을 때</td></tr>
+<tr><td>초록</td><td>성장마인드셋</td><td>포기하고 싶을 때</td></tr>
+<tr><td>주황</td><td>흥미 찾기</td><td>뭘 하면 좋을지 모르겠을 때</td></tr>
+</tbody></table></div>
+<ul>
+<li>한 달쯤 모이면 아이만의 패턴이 보입니다. "월요일엔 파랑이 많구나", "시험 전엔 터콰이즈를 고르는구나" 같은 발견은 아이를 이해하는 단서가 됩니다.
+</li>
+<li>다만 "왜 또 파랑이야?"라고 묻지는 않습니다. 아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 <a class="ref" href="#c8">8번 '하기 싫은 것과 힘든 것'</a>을 참고해 주세요.
+</li></ul>
+</section>
+<section id="c7" class="chapter">
+<h2><span class="num">7</span>칭찬과 보상</h2>
+<p>칭찬은 결과보다 과정을, 보상은 매일보다 구간마다 주는 것이 오래갑니다.</p>
+<h3>칭찬 — 본 것을 그대로, 구체적으로</h3>
+<p>매일 하지 않아도 됩니다. 아이가 잘했을 때 한마디면 충분합니다. "잘했어"는 기분은 좋지만 행동을 유지하게 만들어 주지는 못합니다. 아이가 행동을 유지하게 하려면, 잘한 행동에 대해 구체적으로 피드백을 주는 것이 좋습니다.</p>
+<div class="tw"><table><thead><tr><th>이런 말 대신</th><th>이렇게 말해 주세요</th></tr></thead><tbody>
+<tr><td>"역시 최고!"</td><td>"하기 싫다고 했지만 끝까지 해냈구나"</td></tr>
+<tr><td>"머리가 좋구나"</td><td>"어제 틀린 문제를 다시 풀어봤구나"</td></tr>
+<tr><td>"100점 맞았네, 대단하다"</td><td>"이번엔 계획한 걸 거의 다 지켰네"</td></tr>
+<tr><td>"이것만 잘하면 좋겠는데"</td><td>"월요일에 피곤해 보였는데도 수학 목표까지 해냈네"</td></tr>
+<tr><td>"다음 주엔 더 열심히 하자"</td><td>"요즘 아침에 먼저 책상에 앉더라, 스스로 시작하고 있구나"</td></tr>
+<tr><td>"형은 이맘때 벌써…"</td><td>"지난주보다 두 번 더 해냈네"</td></tr>
+</tbody></table></div>
+<ul>
+<li>초등 고학년 이상은 과한 칭찬을 오히려 부담스러워합니다. 성적이 올랐을 때도 크게 반응하기보다 가볍게 알아봐 주세요.
+</li>
+<li>결과에 크게 반응할수록 아이는 결과에 더 민감해집니다.
+</li></ul>
+<h3>보상 — 구간마다, 함께 정해서</h3>
+<ul>
+<li>30일, 60일, 90일, 그리고 100일 완주 때.
+</li>
+<li>시작할 때 아이와 함께 정합니다.
+</li>
+<li>물건보다 함께하는 경험.
+</li>
+<li>매일 물건으로 보상하면, 보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.
+</li></ul>
+</section>
+<section id="c8" class="chapter">
+<h2><span class="num">8</span>"그냥 하기 싫은 것"과 "진짜 힘든 것"</h2>
+<p>"하기 싫어"는 대부분 지나갑니다. 가끔은 지쳤다는 신호입니다.</p>
+<h3>나눠서 묻기</h3>
+<p>아이들은 이유를 설명하지 못하고 "그냥"이라고 답할 때가 많습니다. "하기 싫어"를 나눠서 물으면 아이도 자기 마음을 알아차리기 쉬워집니다.</p>
+<ul>
+<li>"왜 해야 하는지 모르겠어?" "매일이 힘들어?" "어려워?" <span class="arr">→</span> 목표나 실천을 조정합니다. <a class="ref" href="#c3">3번 '첫날 세팅'</a>의 '처음 2주는 시험 기간'을 참고해 주세요.
+</li>
+<li>"요즘 다른 일로 마음이 쓰여?" <span class="arr">→</span> 과제보다 이야기를 먼저 듣습니다.
+</li></ul>
+<h3>파랑이 2주 넘게 이어질 때</h3>
+<p>파랑을 고른 것 자체는 좋은 일입니다. 자기 상태를 솔직하게 알아차린 것입니다. 다만 파랑이 2주 넘게 이어지면서 아래 변화가 같이 보인다면, 아이가 요즘 많이 지쳐 있을 수 있습니다.</p>
+<ul class="check">
+<li><label><input type="checkbox" id="ck14"><span>잠드는 시간이나 자는 양이 눈에 띄게 달라졌다</span></label>
+</li>
+<li><label><input type="checkbox" id="ck15"><span>식사량이 크게 줄거나 늘었다</span></label>
+</li>
+<li><label><input type="checkbox" id="ck16"><span>좋아하던 것에도 흥미를 보이지 않는다</span></label>
+</li>
+<li><label><input type="checkbox" id="ck17"><span>배나 머리가 아프다는 말을 자주 한다</span></label>
+</li>
+<li><label><input type="checkbox" id="ck18"><span>짜증이나 눈물이 평소보다 잦아졌다</span></label>
+</li></ul>
+<p>이 목록은 진단이 아니라, 아이를 한 번 더 살펴보기 위한 참고입니다. 이럴 때는 키트를 계속하라고 하기보다 잠시 쉬게 해도 괜찮습니다. 쉬는 동안에는 과제보다 아이의 이야기를 먼저 들어주세요.</p>
+<h4>도움받을 곳</h4>
+<ul>
+<li>학교 상담선생님, Wee클래스
+</li>
+<li>교육지원청 Wee센터
+</li>
+<li>청소년상담 1388 (전화·문자·카카오톡)
+</li></ul>
+</section>
+<section id="c9" class="chapter">
+<h2><span class="num">9</span>며칠 빠뜨렸을 때</h2>
+<p>100칸은 달력이 아니라 쓴 날을 셉니다. 사흘 쉬었으면 다음 날이 다음 칸. 처음부터 다시 하지 않습니다.</p>
+<h4>하지 않기</h4>
+<ul>
+<li>"며칠째 안 했네?" 빠진 날 세기
+</li>
+<li>밀린 날 몰아서 채우기
+</li>
+<li>Day 1로 돌리기
+</li>
+<li>대신 채워주기
+</li></ul>
+<h4>이렇게</h4>
+<ul>
+<li>다시 펼친 날을 알아봐 주세요. "다시 시작했네" 한마디면 충분합니다.
+</li>
+<li>자주 빠진다면 실천이 너무 많거나 어려운지 함께 살펴봅니다. 3가지를 2가지로 줄여도 괜찮습니다.
+</li>
+<li>주말 중 하루를 "다시 이어가는 날"로 정해 두면, 주중에 끊겨도 부담 없이 돌아올 수 있습니다.
+</li></ul>
+</section>
+<section id="c10" class="chapter">
+<h2><span class="num">10</span>100일이 끝나면</h2>
+<p>평가하는 날이 아니라 돌아보는 날입니다.</p>
+<ul>
+<li><strong>완주 인터뷰</strong> — 아이가 답하고 보호자는 듣습니다. '100일간의 기록', 프로필, 약속을 나란히 놓습니다.
+</li>
+<li><strong>비전보드 다시 보기</strong> — 다 못 이뤄도 괜찮습니다. 매일 한 걸음 걸어온 것이 이 키트가 함께 연습하려던 것입니다.
+</li>
+<li><strong>인증서</strong> — 아이가 지킨 세 가지 행동을 적고, 보호자가 완주 확인 도장을 찍습니다. 그리고 시작할 때 약속한 보상을 함께 즐깁니다.
+</li></ul>
+</section>
+<footer>하리 PLUS는 주식회사 에이치에이연구원(HARI)의 브랜드입니다. 이 가이드는 보호자가 무엇을 하고 무엇을 하지 않으면 되는지를 적은 것이며, 특정 결과를 약속하지 않습니다.</footer>
+</div>
+<script>
+(function(){
+  // 요약 장을 카드로 감싸기
+  var s=document.getElementById('csum'); if(s){var h=s.querySelector('h2'); var c=document.createElement('div'); c.className='card'; while(h&&h.nextSibling) c.appendChild(h.nextSibling); s.appendChild(c);}
+  // 체크리스트: 이 기기에서만 기억
+  var boxes=document.querySelectorAll('ul.check input');
+  boxes.forEach(function(b){ try{ b.checked=localStorage.getItem('pg-'+b.id)==='1'; }catch(e){}
+    b.addEventListener('change',function(){ try{ localStorage.setItem('pg-'+b.id,b.checked?'1':'0'); }catch(e){} }); });
+  // 현재 장 칩 강조
+  var links=[].slice.call(document.querySelectorAll('nav.chips a')); var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function mark(){ var y=window.scrollY+90, cur=0; secs.forEach(function(s,i){ if(s&&s.offsetTop<=y) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); }); var on=links[cur]; if(on&&on.scrollIntoView) on.scrollIntoView({block:'nearest',inline:'center'}); }
+  window.addEventListener('scroll',mark,{passive:true}); mark();
+})();
+</script>
