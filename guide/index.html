@@ -93,6 +93,7 @@ p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
 .sec > h4::before { content:counter(sec); flex:0 0 24px; width:24px; height:24px; border-radius:6px; border:1.5px solid var(--amber-ink); color:var(--amber-ink); font-size:12.5px; font-weight:900; display:flex; align-items:center; justify-content:center; }
 .sec .steps { margin-bottom:10px; }
 .sec.plain { counter-increment:none; }
+.sec.n4 { counter-reset:sec 3; }
 .sec.plain > h4::before { display:none; }
 .sec p.note { margin:0 0 12px; }
 .sec > p:last-child { margin-bottom:10px; }
@@ -169,7 +170,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </style>
 </head>
 <body>
-<div class="book" id="book"><article class="page cover" id="cover" data-i="0"><div class="cover"><div class="brand">하리 PLUS · 스터디 메이트</div><h1>학부모<br>가이드</h1><p class="lead">아이에게 시키는 대신,<br>스스로에게 물어보게 하는 100일.</p><p class="hint">옆으로 넘기거나 아래 화살표를 눌러 읽습니다.</p></div></article><article class="page toc" id="toc" data-i="1"><div class="toc"><h2>차례</h2><ol><li><a href="#csum"><span class="n"></span><span class="t">한 장 요약<small>보호자가 할 일 세 가지, 꼭 지켜 주실 것, 기억할 것</small></span></a></li><li><a href="#c1"><span class="n">1</span><span class="t">이 키트는 무엇인가요<small>무엇이 들어 있고 어떻게 이어지는지</small></span></a></li><li><a href="#c2"><span class="n">2</span><span class="t">보호자의 역할<small>챙기는 사람이 아니라 기다리는 사람. 아이가 쓴 것은 아이 것</small></span></a></li><li><a href="#c3"><span class="n">3</span><span class="t">첫날 세팅<small>보호자 먼저 10분, 아이와 함께 30분. 체크리스트로</small></span></a></li><li><a href="#c4"><span class="n">4</span><span class="t">페이지별 활용법<small>다이어리 열 페이지를 어떻게 쓰는지, 보호자는 무엇을 하는지</small></span></a></li><li><a href="#c5"><span class="n">5</span><span class="t">컬러카드 활용법<small>하루 한 장. 사이트 메뉴, 진행 순서, 보호자가 함께하는 법</small></span></a></li><li><a href="#c6"><span class="n">6</span><span class="t">스티커 색이 의미하는 것<small>열 가지 색이 뜻하는 그날의 마음</small></span></a></li><li><a href="#c7"><span class="n">7</span><span class="t">칭찬과 보상<small>&quot;잘했어&quot; 대신 이렇게. 보상은 30일마다, 함께 정해서</small></span></a></li><li><a href="#c8"><span class="n">8</span><span class="t">&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;<small>&quot;하기 싫어&quot;를 나눠서 묻는 법, 파랑이 길어질 때 살펴볼 것</small></span></a></li><li><a href="#c9"><span class="n">9</span><span class="t">며칠 빠뜨렸을 때<small>처음부터 다시 하지 않습니다. 왜 그런지, 다시 이어가게 하는 법</small></span></a></li><li><a href="#c10"><span class="n">10</span><span class="t">100일이 끝나면<small>완주 인터뷰, 인증서와 보상, 습관을 이어가는 법</small></span></a></li></ol></div></article><article class="page chap" id="csum" data-i="2">
+<div class="book" id="book"><article class="page cover" id="cover" data-i="0"><div class="cover"><div class="brand">하리 PLUS · 스터디 메이트</div><h1>학부모<br>가이드</h1><p class="lead">아이에게 시키는 대신,<br>스스로에게 물어보게 하는 100일.</p><p class="hint">옆으로 넘기거나 아래 화살표를 눌러 읽습니다.</p></div></article><article class="page toc" id="toc" data-i="1"><div class="toc"><h2>차례</h2><ol><li><a href="#csum"><span class="n"></span><span class="t">한 장 요약<small>보호자가 할 일 세 가지, 꼭 지켜 주실 것, 기억할 것</small></span></a></li><li><a href="#c1"><span class="n">1</span><span class="t">이 키트는 무엇인가요<small>무엇이 들어 있고 어떻게 이어지는지</small></span></a></li><li><a href="#c2"><span class="n">2</span><span class="t">보호자의 역할<small>챙기는 사람이 아니라 기다리는 사람. 아이가 쓴 것은 아이 것</small></span></a></li><li><a href="#c3"><span class="n">3</span><span class="t">첫날 세팅<small>첫날에 세팅해야 할 것, 체크리스트</small></span></a></li><li><a href="#c4"><span class="n">4</span><span class="t">페이지별 활용법<small>다이어리 열 페이지를 어떻게 쓰는지, 보호자는 무엇을 하는지</small></span></a></li><li><a href="#c5"><span class="n">5</span><span class="t">컬러카드 활용법<small>하루 한 장. 사이트 메뉴, 진행 순서, 보호자가 함께하는 법</small></span></a></li><li><a href="#c6"><span class="n">6</span><span class="t">스티커 색이 의미하는 것<small>열 가지 색이 뜻하는 그날의 마음</small></span></a></li><li><a href="#c7"><span class="n">7</span><span class="t">칭찬과 보상<small>&quot;잘했어&quot; 대신 이렇게. 보상은 30일마다, 함께 정해서</small></span></a></li><li><a href="#c8"><span class="n">8</span><span class="t">&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;<small>&quot;하기 싫어&quot;를 나눠서 묻는 법, 파랑이 길어질 때 살펴볼 것</small></span></a></li><li><a href="#c9"><span class="n">9</span><span class="t">며칠 빠뜨렸을 때<small>처음부터 다시 하지 않습니다. 왜 그런지, 다시 이어가게 하는 법</small></span></a></li><li><a href="#c10"><span class="n">10</span><span class="t">100일이 끝나면<small>완주 인터뷰, 인증서와 보상, 습관을 이어가는 법</small></span></a></li></ol></div></article><article class="page chap" id="csum" data-i="2">
 <h2>한 장 요약</h2>
 <p><strong>스터디 메이트는</strong> 아이가 매일 자기 마음을 알아차리고 스스로 고르는 연습을 하는 100일 키트입니다.</p>
 <h4>아이가 매일 할 일</h4>
@@ -284,7 +285,8 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <p class="note">정하는 요령은 <a class="ref" href="#c7">7번 '칭찬과 보상'</a>을 참고해 주세요.</p>
 </div>
 </article><article class="page sub" id="c3-2" data-i="6"><div class="crumb"><span class="num">3</span>첫날 세팅</div>
-<div class="sec plain">
+<div class="sec n4">
+<h4>다이어리 오프닝 작성하기</h4>
 <div class="steps">
 <div class="step"><b>나의 프로필</b><em>프로필 페이지</em><span>어려워하면 보호자가 본 장점 하나만. 적을지는 아이가 정합니다.</span></div>
 <div class="step"><b>되고 싶은 모습</b><em>프로필 '나의 꿈 그리기'</em><span>"어떤 사람이 되고 싶어?" 그림이나 글, 뭐든 괜찮습니다.</span></div>
@@ -705,7 +707,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <script>
 (function(){
   var book=document.getElementById('book'), pages=[].slice.call(book.querySelectorAll(':scope > .page'));
-  var labels=["표지", "차례", "한 장 요약", "1 이 키트는 무엇인가요", "2 보호자의 역할", "3-1 보호자가 먼저", "3-2 아이와 함께", "3-3 첫날 끝 체크", "4 페이지별 활용법", "4-1 프로필 (첫 쪽)", "4-2 나의 꿈을 위한 약속", "4-3 나를 위한 30일", "4-4 100일의 여정", "4-5 이번 주 계획", "4-6 데일리", "4-7 일주일 돌아보기", "4-8 100일 완주 인증서", "4-9 100일 완주자 인터뷰", "5-1 사이트 메뉴와 진행 순서", "5-2 보호자는 이렇게 함께합니다", "6 스티커 색이 의미하는 것", "7-1 칭찬 — 본 것을 그대로, 구체적으로", "7-2 보상 — 구간마다, 함께 정해서", "8 \"그냥 하기 싫은 것\"과 \"진짜 힘든 것\"", "8-1 파랑이 2주 넘게 이어질 때", "9 며칠 빠뜨렸을 때", "10 100일이 끝나면", "10-1 그다음은"], nBody=26;
+  var labels=["표지", "차례", "한 장 요약", "1 이 키트는 무엇인가요", "2 보호자의 역할", "3-1 첫날 세팅", "3-2 첫날 세팅", "3-3 첫날 끝 체크", "4 페이지별 활용법", "4-1 프로필 (첫 쪽)", "4-2 나의 꿈을 위한 약속", "4-3 나를 위한 30일", "4-4 100일의 여정", "4-5 이번 주 계획", "4-6 데일리", "4-7 일주일 돌아보기", "4-8 100일 완주 인증서", "4-9 100일 완주자 인터뷰", "5-1 사이트 메뉴와 진행 순서", "5-2 보호자는 이렇게 함께합니다", "6 스티커 색이 의미하는 것", "7-1 칭찬 — 본 것을 그대로, 구체적으로", "7-2 보상 — 구간마다, 함께 정해서", "8 \"그냥 하기 싫은 것\"과 \"진짜 힘든 것\"", "8-1 파랑이 2주 넘게 이어질 때", "9 며칠 빠뜨렸을 때", "10 100일이 끝나면", "10-1 그다음은"], nBody=26;
   var fill=document.getElementById('progfill'), where=document.getElementById('where');
   var prev=document.getElementById('prev'), next=document.getElementById('next');
   function cur(){ return Math.round(book.scrollLeft/book.clientWidth); }
