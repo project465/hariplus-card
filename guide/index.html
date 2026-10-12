@@ -25,7 +25,7 @@
   --card:#F1ECE3; --card-fg:#1C1C1B; --card-amber:#8A5A00; --shadow:rgba(0,0,0,.5); color-scheme:dark }
 * { box-sizing:border-box }
 html, body { height:100%; }
-body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:16px; line-height:1.7; word-break:keep-all; overflow:hidden; }
+body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:17px; line-height:1.7; word-break:keep-all; overflow:hidden; }
 .book { height:100%; display:flex; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
 .book::-webkit-scrollbar { display:none }
 .page { flex:0 0 100%; min-width:0; height:100%; scroll-snap-align:start; scroll-snap-stop:always; overflow-y:auto; overscroll-behavior:contain;
@@ -34,10 +34,10 @@ body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans);
 .page > * { max-width:600px; margin-left:auto; margin-right:auto; }
 .page { counter-reset:sec; }
 .page h2 { font-family:var(--serif); font-weight:900; font-size:23px; line-height:1.3; margin:6px auto 16px; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; text-wrap:balance; }
-.page h2 .num { font-family:var(--sans); font-weight:900; font-size:13px; color:var(--amber-ink); border:1.5px solid var(--amber-ink); border-radius:6px; padding:0 7px; line-height:1.6; align-self:center; }
-.page h2 small { flex-basis:100%; font-family:var(--sans); font-weight:500; font-size:14px; color:var(--fg-2); }
-h3 { font-size:17px; font-weight:700; margin:26px auto 8px; padding-left:10px; border-left:3px solid var(--amber); line-height:1.4; }
-h4 { font-size:15.5px; font-weight:700; margin:20px auto 6px; }
+.page h2 .num { font-family:var(--sans); font-weight:900; font-size:13.5px; color:var(--amber-ink); border:1.5px solid var(--amber-ink); border-radius:6px; padding:0 7px; line-height:1.6; align-self:center; }
+.page h2 small { flex-basis:100%; font-family:var(--sans); font-weight:500; font-size:15px; color:var(--fg-2); }
+h3 { font-size:18px; font-weight:700; margin:26px auto 8px; padding-left:10px; border-left:3px solid var(--amber); line-height:1.4; }
+h4 { font-size:16.5px; font-weight:700; margin:20px auto 6px; }
 h4.pg { margin-top:28px; padding:6px 10px; background:var(--amber-tint); border-radius:6px; display:table; }
 p { margin:0 auto 12px; }
 ul, ol { margin:0 auto 12px; padding-left:22px; }
@@ -58,7 +58,7 @@ figure.shot figcaption { display:none; }
 .shots2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 auto 16px; max-width:420px; }
 .shots2 figure.shot { margin:0; }
 .shots2 figure.shot figcaption { display:block; text-align:center; font-size:12.5px; color:var(--fg-2); padding:6px 4px; border-top:1px solid var(--line); background:var(--bg-2); }
-table { border-collapse:collapse; width:100%; font-size:14.5px; line-height:1.55; }
+table { border-collapse:collapse; width:100%; font-size:15.5px; line-height:1.55; }
 th, td { text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--line); min-width:0; }
 th { font-weight:700; color:var(--fg-2); font-size:12.5px; letter-spacing:.04em; border-bottom:2px solid var(--fg); }
 td:first-child { font-weight:700; white-space:nowrap; }
@@ -75,21 +75,21 @@ p.ex.ok .mark { color:var(--amber-ink); }
 .steps { display:grid; gap:6px; margin:0 auto 16px; counter-reset:step; }
 .step { display:grid; grid-template-columns:28px 1fr; gap:2px 10px; align-items:start; padding:9px 0 9px; border-bottom:1px solid var(--line); counter-increment:step; }
 .step::before { content:counter(step); grid-row:1 / span 3; width:24px; height:24px; border-radius:50%; background:var(--amber); color:#2C2D2D; font-weight:900; font-size:12.5px; display:flex; align-items:center; justify-content:center; margin-top:2px; }
-.step b { font-size:15.5px; }
+.step b { font-size:16.5px; }
 .step em { font-style:normal; font-size:12.5px; color:var(--amber-ink); background:var(--amber-tint); border-radius:4px; padding:1px 6px; justify-self:start; }
-.step span { font-size:14.5px; color:var(--fg-2); line-height:1.55; }
+.step span { font-size:15.5px; color:var(--fg-2); line-height:1.55; }
 .step > * { grid-column:2; }
 .step .tw { margin:6px 0 0; }
 .steps.boxed { background:var(--bg-2); border:1px solid var(--line); border-radius:10px; padding:4px 14px; gap:0; }
 .steps.boxed .step:last-child { border-bottom:0; }
-p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
+p.note { font-size:13.5px; color:var(--fg-2); margin:-8px auto 14px; }
 .duo { display:grid; grid-template-columns:1fr; gap:10px; margin:0 auto 16px; }  /* 아이는/보호자는 상자를 위아래로(효옥 지시 2026-10-12) */
 .duo > div { background:var(--bg-2); border:1px solid var(--line); border-radius:10px; padding:11px 13px 4px; }
 .duo h4 { margin:0 0 6px; font-size:12.5px; letter-spacing:.06em; color:var(--amber-ink); }
 .duo ul { margin:0 0 8px; padding-left:16px; }
-.duo li { font-size:14px; line-height:1.55; margin:0 0 5px; }
+.duo li { font-size:15px; line-height:1.55; margin:0 0 5px; }
 .sec { background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:14px 16px 4px; margin:0 auto 14px; counter-increment:sec; }
-.sec > h4 { display:flex; align-items:center; gap:9px; margin:0 0 12px; font-size:16px; }
+.sec > h4 { display:flex; align-items:center; gap:9px; margin:0 0 12px; font-size:17px; }
 .sec > h4::before { content:counter(sec); flex:0 0 24px; width:24px; height:24px; border-radius:6px; border:1.5px solid var(--amber-ink); color:var(--amber-ink); font-size:12.5px; font-weight:900; display:flex; align-items:center; justify-content:center; }
 .sec .steps { margin-bottom:10px; }
 .sec.plain { counter-increment:none; }
@@ -98,7 +98,7 @@ p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
 .sec p.note { margin:0 0 12px; }
 p.note.gap { margin-top:18px; }
 .sec > p:last-child { margin-bottom:10px; }
-.step .tw table { font-size:13.5px; }
+.step .tw table { font-size:14.5px; }
 .step .tw th, .step .tw td { padding:5px 8px; }
 .callout.no { background:transparent; border-left-color:var(--fg-2); border:1px solid var(--line); border-left:4px solid var(--fg-2); }
 .callout + .callout { margin-top:-6px; }
@@ -110,12 +110,12 @@ p.note.gap { margin-top:18px; }
 /* 역할 카드·원칙 상자 */
 .roles { display:grid; gap:8px; margin:0 auto 14px; counter-reset:role; }
 .role { display:grid; grid-template-columns:30px 1fr; gap:4px 10px; align-items:start; background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:10px; padding:11px 12px; counter-increment:role; }
-.role::before { content:counter(role); grid-row:1 / span 3; width:26px; height:26px; border-radius:50%; background:var(--amber); color:#2C2D2D; font-weight:900; font-size:13px; display:flex; align-items:center; justify-content:center; margin-top:1px; }
-.role b { font-size:16px; }
-.role span { font-size:14.5px; color:var(--fg-2); line-height:1.55; }
-.role a.ref { font-size:13px; justify-self:start; }
+.role::before { content:counter(role); grid-row:1 / span 3; width:26px; height:26px; border-radius:50%; background:var(--amber); color:#2C2D2D; font-weight:900; font-size:13.5px; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.role b { font-size:17px; }
+.role span { font-size:15.5px; color:var(--fg-2); line-height:1.55; }
+.role a.ref { font-size:13.5px; justify-self:start; }
 .callout ul { margin:4px 0 0; padding-left:18px; } .callout li { margin:0 0 4px; }
-.callout { background:var(--amber-tint); border-left:4px solid var(--amber); border-radius:0 8px 8px 0; padding:11px 13px; margin:0 auto 16px; font-size:15px; line-height:1.6; }
+.callout { background:var(--amber-tint); border-left:4px solid var(--amber); border-radius:0 8px 8px 0; padding:11px 13px; margin:0 auto 16px; font-size:16px; line-height:1.6; }
 .callout b { display:block; margin-bottom:4px; }
  p.ex.no .mark { color:var(--fg-2); }
 /* 표지 */
@@ -123,8 +123,8 @@ p.note.gap { margin-top:18px; }
 .cover { width:100%; }
 .cover .brand { font-size:12px; font-weight:700; letter-spacing:.1em; color:var(--card-amber); }
 .cover h1 { font-family:var(--serif); font-weight:900; font-size:46px; line-height:1.15; margin:10px 0 18px; letter-spacing:-.01em; }
-.cover .lead { font-size:17px; line-height:1.6; margin-bottom:28px; }
-.cover .hint { font-size:13px; color:var(--card-amber); margin:0; }
+.cover .lead { font-size:18px; line-height:1.6; margin-bottom:28px; }
+.cover .hint { font-size:13.5px; color:var(--card-amber); margin:0; }
 /* 소쪽 머리 */
 .crumb { font-size:12px; font-weight:700; color:var(--fg-2); letter-spacing:.04em; display:flex; align-items:center; gap:6px; margin:0 auto 10px; }
 .crumb .num { font-weight:900; font-size:11px; color:var(--amber-ink); border:1.5px solid var(--amber-ink); border-radius:5px; padding:0 5px; line-height:1.6; }
@@ -133,30 +133,30 @@ p.note.gap { margin-top:18px; }
 .toc h2 { font-family:var(--serif); font-weight:900; font-size:23px; margin:6px auto 14px; }
 .toc ol { list-style:none; padding:0; }
 .toc li { margin:0; border-bottom:1px solid var(--line); }
-.toc a { display:grid; grid-template-columns:34px 1fr; align-items:start; gap:8px; padding:11px 2px; color:var(--fg); text-decoration:none; font-weight:700; font-size:16px; line-height:1.4; }
-.toc .t small { display:block; font-size:13px; font-weight:400; color:var(--fg-2); margin-top:2px; line-height:1.45; }
+.toc a { display:grid; grid-template-columns:34px 1fr; align-items:start; gap:8px; padding:11px 2px; color:var(--fg); text-decoration:none; font-weight:700; font-size:17px; line-height:1.4; }
+.toc .t small { display:block; font-size:13.5px; font-weight:400; color:var(--fg-2); margin-top:2px; line-height:1.45; }
 .toc .n { padding-top:2px; }
 .toc .n { font-size:12px; font-weight:900; color:var(--amber-ink); }
 .toc ol.sub { margin:0 0 6px 34px; }
 .toc ol.sub li { border:0; }
-.toc ol.sub a { padding:5px 2px; font-weight:500; font-size:14.5px; color:var(--fg-2); grid-template-columns:30px 1fr; }
+.toc ol.sub a { padding:5px 2px; font-weight:500; font-size:15.5px; color:var(--fg-2); grid-template-columns:30px 1fr; }
 .toc ol.sub .n { font-size:11px; }
 /* 요약 카드 */
-#csum h2 { margin:0 auto 14px; }
-#csum .sumlead p { font-size:17px; line-height:1.65; margin:0 0 10px; }
-#csum .sumlead p strong { color:var(--amber-ink); }
-#csum .sumgrid { display:grid; gap:10px; margin-top:6px; }
+[id^="csum"] h2 { margin:0 auto 14px; }
+[id^="csum"] .sumlead p { font-size:18px; line-height:1.65; margin:0 0 10px; }
+[id^="csum"] .sumlead p strong { color:var(--amber-ink); }
+[id^="csum"] .sumgrid { display:grid; gap:10px; margin-top:6px; }
 /* 요약 상자는 한 줄에 하나(효옥 지시 2026-10-12) */
-#csum .sumbox { background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:12px; padding:13px 15px 11px; }
-#csum .sumbox h4 { margin:0 0 8px; font-size:16px; letter-spacing:.02em; color:var(--amber-ink); text-transform:none; }
-#csum .sumbox ul { margin:0; padding-left:0; list-style:none; }
-#csum .sumbox li { margin:0 0 5px; padding-left:14px; position:relative; font-size:15px; line-height:1.55; }
-#csum .sumbox li::before { content:''; position:absolute; left:0; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--amber); }
-#csum .sumbox a.ref { border-bottom:0; }
-#csum .sumbox .arr { color:var(--fg-2); }
-#csum .sumbox ul ul { margin:4px 0 2px; }
-#csum .sumbox ul ul li::before { background:transparent; border:1.5px solid var(--amber); width:5px; height:5px; }
-#csum .sumbox li b { color:var(--fg); }
+[id^="csum"] .sumbox { background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:12px; padding:13px 15px 11px; }
+[id^="csum"] .sumbox h4 { margin:0 0 8px; font-size:17px; letter-spacing:.02em; color:var(--amber-ink); text-transform:none; }
+[id^="csum"] .sumbox ul { margin:0; padding-left:0; list-style:none; }
+[id^="csum"] .sumbox li { margin:0 0 5px; padding-left:14px; position:relative; font-size:16px; line-height:1.55; }
+[id^="csum"] .sumbox li::before { content:''; position:absolute; left:0; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--amber); }
+[id^="csum"] .sumbox a.ref { border-bottom:0; }
+[id^="csum"] .sumbox .arr { color:var(--fg-2); }
+[id^="csum"] .sumbox ul ul { margin:4px 0 2px; }
+[id^="csum"] .sumbox ul ul li::before { background:transparent; border:1.5px solid var(--amber); width:5px; height:5px; }
+[id^="csum"] .sumbox li b { color:var(--fg); }
 .btn { display:inline-block; font-size:12px; font-weight:700; color:var(--amber-ink); border:1px solid var(--amber-ink); border-radius:999px; padding:0 9px; line-height:1.7; margin-left:4px; text-decoration:none; white-space:nowrap; vertical-align:middle; }
 .btn:hover { background:var(--amber-tint); }
 /* 넘김 바 */
@@ -172,17 +172,17 @@ p.note.gap { margin-top:18px; }
 .sheet-bg { position:absolute; inset:0; background:rgba(44,45,45,.45); }
 .sheet-box { position:absolute; left:0; right:0; bottom:0; max-height:78vh; overflow:auto; background:var(--paper-2); border-radius:16px 16px 0 0; box-shadow:0 -8px 30px rgba(0,0,0,.18); padding:0 0 calc(16px + env(safe-area-inset-bottom,0px)); }
 @media (min-width:700px) { .sheet-box { left:50%; right:auto; width:560px; transform:translateX(-50%); border-radius:16px 16px 0 0; } }
-.sheet-h { position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; padding:14px 18px 10px; background:var(--paper-2); border-bottom:1px solid var(--line); font-weight:900; font-size:16px; }
-.sheet-h button { background:none; border:1px solid var(--line); border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:14px; color:var(--fg); }
+.sheet-h { position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; padding:14px 18px 10px; background:var(--paper-2); border-bottom:1px solid var(--line); font-weight:900; font-size:17px; }
+.sheet-h button { background:none; border:1px solid var(--line); border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:15px; color:var(--fg); }
 .sheet-list { list-style:none; margin:0; padding:6px 10px 4px; }
 .sheet-list li { border-bottom:1px solid var(--line); }
 .sheet-list li:last-child { border-bottom:0; }
-.sheet-list a.m { display:flex; align-items:center; gap:10px; padding:11px 8px; text-decoration:none; color:var(--fg); font-weight:700; font-size:15px; }
+.sheet-list a.m { display:flex; align-items:center; gap:10px; padding:11px 8px; text-decoration:none; color:var(--fg); font-weight:700; font-size:16px; }
 .sheet-list a.m .n { flex:0 0 22px; font-size:12px; color:var(--amber-ink); }
 .sheet-list .subs { display:flex; flex-wrap:wrap; gap:6px; padding:0 8px 10px 40px; }
 .sheet-list a.s { font-size:12.5px; color:var(--amber-ink); border:1px solid var(--line); border-radius:999px; padding:2px 10px; text-decoration:none; background:var(--bg-2); }
 .sheet-list a.m:hover, .sheet-list a.s:hover { background:var(--amber-tint); }
-.bar .where { font-size:13px; font-weight:700; color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.bar .where { font-size:13.5px; font-weight:700; color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .bar .prog { height:4px; border-radius:2px; background:var(--line); margin:6px auto 0; max-width:220px; overflow:hidden; }
 .bar .prog i { display:block; height:100%; width:0; background:var(--amber-ink); border-radius:2px; transition:width .25s; }
 @media (prefers-reduced-motion: no-preference) { .book { scroll-behavior:smooth } }
@@ -190,7 +190,7 @@ p.note.gap { margin-top:18px; }
 body { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
 input, textarea { -webkit-user-select:auto; user-select:auto; }
 img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
-@media print { body > * { display:none !important; } body::after { content:'이 문서는 인쇄와 저장이 제한되어 있습니다. 가이드는 card.hariplus.kr/guide/ 에서 보실 수 있습니다.'; display:block; padding:40px; font-size:16px; } }
+@media print { body > * { display:none !important; } body::after { content:'이 문서는 인쇄와 저장이 제한되어 있습니다. 가이드는 card.hariplus.kr/guide/ 에서 보실 수 있습니다.'; display:block; padding:40px; font-size:17px; } }
 </style>
 </head>
 <body>
@@ -217,6 +217,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <li>데일리 페이지를 작성한 후 <b>100일의 여정 페이지</b>에 스티커를 붙여 100일의 여정을 눈으로 확인해 보세요 <a class="btn" href="#c4-4">관련 가이드 바로가기</a></li>
 <li>100일 후 <b>100일 완주 인증서</b>를 잘 보이는 곳에 부착하여 성취감을 느끼게 해 주세요 <a class="btn" href="#c4-8">관련 가이드 바로가기</a></li>
 </ul>
+</article><article class="page sub" id="csum-1" data-i="3"><h3 class="ptitle">간편 가이드 (2)</h3>
 <h4>보호자가 할 일</h4>
 <ul>
 <li>처음 목표 설정과 첫 일주일은 함께 진행하는 것을 추천드립니다</li>
@@ -238,7 +239,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <ul><li>예시) 9/7 작성, 9/8 미작성, 9/9 작성한 경우: 누락된 7일을 빈칸으로 두지 않고 바로 이어서 9일을 작성합니다</li></ul></li>
 <li>달성 목표는 자녀의 상황에 맞춰 바꿔도 됩니다</li>
 </ul>
-</article><article class="page chap" id="c1" data-i="3">
+</article><article class="page chap" id="c1" data-i="4">
 <h2><span class="num">1</span>이 키트는 무엇인가요</h2>
 <p>할 일만 적는 플래너가 아닙니다. 자녀가 되고 싶은 모습을 그리고, 그곳으로 가는 작은 실천을 매일 스스로 고르고 돌아보는 100일 키트입니다.</p>
 <div class="tw"><table><thead><tr><th></th><th>흔한 플래너</th><th>스터디 메이트</th></tr></thead><tbody>
@@ -254,7 +255,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="role"><b>스티커와 완주 인증서</b><span>쓴 날마다 카드 색 스티커를 한 칸. 100칸이 차면 완주 인증서를 받습니다.</span></div>
 </div>
 <p class="note">매일 스스로 고르고, 해보고, 돌아보는 경험이 쌓이는 것이 자기주도학습의 시작입니다.</p>
-</article><article class="page chap" id="c2" data-i="4">
+</article><article class="page chap" id="c2" data-i="5">
 <h2><span class="num">2</span>보호자의 역할</h2>
 <p>보호자는 챙기는 사람이 아니라, 옆에서 보고 기다리는 사람입니다. 기억할 것은 네 가지입니다.</p>
 <div class="roles">
@@ -271,7 +272,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </tbody></table></div>
 <p class="note">학년은 참고일 뿐입니다. 자녀 반응을 보며 조절해 주세요.</p>
 <p><span class="todo" title="초등 3~4학년 포함 여부">확정 전 · 대표 확인</span></p>
-</article><article class="page sub" id="c3" data-i="5">
+</article><article class="page sub" id="c3" data-i="6">
 <h2><span class="num">3</span>첫날 세팅</h2>
 
 <div class="sec">
@@ -305,7 +306,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </tbody></table></div>
 <p class="note">정하는 요령은 <a class="ref" href="#c7">7번 '칭찬과 보상'</a>을 참고해 주세요.</p>
 </div>
-</article><article class="page sub" id="c3-2" data-i="6"><div class="crumb"><span class="num">3</span>첫날 세팅</div>
+</article><article class="page sub" id="c3-2" data-i="7"><div class="crumb"><span class="num">3</span>첫날 세팅</div>
 <div class="sec n4">
 <h4>스터디 메이트 작성하기</h4>
 <div class="steps">
@@ -318,7 +319,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </div>
 </div>
 <p class="note">목표와 실천은 자녀의 상황이나 컨디션에 맞게 바꿔 주세요. 자녀에게 맞게 고쳐 가며 잘 맞는 방법을 찾는 것이 중요합니다.</p>
-</article><article class="page chap" id="c4" data-i="7">
+</article><article class="page chap" id="c4" data-i="8">
 <h2><span class="num">4</span>페이지별 활용법</h2>
 <p>페이지 이름을 누르면 설명으로 이동합니다.</p>
 <div class="tw"><table><thead><tr><th>페이지</th><th>무엇</th></tr></thead><tbody>
@@ -333,7 +334,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <tr><td><a class="ref" href="#c4-9">100일 완주자 인터뷰</a></td><td>100일을 돌아보는 질문 다섯 개</td></tr>
 </tbody></table></div>
 <p>99~100일(마지막 이틀)에는 주간 계획·돌아보기 페이지가 없습니다. 마지막 돌아보기는 98일차입니다.</p>
-</article><article class="page sub" id="c4-1" data-i="8"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">프로필 (첫 쪽)</h3>
+</article><article class="page sub" id="c4-1" data-i="9"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">프로필 (첫 쪽)</h3>
 <figure class="shot"><img src="assets/01-profile.png" alt="프로필" loading="lazy"><figcaption>프로필</figcaption></figure>
 <p>100일을 시작하는 '지금의 나'를 적는 페이지입니다. 100일 뒤 다시 펼쳐 보면 달라진 점이 보입니다.</p>
 <div class="duo">
@@ -360,7 +361,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-2" data-i="9"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">나의 꿈을 위한 약속</h3>
+</article><article class="page sub" id="c4-2" data-i="10"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">나의 꿈을 위한 약속</h3>
 <figure class="shot"><img src="assets/02-promise.png" alt="나의 꿈을 위한 약속" loading="lazy"><figcaption>나의 꿈을 위한 약속</figcaption></figure>
 <p>100일 동안 매일 지킬 세 가지 행동을 적고 서명하는 페이지입니다. 이 세 가지를 100일 동안 이어가는 것이 100일 목표입니다. 보호자와 하는 약속이 아니라, 자녀가 자기 자신과 하는 약속입니다.</p>
 <div class="duo">
@@ -383,7 +384,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-3" data-i="10"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">나를 위한 30일</h3>
+</article><article class="page sub" id="c4-3" data-i="11"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">나를 위한 30일</h3>
 <figure class="shot"><img src="assets/03-30day-goal.png" alt="나를 위한 30일" loading="lazy"><figcaption>나를 위한 30일</figcaption></figure>
 <p>30일마다 작은 목표 하나와 보상을 정하고, 지킨 날마다 스티커를 붙이는 페이지입니다. 매일 실천 중 하나를 그대로 써도 되고, 다른 목표를 정해도 됩니다. 한 번에 한 칸씩 씁니다.</p>
 <div class="duo">
@@ -404,7 +405,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-4" data-i="11"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일의 여정</h3>
+</article><article class="page sub" id="c4-4" data-i="12"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일의 여정</h3>
 <figure class="shot"><img src="assets/04-100day-record.png" alt="100일의 여정" loading="lazy"><figcaption>100일의 여정</figcaption></figure>
 <p>데일리를 쓴 날마다 카드 색 스티커를 한 칸씩 붙여 가는 페이지입니다. 100칸이 차면 완주입니다.</p>
 <div class="duo">
@@ -427,7 +428,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-5" data-i="12"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">이번 주 계획</h3>
+</article><article class="page sub" id="c4-5" data-i="13"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">이번 주 계획</h3>
 <figure class="shot"><img src="assets/05-week-plan.png" alt="이번 주 계획" loading="lazy"><figcaption>이번 주 계획</figcaption></figure>
 <p>7일마다 한 주를 계획하고 주간 목표를 세우는 페이지입니다. Day 1에 한 번, 그 뒤로는 돌아보기 다음에 씁니다.</p>
 <div class="duo">
@@ -448,7 +449,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-6" data-i="13"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">데일리</h3>
+</article><article class="page sub" id="c4-6" data-i="14"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">데일리</h3>
 <figure class="shot"><img src="assets/06-daily.png" alt="데일리" loading="lazy"><figcaption>데일리</figcaption></figure>
 <p>매일 쓰는 페이지입니다. 오늘의 공부와 할 일, 그리고 오늘의 카드를 적습니다.</p>
 <div class="duo">
@@ -471,7 +472,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-7" data-i="14"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">일주일 돌아보기</h3>
+</article><article class="page sub" id="c4-7" data-i="15"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">일주일 돌아보기</h3>
 <figure class="shot"><img src="assets/07-week-review.png" alt="일주일 돌아보기" loading="lazy"><figcaption>일주일 돌아보기</figcaption></figure>
 <p>7일마다 한 주를 돌아보며 스스로 점수를 매기고, 잘한 점과 아쉬운 점을 적는 페이지입니다.</p>
 <div class="duo">
@@ -494,7 +495,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-8" data-i="15"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일 완주 인증서</h3>
+</article><article class="page sub" id="c4-8" data-i="16"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일 완주 인증서</h3>
 <figure class="shot"><img src="assets/08-certificate.png" alt="100일 완주 인증서" loading="lazy"><figcaption>100일 완주 인증서</figcaption></figure>
 <p>100칸을 채운 날, 완주를 기념하는 페이지입니다.</p>
 <div class="duo">
@@ -515,7 +516,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c4-9" data-i="16"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일 완주자 인터뷰</h3>
+</article><article class="page sub" id="c4-9" data-i="17"><div class="crumb"><span class="num">4</span>페이지별 활용법</div><h3 class="ptitle">100일 완주자 인터뷰</h3>
 <figure class="shot"><img src="assets/09-interview.png" alt="100일 완주자 인터뷰" loading="lazy"><figcaption>100일 완주자 인터뷰</figcaption></figure>
 <p>100일을 돌아보는 질문 다섯 개에 답하는 페이지입니다.</p>
 <div class="duo">
@@ -536,7 +537,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 </div>
 </div>
-</article><article class="page sub" id="c5" data-i="17">
+</article><article class="page sub" id="c5" data-i="18">
 <h2><span class="num">5</span>컬러카드 활용법</h2>
 <h3 class="ptitle">사이트 메뉴와 진행 순서</h3>
 <p>컬러카드는 자녀가 하루 한 번, 자기 마음을 들여다보는 짧은 시간입니다. 정답을 맞히는 문제가 아니라, 스스로에게 질문하는 연습입니다.</p>
@@ -557,7 +558,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>시간은 자녀가 정합니다</b><span>공부 시작 전이나 잠들기 전처럼 매일 같은 때로 정해 두면 잊지 않고 하게 됩니다.</span></div>
 </div>
 </div>
-</article><article class="page sub" id="c5-2" data-i="18"><div class="crumb"><span class="num">5</span>컬러카드 활용법</div>
+</article><article class="page sub" id="c5-2" data-i="19"><div class="crumb"><span class="num">5</span>컬러카드 활용법</div>
 <div class="roles plain">
 <div class="role"><b>색은 자녀가 골라요</b><span>"오늘은 노랑 뽑아봐"처럼 권하면 자녀는 자기 마음 대신 보호자의 마음을 고르게 돼요.</span></div>
 <div class="role"><b>짧은 답도 충분해요</b><span>한 줄이나 한 단어, "잘 모르겠다"도 답이에요. 길게 쓰라고 하지 마세요.</span></div>
@@ -566,7 +567,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="role"><b>행동 미션 카드에는 함께해 주세요</b><span>빨강(도전하기)과 코랄(감사하기)에는 직접 해보는 미션이 있어요. 자녀가 편지를 쓰거나 집안일을 해보겠다고 하면 기꺼이 받아 주고 반응해 주세요.</span></div>
 </div>
 <div class="callout no"><b>이것만은 꼭 지켜주세요</b><ul><li>카드의 답을 허락 없이 읽거나 다른 사람에게 말하지 말아 주세요</li><li>카드의 답으로 작성한 부분을 훈계할 때 사용하지 말아 주세요</li></ul></div>
-</article><article class="page chap" id="c6" data-i="19">
+</article><article class="page chap" id="c6" data-i="20">
 <h2><span class="num">6</span>스티커 색이 의미하는 것</h2>
 <p>색상은 그날 마음의 색입니다. 좋고 나쁨은 없습니다.</p>
 <figure class="shot"><img src="assets/13-color-stickers.png" alt="컬러 스티커" loading="lazy"><figcaption>컬러 스티커</figcaption></figure>
@@ -583,7 +584,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <tr><td>주황</td><td>흥미 찾기</td><td>뭘 하면 좋을지 모르겠을 때</td></tr>
 </tbody></table></div>
 <div class="callout no"><b>이것만은 꼭 지켜주세요</b><ul><li>"왜 또 파랑이야?"라고 묻지 말아 주세요. 자녀가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다</li><li>파랑이 길게 이어질 때는 <a class="ref" href="#c8">8번 '하기 싫은 것과 힘든 것'</a>을 참고해 주세요</li></ul></div>
-</article><article class="page sub" id="c7" data-i="20">
+</article><article class="page sub" id="c7" data-i="21">
 <h2><span class="num">7</span>칭찬과 보상</h2>
 <h3 class="ptitle">칭찬 — 본 것을 그대로, 구체적으로</h3>
 <p>매일 하지 않아도 됩니다. 자녀가 잘했을 때 한마디면 충분합니다. "잘했어"는 기분은 좋지만 행동을 유지하게 만들어 주지는 못합니다. 자녀가 행동을 유지하게 하려면, 잘한 행동에 대해 구체적으로 피드백을 주는 것이 좋습니다.</p>
@@ -597,7 +598,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </tbody></table></div>
 <div class="callout"><b>과한 칭찬은 오히려 부담이 됩니다</b>과한 칭찬은 자녀에게 "다음에도 잘해야 한다"는 부담으로 느껴져 오히려 역효과가 날 수 있습니다. 성적이 올랐을 때도 크게 반응하기보다 가볍게 알아봐 주세요. 결과에 크게 반응할수록 자녀는 결과에 더 민감해집니다.</div>
 <p class="note">칭찬은 결과보다 과정을, 보상은 매일보다 구간마다 주는 것이 오래갑니다.</p>
-</article><article class="page sub" id="c7-2" data-i="21"><div class="crumb"><span class="num">7</span>칭찬과 보상</div><h3 class="ptitle">보상 — 구간마다, 함께 정해서</h3>
+</article><article class="page sub" id="c7-2" data-i="22"><div class="crumb"><span class="num">7</span>칭찬과 보상</div><h3 class="ptitle">보상 — 구간마다, 함께 정해서</h3>
 <div class="tw"><table><thead><tr><th></th><th>이렇게</th></tr></thead><tbody>
 <tr><td>언제</td><td>30일, 60일, 90일, 그리고 100일 완주 때</td></tr>
 <tr><td>누가 정하나</td><td>시작할 때 자녀와 함께. "30일을 채우면 뭘 하고 싶어?" 하고 물어 주세요</td></tr>
@@ -616,7 +617,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li>
 <li>보상을 빌미로 "하지 않으면…" 하고 자녀가 강제로 하게 만들지 말아 주세요. 지금은 하더라도 나중에는 오히려 역효과가 날 수 있습니다
 </li></ul>
-</article><article class="page chap" id="c8" data-i="22">
+</article><article class="page chap" id="c8" data-i="23">
 <h2><span class="num">8</span>"그냥 하기 싫은 것"과 "진짜 힘든 것"</h2>
 <p>"하기 싫어"는 대부분 지나갑니다. 하지만 가끔은 같은 "하기 싫다"라는 말이 지쳤다는 신호일 수도 있습니다.</p>
 <p>자녀는 이유를 설명하지 못하고 "그냥"이라고 답할 때가 많습니다. "하기 싫어"를 나눠서 물으면 자녀도 자기 마음을 알아차리기 쉬워집니다.</p>
@@ -625,7 +626,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <tr><td>"할 일을 끝내기가 힘들거나 어려워?"</td><td>실천을 줄이거나 쉽게 바꿉니다. 목표는 자녀의 상황이나 컨디션에 따라 바꿀 수 있습니다</td></tr>
 <tr><td>"요즘 다른 일로 마음이 쓰여?"</td><td>과제보다 이야기를 먼저 듣습니다</td></tr>
 </tbody></table></div>
-</article><article class="page sub" id="c8-1" data-i="23"><div class="crumb"><span class="num">8</span>&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;</div><h3 class="ptitle">파랑이 2주 넘게 이어질 때</h3>
+</article><article class="page sub" id="c8-1" data-i="24"><div class="crumb"><span class="num">8</span>&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;</div><h3 class="ptitle">파랑이 2주 넘게 이어질 때</h3>
 <p>파랑을 고른 것 자체는 좋은 일입니다. 자기 상태를 솔직하게 알아차린 것입니다. 다만 파랑이 2주 넘게 이어지면서 아래 변화가 같이 보인다면, 자녀가 요즘 많이 지쳐 있을 수 있습니다.</p>
 <ul class="check">
 <li><label><input type="checkbox" id="ck1"><span>잠드는 시간이나 자는 양이 눈에 띄게 달라졌다</span></label>
@@ -644,7 +645,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <tr><td>지역</td><td>교육지원청 Wee센터</td></tr>
 <tr><td>전화·문자·카카오톡</td><td>청소년상담 1388</td></tr>
 </tbody></table></div>
-</article><article class="page chap" id="c9" data-i="24">
+</article><article class="page chap" id="c9" data-i="25">
 <h2><span class="num">9</span>며칠 빠뜨렸을 때</h2>
 <!-- 효옥 작성 예정(2026-10-12): 보호자가 어떻게 말해야 하는지 예시 문장 추가. 작성 전까지 효옥 방이 매 보고에서 리마인드 -->
 <p>100칸은 달력이 아니라 쓴 날을 셉니다. 사흘 쉬었으면 다음 날이 다음 칸. 처음부터 다시 하지 않습니다.</p>
@@ -676,7 +677,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>2주 넘게 멈춰 있으면</b><span>하기 싫은 것인지 힘든 것인지 자녀와 이야기를 나눠 주세요.</span></div>
 </div>
 </div>
-</article><article class="page chap" id="c10" data-i="25">
+</article><article class="page chap" id="c10" data-i="26">
 <h2><span class="num">10</span>100일이 끝나면</h2>
 <p>평가하는 날이 아니라 돌아보는 날입니다.</p>
 <div class="steps">
@@ -684,7 +685,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>되고 싶은 모습을 다시 봐 주세요</b><em>프로필 '나의 꿈 그리기'</em><span>다 못 이뤄도 괜찮습니다. 매일 한 걸음 걸어온 것이 이 키트가 함께 연습하려던 것입니다.</span></div>
 <div class="step"><b>인증서와 보상</b><em>'100일 완주 인증서'</em><span>자녀가 지킨 세 가지 행동을 적고, 발급일과 이름을 적어 보호자가 읽어 줍니다. 약속한 보상을 함께 즐깁니다.</span></div>
 </div>
-</article><article class="page sub" id="c10-1" data-i="26"><div class="crumb"><span class="num">10</span>100일이 끝나면</div><h3 class="ptitle">그다음은</h3>
+</article><article class="page sub" id="c10-1" data-i="27"><div class="crumb"><span class="num">10</span>100일이 끝나면</div><h3 class="ptitle">그다음은</h3>
 <p>100일을 끝낸 자녀에게 남아야 할 것은 인증서가 아니라, 스스로 계획하고 해보고 돌아보는 습관입니다. 습관은 멈추면 금방 옅어집니다. 100일이 끝난 그 주에, 다음 100일을 어떻게 이어갈지 자녀와 함께 정해 주세요.</p>
 <div class="roles plain">
 <div class="role"><b>쉬더라도 끝을 정하고 쉽니다</b><span>"한 주만 쉬고 ○월 ○일에 다시 시작"처럼 날짜를 정합니다. 쉬는 동안에도 하루 한 장 카드는 이어가면 돌아오기 쉽습니다.</span></div>
@@ -708,7 +709,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
   <div class="sheet-bg" id="sheetbg"></div>
   <div class="sheet-box" role="dialog" aria-label="바로 가기">
     <div class="sheet-h"><span>바로 가기</span><button id="sheetclose" aria-label="닫기">✕</button></div>
-    <ol class="sheet-list"><li><a class="m" href="#csum"><span class="n"></span>간편 가이드</a></li><li><a class="m" href="#c1"><span class="n">1</span>이 키트는 무엇인가요</a></li><li><a class="m" href="#c2"><span class="n">2</span>보호자의 역할</a></li><li><a class="m" href="#c3"><span class="n">3</span>첫날 세팅</a><div class="subs"><a class="s" href="#c3-2">스터디 메이트 작성하기</a></div></li><li><a class="m" href="#c4"><span class="n">4</span>페이지별 활용법</a><div class="subs"><a class="s" href="#c4-1">프로필 (첫 쪽)</a><a class="s" href="#c4-2">나의 꿈을 위한 약속</a><a class="s" href="#c4-3">나를 위한 30일</a><a class="s" href="#c4-4">100일의 여정</a><a class="s" href="#c4-5">이번 주 계획</a><a class="s" href="#c4-6">데일리</a><a class="s" href="#c4-7">일주일 돌아보기</a><a class="s" href="#c4-8">100일 완주 인증서</a><a class="s" href="#c4-9">100일 완주자 인터뷰</a></div></li><li><a class="m" href="#c5"><span class="n">5</span>컬러카드 활용법</a><div class="subs"><a class="s" href="#c5-2">보호자가 함께하는 법</a></div></li><li><a class="m" href="#c6"><span class="n">6</span>스티커 색이 의미하는 것</a></li><li><a class="m" href="#c7"><span class="n">7</span>칭찬과 보상</a><div class="subs"><a class="s" href="#c7-2">보상 — 구간마다, 함께 정해서</a></div></li><li><a class="m" href="#c8"><span class="n">8</span>&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;</a><div class="subs"><a class="s" href="#c8-1">파랑이 2주 넘게 이어질 때</a></div></li><li><a class="m" href="#c9"><span class="n">9</span>며칠 빠뜨렸을 때</a></li><li><a class="m" href="#c10"><span class="n">10</span>100일이 끝나면</a><div class="subs"><a class="s" href="#c10-1">그다음은</a></div></li></ol>
+    <ol class="sheet-list"><li><a class="m" href="#csum"><span class="n"></span>간편 가이드</a><div class="subs"><a class="s" href="#csum-1">간편 가이드 (2)</a></div></li><li><a class="m" href="#c1"><span class="n">1</span>이 키트는 무엇인가요</a></li><li><a class="m" href="#c2"><span class="n">2</span>보호자의 역할</a></li><li><a class="m" href="#c3"><span class="n">3</span>첫날 세팅</a><div class="subs"><a class="s" href="#c3-2">스터디 메이트 작성하기</a></div></li><li><a class="m" href="#c4"><span class="n">4</span>페이지별 활용법</a><div class="subs"><a class="s" href="#c4-1">프로필 (첫 쪽)</a><a class="s" href="#c4-2">나의 꿈을 위한 약속</a><a class="s" href="#c4-3">나를 위한 30일</a><a class="s" href="#c4-4">100일의 여정</a><a class="s" href="#c4-5">이번 주 계획</a><a class="s" href="#c4-6">데일리</a><a class="s" href="#c4-7">일주일 돌아보기</a><a class="s" href="#c4-8">100일 완주 인증서</a><a class="s" href="#c4-9">100일 완주자 인터뷰</a></div></li><li><a class="m" href="#c5"><span class="n">5</span>컬러카드 활용법</a><div class="subs"><a class="s" href="#c5-2">보호자가 함께하는 법</a></div></li><li><a class="m" href="#c6"><span class="n">6</span>스티커 색이 의미하는 것</a></li><li><a class="m" href="#c7"><span class="n">7</span>칭찬과 보상</a><div class="subs"><a class="s" href="#c7-2">보상 — 구간마다, 함께 정해서</a></div></li><li><a class="m" href="#c8"><span class="n">8</span>&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;</a><div class="subs"><a class="s" href="#c8-1">파랑이 2주 넘게 이어질 때</a></div></li><li><a class="m" href="#c9"><span class="n">9</span>며칠 빠뜨렸을 때</a></li><li><a class="m" href="#c10"><span class="n">10</span>100일이 끝나면</a><div class="subs"><a class="s" href="#c10-1">그다음은</a></div></li></ol>
   </div>
 </div>
 <script>
@@ -719,7 +720,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <script>
 (function(){
   var book=document.getElementById('book'), pages=[].slice.call(book.querySelectorAll(':scope > .page'));
-  var labels=["표지", "차례", "간편 가이드", "1 이 키트는 무엇인가요", "2 보호자의 역할", "3-1 첫날 세팅", "3-2 스터디 메이트 작성하기", "4 페이지별 활용법", "4-1 프로필 (첫 쪽)", "4-2 나의 꿈을 위한 약속", "4-3 나를 위한 30일", "4-4 100일의 여정", "4-5 이번 주 계획", "4-6 데일리", "4-7 일주일 돌아보기", "4-8 100일 완주 인증서", "4-9 100일 완주자 인터뷰", "5-1 사이트 메뉴와 진행 순서", "5-2 보호자가 함께하는 법", "6 스티커 색이 의미하는 것", "7-1 칭찬 — 본 것을 그대로, 구체적으로", "7-2 보상 — 구간마다, 함께 정해서", "8 \"그냥 하기 싫은 것\"과 \"진짜 힘든 것\"", "8-1 파랑이 2주 넘게 이어질 때", "9 며칠 빠뜨렸을 때", "10 100일이 끝나면", "10-1 그다음은"], nBody=25;
+  var labels=["표지", "차례", "간편 가이드", "간편 가이드 (2)", "1 이 키트는 무엇인가요", "2 보호자의 역할", "3-1 첫날 세팅", "3-2 스터디 메이트 작성하기", "4 페이지별 활용법", "4-1 프로필 (첫 쪽)", "4-2 나의 꿈을 위한 약속", "4-3 나를 위한 30일", "4-4 100일의 여정", "4-5 이번 주 계획", "4-6 데일리", "4-7 일주일 돌아보기", "4-8 100일 완주 인증서", "4-9 100일 완주자 인터뷰", "5-1 사이트 메뉴와 진행 순서", "5-2 보호자가 함께하는 법", "6 스티커 색이 의미하는 것", "7-1 칭찬 — 본 것을 그대로, 구체적으로", "7-2 보상 — 구간마다, 함께 정해서", "8 \"그냥 하기 싫은 것\"과 \"진짜 힘든 것\"", "8-1 파랑이 2주 넘게 이어질 때", "9 며칠 빠뜨렸을 때", "10 100일이 끝나면", "10-1 그다음은"], nBody=26;
   var fill=document.getElementById('progfill'), where=document.getElementById('where');
   var prev=document.getElementById('prev'), next=document.getElementById('next');
   function cur(){ return Math.round(book.scrollLeft/book.clientWidth); }
@@ -736,9 +737,10 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
   book.addEventListener('scroll',function(){ clearTimeout(book._t); book._t=setTimeout(paint,80); },{passive:true});
   document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')go(cur()+1); if(e.key==='ArrowLeft')go(cur()-1); });
   document.addEventListener('click',function(e){ var a=e.target.closest('a[href^="#"]'); if(!a) return; var id=a.getAttribute('href').slice(1); var k=pages.findIndex(function(p){return p.id===id;}); if(k>=0){ e.preventDefault(); go(k); } });
-  var s=document.getElementById('csum'); if(s){ var h=s.querySelector('h2'); var lead=document.createElement('div'); lead.className='sumlead'; var grid=document.createElement('div'); grid.className='sumgrid'; var box=null;
-    while(h&&h.nextSibling){ var el=h.nextSibling; if(el.nodeType===1&&el.tagName==='H4'){ box=document.createElement('div'); box.className='sumbox'; grid.appendChild(box); box.appendChild(el); } else if(box){ box.appendChild(el); } else { lead.appendChild(el); } }
-    s.appendChild(lead); s.appendChild(grid); var last=grid.lastElementChild; if(last) last.classList.add('wide'); }
+  [].forEach.call(document.querySelectorAll('[id^="csum"]'),function(s){ var h=s.querySelector('h2'); var lead=document.createElement('div'); lead.className='sumlead'; var grid=document.createElement('div'); grid.className='sumgrid'; var box=null;
+    var start=h?h.nextSibling:s.firstChild; var keep=[]; for(var el=start; el; el=el.nextSibling){ if(el.nodeType===1&&(el.tagName==='H3'||el.classList.contains('crumb'))) continue; keep.push(el); }
+    keep.forEach(function(el){ if(el.nodeType===1&&el.tagName==='H4'){ box=document.createElement('div'); box.className='sumbox'; grid.appendChild(box); box.appendChild(el); } else if(box){ box.appendChild(el); } else { lead.appendChild(el); } });
+    s.appendChild(lead); s.appendChild(grid); var last=grid.lastElementChild; if(last) last.classList.add('wide'); });
   document.querySelectorAll('ul.check input').forEach(function(b){ try{ b.checked=localStorage.getItem('pg-'+b.id)==='1'; }catch(e){}
     b.addEventListener('change',function(){ try{ localStorage.setItem('pg-'+b.id,b.checked?'1':'0'); }catch(e){} }); });
   var h=location.hash.replace('#',''); var k=pages.findIndex(function(p){return p.id===h;});
