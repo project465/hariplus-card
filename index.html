@@ -178,6 +178,7 @@
   <section class="view" id="s-pick" hidden>
     <h1>지금 마음은 어떤 색이야?</h1>
     <p class="lede">오늘 끌리는 색 하나를 골라 봐. 고른 카드가 아래로 내려와.</p>
+    <p class="hint" id="onceNote">오늘의 카드는 <b>하루에 한 장</b>. 한 번 고르면 오늘은 다시 고를 수 없으니, 신중하게 골라 줘.</p>
     <div class="fan" id="tiles" role="group" aria-label="색 카드 10장"></div>
     <div class="slot" id="slot" aria-hidden="true"><span>오늘의 카드</span></div>
     <button class="btn primary" id="pickOk" type="button" disabled>이 색상으로 결정</button>
@@ -193,6 +194,7 @@
         <div class="foot">오늘의 카드에 자유롭게 답변을 써 보자 <span class="again" id="againNote" hidden>전에 한 번 뽑았던 카드야.</span></div></div>
     </div></div>
     <div class="row"><button class="btn amber" id="drawBtn" type="button">카드 뽑기</button><button class="btn ghost" id="redrawBtn" type="button" hidden>다른 카드 뽑기</button></div>
+    <p class="hint" id="lockNote" hidden>오늘의 카드를 골랐어. 오늘은 더 이상 고를 수 없어. 다이어리에 답을 쓰고, 내일 다시 만나.</p>
   </section>
 
   <!-- 4. 내 카드 -->
@@ -553,7 +555,7 @@ $("fIn").addEventListener("submit",function(ev){ ev.preventDefault(); err("authE
   $("inBtn").disabled=true;
   STORE.signIn(email,pw).then(function(u){ return enter(u); }).catch(function(e){ err("authErr",e); }).then(function(){ $("inBtn").disabled=false; });
 });
-function enter(u){ USER=u; return STORE.draws(u.email).then(function(d){ DRAWS=d||[]; buildTiles(); show("pick"); toast(u.nick?u.nick+", 어서 와":"어서 와"); }); }
+function enter(u){ USER=u; return STORE.draws(u.email).then(function(d){ DRAWS=d||[]; goPick(); toast(u.nick?u.nick+", 어서 와":"어서 와"); }); }
 
 /* ===== 색 타일 ===== */
 var ORDER=["red","orange","coral","yellow","green","teal","blue","indigo","purple","pink"]; /* 무지개 순서(표시용) */
@@ -579,13 +581,24 @@ function selectTile(b,c){
   SEL={b:b,c:c}; $("pickOk").disabled=false; $("slot").classList.add("has"); $("pickOk").textContent="이 색상으로 결정";
 }
 $("pickOk").addEventListener("click",function(){ if(SEL) pick(SEL.c); });
-function pick(c){ CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key));
+function pick(c){ if(todayDraw()){ showLocked(todayDraw()); return; } CUR=c; LAST=null; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key));
   $("card").querySelector(".face.back").classList.toggle("light", onColor(c.key)==="var(--on-yellow)");
-  $("card").classList.remove("flip"); $("drawBtn").hidden=false; $("redrawBtn").hidden=true; $("qText").textContent=""; show("card"); }
-$("backPick").addEventListener("click",function(){ buildTiles(); show("pick"); });
+  $("card").classList.remove("flip"); $("drawBtn").hidden=false; $("redrawBtn").hidden=true; $("lockNote").hidden=true; $("backPick").hidden=false; $("qText").textContent=""; show("card"); }
+$("backPick").addEventListener("click",function(){ goPick(); });
 
-/* ===== 뽑기 ===== */
+/* ===== 뽑기: 하루 1회 (대표 결정 2026-10-12) ===== */
+function todayDraw(){ var k=dkey(Date.now()); for(var i=DRAWS.length-1;i>=0;i--){ if(dkey(DRAWS[i].t)===k) return DRAWS[i]; } return null; }
+function showLocked(d){
+  var c=catOf(d.c); if(!c){ buildTiles(); show("pick"); return; }
+  CUR=c; var v=$("s-card"); v.style.setProperty("--pick","var(--c-"+c.key+")"); v.style.setProperty("--pick-ink",onColor(c.key));
+  $("card").querySelector(".face.back").classList.toggle("light", onColor(c.key)==="var(--on-yellow)");
+  var q=c.questions[d.i]||""; $("qText").textContent=q; $("qText").style.fontSize=q.length>70?"18px":""; $("againNote").hidden=true;
+  $("drawBtn").hidden=true; $("redrawBtn").hidden=true; $("lockNote").hidden=false; $("backPick").hidden=true;
+  show("card"); $("card").classList.add("flip");
+}
+function goPick(){ var d=todayDraw(); if(d){ showLocked(d); } else { $("lockNote").hidden=true; $("backPick").hidden=false; buildTiles(); show("pick"); } }
 function doDraw(){
+  if(todayDraw()){ toast("오늘의 카드는 이미 골랐어. 내일 다시 만나."); showLocked(todayDraw()); return; }
   var r=drawIndex(CUR); var q=CUR.questions[r.i];
   $("drawBtn").disabled=true; $("redrawBtn").disabled=true;
   var card=$("card"); card.classList.remove("flip");
@@ -593,9 +606,9 @@ function doDraw(){
     $("qText").textContent=q; $("qText").style.fontSize=q.length>70?"18px":""; $("againNote").hidden=!r.seen;
     var cntSame=DRAWS.filter(function(d){return d.c===CUR.code;}).length+1; 
     card.classList.add("flip");
-    STORE.addDraw(USER.email,CUR.code,r.i).then(function(){ DRAWS.push({c:CUR.code,i:r.i,t:Date.now()}); })
-      .catch(function(e){ toast("기록 저장에 실패했어요. 다시 뽑아 주세요."); })
-      .then(function(){ $("drawBtn").hidden=true; $("redrawBtn").hidden=false; $("drawBtn").disabled=false; $("redrawBtn").disabled=false; });
+    STORE.addDraw(USER.email,CUR.code,r.i).then(function(){ DRAWS.push({c:CUR.code,i:r.i,t:Date.now()}); $("lockNote").hidden=false; $("backPick").hidden=true; })
+      .catch(function(e){ toast("기록 저장에 실패했어요. 다시 뽑아 주세요."); $("drawBtn").hidden=false; $("drawBtn").disabled=false; })
+      .then(function(){ $("drawBtn").hidden=true; $("redrawBtn").hidden=true; $("redrawBtn").disabled=false; });
   }, LAST===null?60:420);
   LAST=r.i;
 }
@@ -631,7 +644,7 @@ function renderDay(){
 }
 $("calPrev").addEventListener("click",function(){ CAL.m--; if(CAL.m<0){ CAL.m=11; CAL.y--; } renderCal(); });
 $("calNext").addEventListener("click",function(){ CAL.m++; if(CAL.m>11){ CAL.m=0; CAL.y++; } renderCal(); });
-Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){ b.addEventListener("click",function(){ if(b.dataset.go==="me"){ renderMe(); show("me"); } else { buildTiles(); show("pick"); } }); });
+Array.prototype.forEach.call(document.querySelectorAll("#nav button"),function(b){ b.addEventListener("click",function(){ if(b.dataset.go==="me"){ renderMe(); show("me"); } else { goPick(); } }); });
 $("outBtn").addEventListener("click",function(){ STORE.signOut().then(function(){ USER=null; DRAWS=[]; PENDING_CODE=""; $("code").value=""; show("gate"); }); });
 
 /* ===== 시작 ===== */
