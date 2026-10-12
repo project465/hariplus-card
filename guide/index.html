@@ -149,6 +149,11 @@ p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
 .bar .prog { height:4px; border-radius:2px; background:var(--line); margin:6px auto 0; max-width:220px; overflow:hidden; }
 .bar .prog i { display:block; height:100%; width:0; background:var(--amber-ink); border-radius:2px; transition:width .25s; }
 @media (prefers-reduced-motion: no-preference) { .book { scroll-behavior:smooth } }
+/* 복사·저장 억제(효옥 지시 2026-10-12). 화면 캡처는 막을 수 없음 */
+body { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+input, textarea { -webkit-user-select:auto; user-select:auto; }
+img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
+@media print { body > * { display:none !important; } body::after { content:'이 문서는 인쇄와 저장이 제한되어 있습니다. 가이드는 card.hariplus.kr/guide/ 에서 보실 수 있습니다.'; display:block; padding:40px; font-size:16px; } }
 </style>
 </head>
 <body>
@@ -242,9 +247,11 @@ p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
 <h4>구성품 확인</h4>
 <div class="tw"><table><thead><tr><th>구성품</th><th>수량</th><th>메모</th></tr></thead><tbody>
 <tr><td>스터디 메이트</td><td>1권</td><td>100일 다이어리. 앞에서부터 순서대로 씁니다</td></tr>
-<tr><td>30일 목표 스티커</td><td>180개</td><td>'나를 위한 30일' 페이지용 <span class="todo" title="컬러 스티커 390개에 포함되는지, 따로인지">확정 전 · 효옥 확인</span></td></tr>
+<tr><td>30일 목표 스티커</td><td>180개</td><td>'나를 위한 30일' 페이지용</td></tr>
 <tr><td>컬러 스티커</td><td>15개 × 26장 (390개)</td><td>열 가지 색. '100일의 여정'과 데일리 '오늘의 카드'용</td></tr>
-<tr><td>가이드 카드</td><td>1장</td><td>앞면 QR 2개(학부모 가이드·컬러카드), 뒷면 인증코드. 버리지 말고 보관해 주세요</td></tr>
+</tbody></table></div>
+<p class="note">스티커 두 가지는 플라스틱 케이스에 따로 담겨 있습니다.</p>
+<div class="tw"><table><thead><tr><th>가이드 카드</th><th>1장</th><th>앞면 QR 2개(학부모 가이드·컬러카드), 뒷면 인증코드. 버리지 말고 보관해 주세요</th></tr></thead><tbody>
 </tbody></table></div>
 </div>
 <div class="sec">
@@ -519,6 +526,11 @@ p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
   <div class="mid"><div class="where" id="where"></div><div class="prog"><i id="progfill"></i></div></div>
   <button id="next" aria-label="다음 쪽">›</button>
 </div></nav>
+<script>
+(function(){ ['contextmenu','dragstart','copy','cut','selectstart'].forEach(function(ev){ document.addEventListener(ev,function(e){ if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return; e.preventDefault(); }); });
+  document.addEventListener('keydown',function(e){ var k=(e.key||'').toLowerCase(); if((e.ctrlKey||e.metaKey)&&['s','p','u','a','c'].indexOf(k)>=0){ e.preventDefault(); } if(k==='printscreen'){ try{ navigator.clipboard.writeText(''); }catch(_e){} } });
+})();
+</script>
 <script>
 (function(){
   var book=document.getElementById('book'), pages=[].slice.call(book.querySelectorAll(':scope > .page'));
