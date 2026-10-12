@@ -103,7 +103,7 @@ p.ex.no .mark { color:var(--fg-2); }
 #csum .sumlead p { font-size:17px; line-height:1.65; margin:0 0 10px; }
 #csum .sumlead p strong { color:var(--amber-ink); }
 #csum .sumgrid { display:grid; gap:10px; margin-top:6px; }
-@media (min-width:560px) { #csum .sumgrid { grid-template-columns:1fr 1fr; } #csum .sumbox:nth-child(n+3) { grid-column:1 / -1; } }
+/* 요약 상자는 한 줄에 하나(효옥 지시 2026-10-12) */
 #csum .sumbox { background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:12px; padding:13px 15px 11px; }
 #csum .sumbox h4 { margin:0 0 6px; font-size:12.5px; letter-spacing:.06em; color:var(--amber-ink); text-transform:none; }
 #csum .sumbox ul { margin:0; padding-left:0; list-style:none; }
@@ -130,19 +130,19 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <p><strong>아이는 매일</strong> 카드 한 장 뽑기 <span class="arr">→</span> 데일리 쓰기 <span class="arr">→</span> 색 스티커 한 칸.</p>
 <h4>보호자는</h4>
 <ul>
-<li>첫날 30분, 아이와 함께 정하기
+<li>첫날 30분, 비전보드와 목표를 아이와 함께 정해 주세요
 </li>
-<li>일주일에 한 번, 돌아보기 함께 보기
+<li>일주일에 한 번, 돌아보기 페이지를 아이와 함께 봐 주세요
 </li>
-<li>나머지는 기다리기
+<li>그 밖의 날은 간섭하지 않고, 아이가 스스로 하도록 지켜봐 주세요
 </li></ul>
 <h4>이것만은 꼭 지켜주세요</h4>
 <ul>
-<li>허락 없이 읽지 않기, 답 고치지 않기
+<li>아이가 쓴 내용은 허락 없이 읽거나 고치지 말아 주세요
 </li>
-<li>색을 권하거나 따지지 않기
+<li>카드 색은 권하지도, 이유를 따져 묻지도 말아 주세요
 </li>
-<li>빠진 날 추궁하지 않기, 대신 채우지 않기
+<li>빠진 날은 추궁하거나 대신 채우지 말아 주세요
 </li></ul>
 <h4>기억하기</h4>
 <ul>
@@ -154,7 +154,7 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 </li>
 <li>칭찬은 본 것 그대로, 보상은 30·60·90·100일에
 </li>
-<li>가이드 카드 뒷면 = 인증코드. 버리지 않기
+<li>가이드 카드 뒷면이 인증코드입니다. 버리지 말고 보관해 주세요
 </li></ul>
 <h4>이럴 때는</h4>
 <ul>
@@ -201,7 +201,7 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <tr><td>비전보드</td><td>1장</td><td>벽에 붙이는 큰 종이</td></tr>
 <tr><td>30일 목표 스티커</td><td>180개</td><td>'나의 30일 목표' 페이지용</td></tr>
 <tr><td>컬러 스티커</td><td>150개 × 2장</td><td>열 가지 색. '100일간의 기록'용</td></tr>
-<tr><td>가이드 카드</td><td>1장</td><td>앞면 QR 2개(학부모 가이드·컬러카드), 뒷면 인증코드. 버리지 않기</td></tr>
+<tr><td>가이드 카드</td><td>1장</td><td>앞면 QR 2개(학부모 가이드·컬러카드), 뒷면 인증코드. 버리지 말고 보관해 주세요</td></tr>
 </tbody></table></div>
 <h4>2) 컬러카드 사이트 등록</h4>
 <div class="steps">
@@ -359,7 +359,7 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 </li>
 <li><strong>행동 미션 카드에는 함께합니다.</strong> 빨강(도전하기)과 코랄(감사하기)에는 직접 해보는 미션이 있습니다. 아이가 편지를 쓰거나 집안일을 해보겠다고 하면 기꺼이 받아주고 반응합니다.
 </li></ul>
-<div class="callout no"><b>이것만은 꼭 지켜주세요</b>허락 없이 카드 답을 읽거나 다른 사람 앞에서 말하지 않기 · 맞춤법이나 내용을 고치지 않기 · 훈계의 근거로 쓰지 않기("네가 노력한다고 써놓고 왜 안 해?")</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>카드 답은 허락 없이 읽거나 다른 사람 앞에서 말하지 말아 주세요. 맞춤법이나 내용도 고치지 말아 주세요. 훈계의 근거로도 쓰지 말아 주세요("네가 노력한다고 써놓고 왜 안 해?").</div>
 </section>
 <section id="c6" class="chapter">
 <h2><span class="num">6</span>스티커 색이 의미하는 것</h2>
@@ -377,7 +377,7 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <tr><td>주황</td><td>흥미 찾기</td><td>뭘 하면 좋을지 모르겠을 때</td></tr>
 </tbody></table></div>
 <div class="callout"><b>한 달쯤 모이면 패턴이 보입니다</b>"월요일엔 파랑이 많구나", "시험 전엔 터콰이즈를 고르는구나" 같은 발견은 아이를 이해하는 단서가 됩니다.</div>
-<div class="callout no"><b>이것만은 꼭 지켜주세요</b>"왜 또 파랑이야?"라고 묻지 않기. 아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 8번 '하기 싫은 것과 힘든 것'을 참고해 주세요.</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>"왜 또 파랑이야?"라고 묻지 말아 주세요. 아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 8번 '하기 싫은 것과 힘든 것'을 참고해 주세요.</div>
 </section>
 <section id="c7" class="chapter">
 <h2><span class="num">7</span>칭찬과 보상</h2>
@@ -399,7 +399,7 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <tr><td>누가 정하나</td><td>시작할 때 아이와 함께</td></tr>
 <tr><td>무엇으로</td><td>물건보다 함께하는 경험</td></tr>
 </tbody></table></div>
-<div class="callout no"><b>이것만은 꼭 지켜주세요</b>매일 물건으로 보상하지 않기. 보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>매일 물건으로 보상하지 말아 주세요. 보상이 없는 날에는 할 이유가 사라집니다. 매일 붙이는 스티커와 잘했을 때 듣는 한마디가 이미 작은 보상입니다.</div>
 </section>
 <section id="c8" class="chapter">
 <h2><span class="num">8</span>"그냥 하기 싫은 것"과 "진짜 힘든 것"</h2>
@@ -434,7 +434,7 @@ footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--line); fo
 <section id="c9" class="chapter">
 <h2><span class="num">9</span>며칠 빠뜨렸을 때</h2>
 <p>100칸은 달력이 아니라 쓴 날을 셉니다. 사흘 쉬었으면 다음 날이 다음 칸. 처음부터 다시 하지 않습니다.</p>
-<div class="callout no"><b>이것만은 꼭 지켜주세요</b>빠진 날을 세며 추궁하지 않기("며칠째 안 했네?") · 밀린 날을 몰아서 채우게 하지 않기 · Day 1로 돌리지 않기 · 대신 채워주지 않기</div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>빠진 날을 세며 추궁하지 말아 주세요("며칠째 안 했네?"). 밀린 날을 몰아서 채우게 하거나 Day 1로 되돌리지 말아 주세요. 보호자가 대신 채워 주는 것도 삼가 주세요.</div>
 <div class="steps">
 <div class="step"><b>다시 펼친 날을 알아봐 주세요</b><span>"다시 시작했네" 한마디면 충분합니다.</span></div>
 <div class="step"><b>자주 빠지면 실천을 줄입니다</b><span>너무 많거나 어려운지 함께 살펴봅니다. 3가지를 2가지로 줄여도 괜찮습니다.</span></div>
