@@ -160,13 +160,13 @@ p.note.gap { margin-top:18px; }
 .btn { display:inline-block; font-size:12px; font-weight:700; color:var(--amber-ink); border:1px solid var(--amber-ink); border-radius:999px; padding:0 9px; line-height:1.7; margin-left:4px; text-decoration:none; white-space:nowrap; vertical-align:middle; }
 .btn:hover { background:var(--amber-tint); }
 /* 넘김 바 */
-.bar { position:fixed; left:0; right:0; bottom:0; z-index:5; background:var(--paper-2); border-top:1px solid var(--line); padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px)); }
+.bar { position:fixed; left:0; right:0; bottom:0; z-index:5; background:var(--paper-2); border-top:1px solid var(--line); padding:7px 12px calc(9px + env(safe-area-inset-bottom,0px)); }
 .bar .in { max-width:640px; margin:0 auto; display:grid; grid-template-columns:44px 1fr 44px; align-items:center; gap:8px; }
 .bar button { height:40px; border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--fg); font-size:20px; font-weight:900; cursor:pointer; }
 .bar button:disabled { opacity:.35; cursor:default; }
-.bar .mid { text-align:center; min-width:0; background:none; border:0; padding:0; cursor:pointer; font:inherit; color:inherit; border-radius:8px; }
+.bar .mid { text-align:center; min-width:0; height:auto; line-height:1.25; background:none; border:0; padding:0; cursor:pointer; font:inherit; color:inherit; border-radius:8px; }
 .bar .mid:hover { background:var(--amber-tint); }
-.bar .hint { font-size:10.5px; color:var(--fg-2); margin-top:4px; letter-spacing:.02em; }
+.bar .hint { font-size:10.5px; line-height:1.2; color:var(--fg-2); margin-top:3px; letter-spacing:.02em; }
 .sheet { position:fixed; inset:0; z-index:20; }
 .sheet[hidden] { display:none; }
 .sheet-bg { position:absolute; inset:0; background:rgba(44,45,45,.45); }
