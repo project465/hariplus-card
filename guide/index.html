@@ -101,6 +101,7 @@ p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
 .callout.no { background:transparent; border-left-color:var(--fg-2); border:1px solid var(--line); border-left:4px solid var(--fg-2); }
 .callout + .callout { margin-top:-6px; }
 .tw + h4, .callout + h4, .steps + h4, .roles + h4, p + h4 { margin-top:42px; }
+.page > p + .tw, .page > .tw + p, .page > ul + p, .page > p + ul, .page > .tw + ul, .page > ul + .tw, .page > ul + h4, .page > .tw + .tw, .page > p + .sec, .page > p + .roles, .page > ul + .callout, .page > .tw + .callout { margin-top:26px; }  /* 내용이 바뀌는 곳 0.7cm 간격(효옥 지시) */
 .roles.plain .role { grid-template-columns:1fr; }
 .roles.plain .role::before { display:none; }
 .roles.plain .role b { color:var(--amber-ink); }
@@ -252,8 +253,8 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <p><span class="todo" title="초등 3~4학년 포함 여부">확정 전 · 대표 확인</span></p>
 </article><article class="page sub" id="c3" data-i="5">
 <h2><span class="num">3</span>첫날 세팅</h2>
-<p>보호자 먼저 10분, 아이와 함께 30분. 한 시간이면 끝납니다.</p>
 <h3 class="ptitle">보호자가 먼저 (10분)</h3>
+<p>보호자 먼저 10분, 아이와 함께 30분. 한 시간이면 끝납니다.</p>
 <div class="sec">
 <h4>구성품 확인</h4>
 <div class="tw"><table><thead><tr><th>구성품</th><th>수량</th><th>메모</th></tr></thead><tbody>
@@ -287,6 +288,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </div>
 </article><article class="page sub" id="c3-2" data-i="6"><div class="crumb"><span class="num">3</span>첫날 세팅</div><h3 class="ptitle">아이와 함께 (30분)</h3>
 <p>보호자는 정하지 않고 묻기만 합니다. 되고 싶은 모습 <span class="arr">→</span> 100일 목표 하나 <span class="arr">→</span> 매일 실천 3가지, 이 순서로 이어집니다.</p>
+<div class="sec plain">
 <div class="steps">
 <div class="step"><b>나의 프로필</b><em>프로필 페이지</em><span>어려워하면 보호자가 본 장점 하나만. 적을지는 아이가 정합니다.</span></div>
 <div class="step"><b>되고 싶은 모습</b><em>프로필 '나의 꿈 그리기'</em><span>"어떤 사람이 되고 싶어?" 그림이나 글, 뭐든 괜찮습니다.</span></div>
@@ -294,6 +296,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>매일 실천 3가지</b><em>'나의 꿈을 위한 약속'</em><span>작고 셀 수 있게 정합니다.</span><div class="tw"><table><thead><tr><th>이렇게 말고</th><th>이렇게</th></tr></thead><tbody><tr><td>수학 열심히 하기</td><td>수학 문제집 2쪽 풀기</td></tr><tr><td>영어 공부하기</td><td>영어 단어 5개 외우기</td></tr><tr><td>책 많이 읽기</td><td>잠자기 전 책 10쪽 읽기</td></tr></tbody></table></div></div>
 <div class="step"><b>이번 주 계획</b><em>'이번 주 계획' Day 1</em><span>가족 일정·시험 같은 정보만 알려 줍니다.</span></div>
 <div class="step"><b>첫 카드 + 데일리 1일 차</b><em>데일리 '오늘의 카드' · '100일의 여정' 1번 칸</em><span>끌리는 색 하나. 답을 적고 같은 색 스티커를 붙입니다.</span></div>
+</div>
 </div>
 <div class="callout"><b>목표는 바꿔도 됩니다</b>목표와 실천은 아이의 상황이나 컨디션에 따라 바꿀 수 있습니다. 처음 정한 대로 끝까지 가는 것보다 아이에게 맞게 고쳐 가는 것이 중요합니다.</div>
 </article><article class="page sub" id="c3-3" data-i="7"><div class="crumb"><span class="num">3</span>첫날 세팅</div><h3 class="ptitle">첫날 끝 체크</h3>
@@ -652,7 +655,6 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <li>쓴 날만 세기 때문에 며칠 쉬어도 잃는 것이 없습니다. 아이에게도 그렇게 알려 주세요.
 </li></ul>
 </div>
-<div class="callout no"><b>이것만은 꼭 지켜주세요</b>빠진 날을 세며 추궁하지 말아 주세요("며칠째 안 했네?"). 밀린 날을 몰아서 채우게 하거나 Day 1로 되돌리지 말아 주세요. 보호자가 대신 채워 주는 것도 삼가 주세요.</div>
 <div class="sec plain">
 <h4>다시 이어가게 하려면</h4>
 <div class="steps">
@@ -663,6 +665,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>2주 넘게 멈춰 있으면</b><span>하기 싫은 것인지 힘든 것인지 나눠서 물어 주세요. 8번 '하기 싫은 것과 힘든 것'에 있습니다.</span></div>
 </div>
 </div>
+<div class="callout no"><b>이것만은 꼭 지켜주세요</b>빠진 날을 세며 추궁하지 말아 주세요("며칠째 안 했네?"). 밀린 날을 몰아서 채우게 하거나 Day 1로 되돌리지 말아 주세요. 보호자가 대신 채워 주는 것도 삼가 주세요.</div>
 </article><article class="page chap" id="c10" data-i="26">
 <h2><span class="num">10</span>100일이 끝나면</h2>
 <p>평가하는 날이 아니라 돌아보는 날입니다.</p>
