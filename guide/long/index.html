@@ -97,6 +97,8 @@ p.note { font-size:13px; color:var(--fg-2); margin:-8px auto 14px; }
 .sec > h4 { display:flex; align-items:center; gap:9px; margin:0 0 12px; font-size:16px; }
 .sec > h4::before { content:counter(sec); flex:0 0 24px; width:24px; height:24px; border-radius:6px; border:1.5px solid var(--amber-ink); color:var(--amber-ink); font-size:12.5px; font-weight:900; display:flex; align-items:center; justify-content:center; }
 .sec .steps { margin-bottom:10px; }
+.sec.plain { counter-increment:none; }
+.sec.plain > h4::before { display:none; }
 .sec p.note { margin:0 0 12px; }
 .sec > p:last-child { margin-bottom:10px; }
 .step .tw table { font-size:13.5px; }
@@ -181,7 +183,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li></ul>
 <h4>기억하기</h4>
 <ul>
-<li>스티커 색은 점수가 아니라 그날 아이의 마음 상태입니다. 좋은 색, 나쁜 색은 없습니다
+<li>스티커 색은 그날 아이의 마음 색입니다. 좋고 나쁨은 없습니다
 </li>
 <li>100칸은 다이어리를 쓴 날의 수입니다. 실천을 다 못 지킨 날도 썼으면 한 칸입니다
 </li>
@@ -530,6 +532,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="role"><b>내 카드</b><span>달력에 날짜마다 뽑은 색이 점으로 남습니다. 날짜를 누르면 그날 카드와 질문을 다시 볼 수 있습니다.</span></div>
 </div>
 <p>컬러카드는 아이가 하루 한 번, 자기 마음을 들여다보는 짧은 시간입니다. 정답을 맞히는 문제가 아니라, 스스로에게 질문하는 연습입니다.</p>
+<div class="sec plain">
 <h4>매일 이렇게 합니다</h4>
 <div class="steps">
 <div class="step"><b>끌리는 색을 고릅니다</b><em>'뽑기'</em><span>지금 마음에 끌리는 색을 하나 고릅니다. 색의 뜻은 몰라도 됩니다.</span></div>
@@ -537,18 +540,15 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>하루 한 장</b><span>더 뽑아도 괜찮지만, 데일리에는 한 장만 기록합니다.</span></div>
 <div class="step"><b>시간은 아이가 정합니다</b><span>공부 시작 전이나 잠들기 전처럼 매일 같은 때로 정해 두면 잊지 않고 하게 됩니다.</span></div>
 </div>
+</div>
 <h3>보호자는 이렇게 함께합니다</h3>
-<ul>
-<li><strong>색은 아이가 고릅니다.</strong> "오늘은 노랑 뽑아봐"처럼 권하면 아이는 자기 마음 대신 보호자의 마음을 고르게 됩니다.
-</li>
-<li><strong>짧은 답도 충분합니다.</strong> 한 줄이나 한 단어, "잘 모르겠다"도 답입니다. 길게 쓰라고 하지 않습니다.
-</li>
-<li><strong>가끔은 같은 질문에 보호자도 답해 봅니다.</strong> 보호자가 먼저 답을 나누면 아이도 부담 없이 이야기를 꺼냅니다. 일주일에 한 번 "가족 카드 시간"으로 정해도 좋습니다.
-</li>
-<li><strong>아이가 답을 보여주면 평가보다 공감으로 받습니다.</strong> "그랬구나", "그런 생각을 했네" 정도면 충분합니다.
-</li>
-<li><strong>행동 미션 카드에는 함께합니다.</strong> 빨강(도전하기)과 코랄(감사하기)에는 직접 해보는 미션이 있습니다. 아이가 편지를 쓰거나 집안일을 해보겠다고 하면 기꺼이 받아주고 반응합니다.
-</li></ul>
+<div class="roles plain">
+<div class="role"><b>색은 아이가 고릅니다</b><span>"오늘은 노랑 뽑아봐"처럼 권하면 아이는 자기 마음 대신 보호자의 마음을 고르게 됩니다.</span></div>
+<div class="role"><b>짧은 답도 충분합니다</b><span>한 줄이나 한 단어, "잘 모르겠다"도 답입니다. 길게 쓰라고 하지 않습니다.</span></div>
+<div class="role"><b>가끔은 같은 질문에 보호자도 답해 봅니다</b><span>보호자가 먼저 답을 나누면 아이도 부담 없이 이야기를 꺼냅니다. 일주일에 한 번 "가족 카드 시간"으로 정해도 좋습니다.</span></div>
+<div class="role"><b>답을 보여주면 평가보다 공감으로 받습니다</b><span>"그랬구나", "그런 생각을 했네" 정도면 충분합니다.</span></div>
+<div class="role"><b>행동 미션 카드에는 함께합니다</b><span>빨강(도전하기)과 코랄(감사하기)에는 직접 해보는 미션이 있습니다. 아이가 편지를 쓰거나 집안일을 해보겠다고 하면 기꺼이 받아주고 반응합니다.</span></div>
+</div>
 <div class="callout no"><b>이것만은 꼭 지켜주세요</b>카드 답은 허락 없이 읽거나 다른 사람 앞에서 말하지 말아 주세요. 맞춤법이나 내용도 고치지 말아 주세요. 훈계의 근거로도 쓰지 말아 주세요("네가 노력한다고 써놓고 왜 안 해?").</div>
 </section>
 <section id="c6" class="chapter">
@@ -566,7 +566,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <tr><td>초록</td><td>성장마인드셋</td><td>포기하고 싶을 때</td></tr>
 <tr><td>주황</td><td>흥미 찾기</td><td>뭘 하면 좋을지 모르겠을 때</td></tr>
 </tbody></table></div>
-<p>점수가 아니라 그날 마음의 날씨입니다. 좋은 색, 나쁜 색은 없습니다. 표정은 아이가 마음대로 고릅니다.</p>
+<p class="note">색상은 그날 마음의 색입니다. 좋고 나쁨은 없습니다. 표정은 아이가 마음대로 고릅니다.</p>
 <div class="callout"><b>한 달쯤 모이면 패턴이 보입니다</b>"월요일엔 파랑이 많구나", "시험 전엔 터콰이즈를 고르는구나" 같은 발견은 아이를 이해하는 단서가 됩니다.</div>
 <div class="callout no"><b>이것만은 꼭 지켜주세요</b>"왜 또 파랑이야?"라고 묻지 말아 주세요. 아이가 솔직한 색 대신 보호자가 좋아할 색을 고르게 됩니다. 파랑이 길게 이어질 때는 8번 '하기 싫은 것과 힘든 것'을 참고해 주세요.</div>
 </section>
@@ -606,7 +606,6 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <section id="c8" class="chapter">
 <h2><span class="num">8</span>"그냥 하기 싫은 것"과 "진짜 힘든 것"</h2>
 <p>"하기 싫어"는 대부분 지나갑니다. 하지만 가끔은 같은 "하기 싫다"라는 말이 지쳤다는 신호일 수도 있습니다.</p>
-<h3>나눠서 물어봐 주세요</h3>
 <p>아이들은 이유를 설명하지 못하고 "그냥"이라고 답할 때가 많습니다. "하기 싫어"를 나눠서 물으면 아이도 자기 마음을 알아차리기 쉬워집니다.</p>
 <div class="tw"><table><thead><tr><th>이렇게 물어봐 주세요</th><th>그렇다고 하면</th></tr></thead><tbody>
 <tr><td>"왜 해야 하는지 모르겠어?"</td><td>목표를 다시 이야기합니다</td></tr>
@@ -636,6 +635,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <section id="c9" class="chapter">
 <h2><span class="num">9</span>며칠 빠뜨렸을 때</h2>
 <p>100칸은 달력이 아니라 쓴 날을 셉니다. 사흘 쉬었으면 다음 날이 다음 칸. 처음부터 다시 하지 않습니다.</p>
+<div class="sec plain">
 <h4>왜 그렇게 하나요</h4>
 <ul>
 <li>100일을 하루도 안 빠지고 쓰는 아이는 거의 없습니다. 빠지는 날은 실패가 아니라 100일 안에 들어 있는 과정입니다.
@@ -644,7 +644,9 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </li>
 <li>쓴 날만 세기 때문에 며칠 쉬어도 잃는 것이 없습니다. 아이에게도 그렇게 알려 주세요.
 </li></ul>
+</div>
 <div class="callout no"><b>이것만은 꼭 지켜주세요</b>빠진 날을 세며 추궁하지 말아 주세요("며칠째 안 했네?"). 밀린 날을 몰아서 채우게 하거나 Day 1로 되돌리지 말아 주세요. 보호자가 대신 채워 주는 것도 삼가 주세요.</div>
+<div class="sec plain">
 <h4>다시 이어가게 하려면</h4>
 <div class="steps">
 <div class="step"><b>가장 작은 것 하나로 돌아옵니다</b><span>"오늘 카드 한 장만 뽑아 볼래?" 데일리 전체가 아니라 카드 한 장, 스티커 한 칸이면 다시 시작한 것입니다.</span></div>
@@ -652,6 +654,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>자주 빠지면 실천을 줄입니다</b><span>"세 가지 중에 매일 할 수 있는 건 뭐야?" 하고 물어 주세요. 3가지를 2가지로, 2쪽을 1쪽으로 줄여도 괜찮습니다.</span></div>
 <div class="step"><b>"다시 이어가는 날"을 정해 둡니다</b><span>주말 중 하루. 주중에 끊겨도 그날 부담 없이 돌아올 수 있습니다.</span></div>
 <div class="step"><b>2주 넘게 멈춰 있으면</b><span>하기 싫은 것인지 힘든 것인지 나눠서 물어 주세요. 8번 '하기 싫은 것과 힘든 것'에 있습니다.</span></div>
+</div>
 </div>
 </section>
 <section id="c10" class="chapter">
@@ -663,14 +666,19 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <div class="step"><b>인증서와 보상</b><em>'100일 완주 인증서'</em><span>아이가 지킨 세 가지 행동을 적고, 발급일과 이름을 적어 보호자가 읽어 줍니다. 약속한 보상을 함께 즐깁니다.</span></div>
 </div>
 <h3>그다음은</h3>
-<p>100일이 끝났다고 습관이 끝나는 것은 아닙니다. 아이에게 "다음엔 어떻게 하고 싶어?" 하고 물어 주세요. 아이가 고르게 합니다.</p>
+<p>100일을 끝낸 아이에게 남아야 할 것은 인증서가 아니라, 스스로 계획하고 해보고 돌아보는 습관입니다. 습관은 멈추면 금방 옅어집니다. 100일이 끝난 그 주에, 다음 100일을 어떻게 이어갈지 아이와 함께 정해 주세요.</p>
 <div class="roles plain">
-<div class="role"><b>조금 쉬기</b><span>한두 주 쉬어도 괜찮습니다. 쉬는 동안에도 하루 한 장 카드 뽑기만 이어가면 다시 시작하기 쉽습니다.</span></div>
-<div class="role"><b>두 번째 100일</b><span>완주한 다이어리를 보며 새 100일 목표 하나와 매일 실천 3가지를 다시 정합니다. 스터디 메이트 한 권을 더 쓰거나, 아무 노트에 같은 틀(오늘의 공부·할 일·오늘의 카드)로 이어가도 됩니다.</span></div>
-<div class="role"><b>질문 습관만 남기기</b><span>다이어리 없이도 "오늘 마음은 어떤 색이야?" 한마디는 계속할 수 있습니다. 저녁에 가족이 함께 카드를 뽑아 답을 나누는 것도 좋습니다.</span></div>
+<div class="role"><b>쉬더라도 끝을 정하고 쉽니다</b><span>"한 주만 쉬고 ○월 ○일에 다시 시작"처럼 날짜를 정합니다. 쉬는 동안에도 하루 한 장 카드는 이어가면 돌아오기 쉽습니다.</span></div>
+<div class="role"><b>틀은 그대로, 목표만 새로</b><span>매일 실천 3가지, 7일마다 계획과 돌아보기, 하루 한 장 카드. 익숙해진 이 틀은 그대로 두고 100일 목표만 새로 정합니다. 틀이 바뀌지 않아야 아이가 혼자서도 이어갑니다.</span></div>
+<div class="role"><b>두 번째 100일은 아이 손으로</b><span>첫 100일의 세팅은 보호자가 이끌었지만, 두 번째는 첫날 세팅(3번)을 아이가 직접 합니다. 보호자는 "이번엔 뭘 해보고 싶어?" 하고 묻기만 합니다.</span></div>
 </div>
-<p class="note">완주한 다이어리는 버리지 말고 보관해 주세요. 다음 100일을 시작할 때 첫 프로필과 나란히 놓고 보면, 아이가 달라진 점을 스스로 찾아냅니다.</p>
-<p><span class="todo" title="100일 뒤에도 컬러카드 사이트를 같은 계정으로 계속 쓸 수 있는지">확정 전 · 대표 확인</span></p>
+<h4>두 번째 100일을 시작할 때</h4>
+<ul>
+<li>새 스터디 메이트 한 권으로 시작하면 같은 틀로 바로 이어갈 수 있습니다. 새 다이어리의 프로필을 쓸 때 완주한 다이어리의 첫 프로필을 옆에 펼쳐 두면, 아이가 달라진 점을 스스로 찾습니다. 스터디 메이트는 hariplus.kr 에서 다시 구할 수 있습니다.
+</li>
+<li>완주한 다이어리는 버리지 말고 보관해 주세요. '100일의 여정'과 돌아보기 열네 장이 아이가 해낸 기록입니다.
+</li></ul>
+<p><span class="todo" title="100일 뒤에도 컬러카드 사이트를 같은 계정으로 계속 쓸 수 있는지 · 재구매 시 새 인증코드 안내">확정 전 · 대표 확인</span></p>
 </section>
 <footer>하리 PLUS는 주식회사 에이치에이연구원(HARI)의 브랜드입니다. 이 가이드는 보호자가 무엇을 하고 무엇을 하지 않으면 되는지를 적은 것이며, 특정 결과를 약속하지 않습니다.</footer>
 </div>
