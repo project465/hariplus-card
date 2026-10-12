@@ -164,7 +164,24 @@ p.note.gap { margin-top:18px; }
 .bar .in { max-width:640px; margin:0 auto; display:grid; grid-template-columns:44px 1fr 44px; align-items:center; gap:8px; }
 .bar button { height:40px; border:1px solid var(--line); border-radius:10px; background:var(--paper); color:var(--fg); font-size:20px; font-weight:900; cursor:pointer; }
 .bar button:disabled { opacity:.35; cursor:default; }
-.bar .mid { text-align:center; min-width:0; }
+.bar .mid { text-align:center; min-width:0; background:none; border:0; padding:0; cursor:pointer; font:inherit; color:inherit; border-radius:8px; }
+.bar .mid:hover { background:var(--amber-tint); }
+.bar .hint { font-size:10.5px; color:var(--fg-2); margin-top:4px; letter-spacing:.02em; }
+.sheet { position:fixed; inset:0; z-index:20; }
+.sheet[hidden] { display:none; }
+.sheet-bg { position:absolute; inset:0; background:rgba(44,45,45,.45); }
+.sheet-box { position:absolute; left:0; right:0; bottom:0; max-height:78vh; overflow:auto; background:var(--paper-2); border-radius:16px 16px 0 0; box-shadow:0 -8px 30px rgba(0,0,0,.18); padding:0 0 calc(16px + env(safe-area-inset-bottom,0px)); }
+@media (min-width:700px) { .sheet-box { left:50%; right:auto; width:560px; transform:translateX(-50%); border-radius:16px 16px 0 0; } }
+.sheet-h { position:sticky; top:0; display:flex; justify-content:space-between; align-items:center; padding:14px 18px 10px; background:var(--paper-2); border-bottom:1px solid var(--line); font-weight:900; font-size:16px; }
+.sheet-h button { background:none; border:1px solid var(--line); border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:14px; color:var(--fg); }
+.sheet-list { list-style:none; margin:0; padding:6px 10px 4px; }
+.sheet-list li { border-bottom:1px solid var(--line); }
+.sheet-list li:last-child { border-bottom:0; }
+.sheet-list a.m { display:flex; align-items:center; gap:10px; padding:11px 8px; text-decoration:none; color:var(--fg); font-weight:700; font-size:15px; }
+.sheet-list a.m .n { flex:0 0 22px; font-size:12px; color:var(--amber-ink); }
+.sheet-list .subs { display:flex; flex-wrap:wrap; gap:6px; padding:0 8px 10px 40px; }
+.sheet-list a.s { font-size:12.5px; color:var(--amber-ink); border:1px solid var(--line); border-radius:999px; padding:2px 10px; text-decoration:none; background:var(--bg-2); }
+.sheet-list a.m:hover, .sheet-list a.s:hover { background:var(--amber-tint); }
 .bar .where { font-size:13px; font-weight:700; color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .bar .prog { height:4px; border-radius:2px; background:var(--line); margin:6px auto 0; max-width:220px; overflow:hidden; }
 .bar .prog i { display:block; height:100%; width:0; background:var(--amber-ink); border-radius:2px; transition:width .25s; }
@@ -684,9 +701,16 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 </article></div>
 <nav class="bar" aria-label="쪽 넘기기"><div class="in">
   <button id="prev" aria-label="이전 쪽">‹</button>
-  <div class="mid"><div class="where" id="where"></div><div class="prog"><i id="progfill"></i></div></div>
+  <button class="mid" id="menu" aria-label="바로 가기 열기"><div class="where" id="where"></div><div class="prog"><i id="progfill"></i></div><div class="hint">▲ 누르면 바로 가기</div></button>
   <button id="next" aria-label="다음 쪽">›</button>
 </div></nav>
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-bg" id="sheetbg"></div>
+  <div class="sheet-box" role="dialog" aria-label="바로 가기">
+    <div class="sheet-h"><span>바로 가기</span><button id="sheetclose" aria-label="닫기">✕</button></div>
+    <ol class="sheet-list"><li><a class="m" href="#csum"><span class="n"></span>간편 가이드</a></li><li><a class="m" href="#c1"><span class="n">1</span>이 키트는 무엇인가요</a></li><li><a class="m" href="#c2"><span class="n">2</span>보호자의 역할</a></li><li><a class="m" href="#c3"><span class="n">3</span>첫날 세팅</a><div class="subs"><a class="s" href="#c3-2">스터디 메이트 작성하기</a></div></li><li><a class="m" href="#c4"><span class="n">4</span>페이지별 활용법</a><div class="subs"><a class="s" href="#c4-1">프로필 (첫 쪽)</a><a class="s" href="#c4-2">나의 꿈을 위한 약속</a><a class="s" href="#c4-3">나를 위한 30일</a><a class="s" href="#c4-4">100일의 여정</a><a class="s" href="#c4-5">이번 주 계획</a><a class="s" href="#c4-6">데일리</a><a class="s" href="#c4-7">일주일 돌아보기</a><a class="s" href="#c4-8">100일 완주 인증서</a><a class="s" href="#c4-9">100일 완주자 인터뷰</a></div></li><li><a class="m" href="#c5"><span class="n">5</span>컬러카드 활용법</a><div class="subs"><a class="s" href="#c5-2">보호자가 함께하는 법</a></div></li><li><a class="m" href="#c6"><span class="n">6</span>스티커 색이 의미하는 것</a></li><li><a class="m" href="#c7"><span class="n">7</span>칭찬과 보상</a><div class="subs"><a class="s" href="#c7-2">보상 — 구간마다, 함께 정해서</a></div></li><li><a class="m" href="#c8"><span class="n">8</span>&quot;그냥 하기 싫은 것&quot;과 &quot;진짜 힘든 것&quot;</a><div class="subs"><a class="s" href="#c8-1">파랑이 2주 넘게 이어질 때</a></div></li><li><a class="m" href="#c9"><span class="n">9</span>며칠 빠뜨렸을 때</a></li><li><a class="m" href="#c10"><span class="n">10</span>100일이 끝나면</a><div class="subs"><a class="s" href="#c10-1">그다음은</a></div></li></ol>
+  </div>
+</div>
 <script>
 (function(){ ['contextmenu','dragstart','copy','cut','selectstart'].forEach(function(ev){ document.addEventListener(ev,function(e){ if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return; e.preventDefault(); }); });
   document.addEventListener('keydown',function(e){ var k=(e.key||'').toLowerCase(); if((e.ctrlKey||e.metaKey)&&['s','p','u','a','c'].indexOf(k)>=0){ e.preventDefault(); } if(k==='printscreen'){ try{ navigator.clipboard.writeText(''); }catch(_e){} } });
@@ -695,7 +719,7 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <script>
 (function(){
   var book=document.getElementById('book'), pages=[].slice.call(book.querySelectorAll(':scope > .page'));
-  var labels=["표지", "차례", "간편 가이드", "1 이 키트는 무엇인가요", "2 보호자의 역할", "3-1 첫날 세팅", "3-2 첫날 세팅", "4 페이지별 활용법", "4-1 프로필 (첫 쪽)", "4-2 나의 꿈을 위한 약속", "4-3 나를 위한 30일", "4-4 100일의 여정", "4-5 이번 주 계획", "4-6 데일리", "4-7 일주일 돌아보기", "4-8 100일 완주 인증서", "4-9 100일 완주자 인터뷰", "5-1 사이트 메뉴와 진행 순서", "5-2 보호자가 함께하는 법", "6 스티커 색이 의미하는 것", "7-1 칭찬 — 본 것을 그대로, 구체적으로", "7-2 보상 — 구간마다, 함께 정해서", "8 \"그냥 하기 싫은 것\"과 \"진짜 힘든 것\"", "8-1 파랑이 2주 넘게 이어질 때", "9 며칠 빠뜨렸을 때", "10 100일이 끝나면", "10-1 그다음은"], nBody=25;
+  var labels=["표지", "차례", "간편 가이드", "1 이 키트는 무엇인가요", "2 보호자의 역할", "3-1 첫날 세팅", "3-2 스터디 메이트 작성하기", "4 페이지별 활용법", "4-1 프로필 (첫 쪽)", "4-2 나의 꿈을 위한 약속", "4-3 나를 위한 30일", "4-4 100일의 여정", "4-5 이번 주 계획", "4-6 데일리", "4-7 일주일 돌아보기", "4-8 100일 완주 인증서", "4-9 100일 완주자 인터뷰", "5-1 사이트 메뉴와 진행 순서", "5-2 보호자가 함께하는 법", "6 스티커 색이 의미하는 것", "7-1 칭찬 — 본 것을 그대로, 구체적으로", "7-2 보상 — 구간마다, 함께 정해서", "8 \"그냥 하기 싫은 것\"과 \"진짜 힘든 것\"", "8-1 파랑이 2주 넘게 이어질 때", "9 며칠 빠뜨렸을 때", "10 100일이 끝나면", "10-1 그다음은"], nBody=25;
   var fill=document.getElementById('progfill'), where=document.getElementById('where');
   var prev=document.getElementById('prev'), next=document.getElementById('next');
   function cur(){ return Math.round(book.scrollLeft/book.clientWidth); }
@@ -705,6 +729,10 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
     prev.disabled=i===0; next.disabled=i===pages.length-1;
     try{ history.replaceState(null,'','#'+pages[i].id); }catch(e){} }
   prev.onclick=function(){go(cur()-1)}; next.onclick=function(){go(cur()+1)};
+  var sheet=document.getElementById('sheet'); function openS(){ sheet.hidden=false; } function closeS(){ sheet.hidden=true; }
+  document.getElementById('menu').onclick=openS; document.getElementById('sheetclose').onclick=closeS; document.getElementById('sheetbg').onclick=closeS;
+  sheet.addEventListener('click',function(e){ if(e.target.closest('a[href^="#"]')) closeS(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeS(); });
   book.addEventListener('scroll',function(){ clearTimeout(book._t); book._t=setTimeout(paint,80); },{passive:true});
   document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')go(cur()+1); if(e.key==='ArrowLeft')go(cur()-1); });
   document.addEventListener('click',function(e){ var a=e.target.closest('a[href^="#"]'); if(!a) return; var id=a.getAttribute('href').slice(1); var k=pages.findIndex(function(p){return p.id===id;}); if(k>=0){ e.preventDefault(); go(k); } });
