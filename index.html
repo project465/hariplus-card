@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>하리 PLUS 컬러카드</title>
-<meta name="description" content="스터디 메이트 키트의 질문카드. 오늘 마음이 가는 색을 고르고 카드를 뽑습니다.">
+<meta name="description" content="스터디 메이트의 컬러카드. 오늘 마음이 가는 색을 고르고 카드를 뽑습니다.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -156,20 +156,19 @@
 
   <!-- 1. 가입 / 로그인 -->
   <section class="view" id="s-auth" hidden>
-    <h1 id="authTitle">보호자 계정 만들기</h1>
-    <p class="lede">아이가 뽑은 카드를 기억해 두려면 계정이 필요해요. 14세 미만 아동은 보호자 이름으로 가입합니다.</p>
+    <h1 id="authTitle">계정 만들기</h1>
+    <p class="lede">뽑은 카드를 기억해 두려면 계정이 필요해요. 만 14세 이상만 가입할 수 있어요.</p>
     <div class="tabs" role="tablist"><button type="button" role="tab" id="tabUp" aria-selected="true">가입</button><button type="button" role="tab" id="tabIn" aria-selected="false">로그인</button></div>
     <span class="err" id="authErr" hidden></span>
     <form id="fUp" novalidate>
-      <div class="field"><label for="upEmail">보호자 이메일</label><input id="upEmail" type="email" autocomplete="email" placeholder="parent@example.com"></div>
+      <div class="field"><label for="upEmail">이메일</label><input id="upEmail" type="email" autocomplete="email" placeholder="me@example.com"></div>
       <div class="field"><label for="upPw">비밀번호 (8자 이상)</label><input id="upPw" type="password" autocomplete="new-password"></div>
-      <div class="field"><label for="upNick">아이 별명</label><input id="upNick" autocomplete="off" placeholder="카드에 이름은 안 나와요"><p class="hint">실명 대신 별명을 권해요.</p></div>
-      <div class="field"><label for="upGrade">학년</label><select id="upGrade"><option value="e5">초등 5학년</option><option value="e6">초등 6학년</option><option value="m1">중학교 1학년</option><option value="m2">중학교 2학년</option><option value="m3">중학교 3학년</option></select></div>
-      <label class="check"><input type="checkbox" id="upAgree"><span>보호자로서 아이의 별명·학년·뽑은 카드 기록이 저장되는 것에 동의합니다. 이름·연락처 등 다른 정보는 받지 않습니다.</span></label>
+      <div class="field"><label for="upNick">별명</label><input id="upNick" autocomplete="off" placeholder="카드에 이름은 안 나와요"><p class="hint">실명 대신 별명을 권해요.</p></div>
+      <label class="check"><input type="checkbox" id="upAgree"><span>만 14세 이상이며, 이메일·별명·뽑은 카드 기록이 서비스 이용을 위해 탈퇴 때까지 저장되는 것에 동의합니다. 이름·연락처 등 다른 정보는 받지 않습니다.</span></label>
       <button class="btn amber" type="submit" id="upBtn">가입하고 시작하기</button>
     </form>
     <form id="fIn" hidden novalidate>
-      <div class="field"><label for="inEmail">보호자 이메일</label><input id="inEmail" type="email" autocomplete="email"></div>
+      <div class="field"><label for="inEmail">이메일</label><input id="inEmail" type="email" autocomplete="email"></div>
       <div class="field"><label for="inPw">비밀번호</label><input id="inPw" type="password" autocomplete="current-password"></div>
       <button class="btn" type="submit" id="inBtn">로그인</button>
     </form>
@@ -537,15 +536,15 @@ $("gateBtn").addEventListener("click",function(){
 });
 $("toLogin").addEventListener("click",function(){ openAuth("in"); });
 function openAuth(tab){ err("authErr",null); show("auth"); setTab(tab); }
-function setTab(t){ var up=t==="up"; $("tabUp").setAttribute("aria-selected",up); $("tabIn").setAttribute("aria-selected",!up); $("fUp").hidden=!up; $("fIn").hidden=up; $("authTitle").textContent=up?"보호자 계정 만들기":"다시 만나서 반가워"; }
+function setTab(t){ var up=t==="up"; $("tabUp").setAttribute("aria-selected",up); $("tabIn").setAttribute("aria-selected",!up); $("fUp").hidden=!up; $("fIn").hidden=up; $("authTitle").textContent=up?"계정 만들기":"다시 만나서 반가워"; }
 $("tabUp").addEventListener("click",function(){ if(!PENDING_CODE){ err("authErr","가입하려면 먼저 키트 인증코드를 넣어 주세요."); show("gate"); return; } setTab("up"); });
 $("tabIn").addEventListener("click",function(){ setTab("in"); });
 
 $("fUp").addEventListener("submit",function(ev){ ev.preventDefault(); err("authErr",null);
-  var email=$("upEmail").value.trim().toLowerCase(), pw=$("upPw").value, nick=$("upNick").value.trim(), grade=$("upGrade").value;
+  var email=$("upEmail").value.trim().toLowerCase(), pw=$("upPw").value, nick=$("upNick").value.trim(), grade="";
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return err("authErr","이메일 형식을 확인해 주세요.");
   if(pw.length<8) return err("authErr","비밀번호는 8자 이상이어야 해요.");
-  if(!nick) return err("authErr","아이 별명을 넣어 주세요.");
+  if(!nick) return err("authErr","별명을 넣어 주세요.");
   if(!$("upAgree").checked) return err("authErr","저장 동의에 체크해 주세요.");
   if(!PENDING_CODE) return err("authErr","먼저 키트 인증코드를 넣어 주세요.");
   $("upBtn").disabled=true;
@@ -619,7 +618,7 @@ $("drawBtn").addEventListener("click",doDraw); $("redrawBtn").addEventListener("
 var CAL=null, SELDAY=null;
 function dkey(t){ var d=new Date(t); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
 function renderMe(){
-  $("meTitle").textContent=(USER.nick||"내")+"의 카드"; $("meLede").textContent=(GRADES[USER.grade]||"")+" · 보호자 "+USER.email;
+  $("meTitle").textContent=(USER.nick||"내")+"의 카드"; $("meLede").textContent=USER.email;
   var now=new Date(); if(!CAL){ CAL={y:now.getFullYear(), m:now.getMonth()}; SELDAY=dkey(now.getTime()); }
   renderCal(); renderDay();
 }
