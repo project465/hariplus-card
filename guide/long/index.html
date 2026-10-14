@@ -114,6 +114,7 @@ section.chapter > p + .tw, section.chapter > .tw + p, section.chapter > ul + p, 
 .roles.plain .role { grid-template-columns:1fr; }
 .roles.plain .role::before { display:none; }
 .roles.plain .role b { color:var(--amber-ink); }
+.hl { color:var(--amber-ink); font-weight:500; }
 /* 역할 카드·원칙 상자 */
 .roles { display:grid; gap:8px; margin:0 auto 14px; counter-reset:role; }
 .role { display:grid; grid-template-columns:30px 1fr; gap:4px 10px; align-items:start; background:var(--bg-2, var(--paper-2)); border:1px solid var(--line); border-radius:10px; padding:11px 12px; counter-increment:role; }
@@ -179,14 +180,14 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <ul>
 <li><b>데일리 페이지</b>를 작성해요 <a class="btn" href="#c4-6">관련 가이드 바로가기</a></li>
 <li><b>오늘의 컬러카드</b>를 뽑고 질문에 답해요 <a class="btn" href="#c5">관련 가이드 바로가기</a></li>
-<li><b>이번 주 계획 페이지</b>에 한 주의 첫날 계획을 세우고, 매일 끝낸 것을 체크해요 <a class="btn" href="#c4-5">관련 가이드 바로가기</a></li>
+<li><b>이번 주 계획 페이지</b>에 이번 주의 계획을 세우고 매일 끝낸 것을 체크해요. <a class="btn" href="#c4-5">관련 가이드 바로가기</a></li>
 <li><b>일주일 돌아보기 페이지</b>에서 한 주를 스스로 점검해요 <a class="btn" href="#c4-7">관련 가이드 바로가기</a></li>
 </ul>
 <h4>목표 설정과 실천</h4>
 <ul>
 <li><b>비전보드</b>를 만들어 책상 앞에 붙여 두면 좋아요 <a class="btn" href="https://hariplus.kr/" target="_blank" rel="noopener">비전보드 구매 바로가기</a></li>
 <li><b>나를 위한 30일 페이지</b>에 100일 동안 이룰 목표와 보상을 정해요 (최대 6개) <a class="btn" href="#c4-3">관련 가이드 바로가기</a>
-<ul><li>지킨 날마다 스티커를 붙여서 달성률을 눈으로 확인해요</li></ul></li>
+<ul><li><span class="hl">지킨 날마다 스티커를 붙여서 달성률을 눈으로 확인해요</span></li></ul></li>
 <li>데일리를 작성한 날마다 <b>100일의 여정 페이지</b>에 스티커를 붙여 100일의 여정을 눈으로 확인해요 <a class="btn" href="#c4-4">관련 가이드 바로가기</a></li>
 <li>100일 뒤 <b>100일 완주 인증서</b>를 잘 보이는 곳에 붙여 주세요 <a class="btn" href="#c4-8">관련 가이드 바로가기</a></li>
 </ul>
@@ -214,9 +215,15 @@ img { pointer-events:none; -webkit-user-drag:none; user-drag:none; }
 <tr><td>매일</td><td>할 일 체크</td><td>할 일과 함께, 카드 한 장 뽑아 마음을 적고 스티커</td></tr>
 <tr><td>쌓이는 것</td><td>한 일 목록</td><td>고르고, 해보고, 돌아본 경험</td></tr>
 </tbody></table></div>
-<h4>키트는 이렇게 이어져요</h4>
+<h4>이런 사람에게 추천합니다</h4>
 <div class="roles plain">
-<div class="role"><b>되고 싶은 모습</b><span>프로필의 '나의 꿈 그리기' 칸에 그림이나 글로 적어요. 100일의 출발점이자 방향이에요.</span></div>
+<div class="role"><b>① 플래너를 처음 사용하는 사람</b><span>계획을 어떻게 세워야 할지 막막해도 괜찮아요. 처음 사용하는 사람도 부담 없이 시작하고, 자신에게 맞는 계획을 세워 갈 수 있어요.</span></div>
+<div class="role"><b>② 계획을 세워도 꾸준히 실천하기 어려운 사람</b><span>며칠 빠졌다고 처음부터 다시 시작할 필요는 없어요. 꼭 연속적인 날짜를 쓸 필요는 없이, 100일간의 기록을 작성해내는 것이 목표예요.</span></div>
+<div class="role"><b>③ 빽빽한 계획표가 부담스러운 사람</b><span>많이 적는 것보다 실천하는 것이 중요해요. 하루 10~15분, 오늘 할 일을 정하고 실천한 만큼 체크하며 작은 성취를 쌓아 가요.</span></div>
+<div class="role"><b>④ 아직 꿈이나 목표가 뚜렷하지 않은 사람</b><span>무엇을 좋아하고, 어떤 일을 하고 싶은지 잘 몰라도 괜찮아요. 자기 탐색 질문을 통해 관심사를 발견하고 앞으로의 방향을 고민해 볼 수 있어요.</span></div>
+<div class="role"><b>⑤ 자신의 흥미와 강점을 알아가고 싶은 사람</b><span>좋아하는 것부터 잘하는 것, 소중하게 생각하는 가치까지. 다양한 질문과 기록을 통해 자신을 조금 더 깊이 이해할 수 있어요.</span></div>
+<div class="role"><b>⑥ 계획을 세우지만 점검하는 습관이 부족한 사람</b><span>7일마다 지난 계획을 돌아보고 스스로 평가해요. 잘한 점과 아쉬운 점을 살펴보며 다음 주의 계획을 조정해 보는 연습을 할 수 있어요.</span></div>
+</div>
 <div class="role"><b>매일의 실천</b><span>되고 싶은 모습을 향해 100일 동안 매일 할 실천 3가지를 적고, 30일마다 작은 목표를 하나씩 정해요. 매일 할 일·공부·오늘의 카드를 작성하고, 7일마다 계획하고 돌아봐요.</span></div>
 <div class="role"><b>컬러카드 사이트</b><span>하루 한 장, 오늘 상황에 맞는 색이나 끌리는 색의 카드를 뽑으면 그날 마음을 묻는 질문이 나와요. 답은 다이어리에 적어요.</span></div>
 <div class="role"><b>스티커와 완주 인증서</b><span>작성한 날마다 카드 색 스티커를 한 칸. 100칸이 차면 완주 인증서를 내 손으로 작성해요.</span></div>
