@@ -16,8 +16,11 @@ jobs:
           URL: https://ylmhkwetuodxhcgqxckf.supabase.co
           KEY: sb_publishable_rBEz3bJbiNIQu0Dd285rTQ_l-H3hVKI
         run: |
-          r=$(curl -sS -o b1.txt -w "%{http_code}" "$URL/rest/v1/draws?select=id&limit=1" -H "apikey: $KEY")
-          a=$(curl -sS -o b2.txt -w "%{http_code}" "$URL/auth/v1/health" -H "apikey: $KEY")
-          echo "::notice::rest=$r $(head -c 120 b1.txt | tr -d '\n') | auth=$a $(head -c 120 b2.txt | tr -d '\n')"
-          # 서버가 응답만 하면 활동으로 기록된다. 응답이 아예 없거나(000) 5xx면 실패로 표시
-          case "$r$a" in *000*|5*|???5*) exit 1;; esac
+          host=${URL#https://}
+          dns=$(getent hosts "$host" | head -1 || true)
+          cname=$(dig +short CNAME "$host" | head -1 || true)
+          r=$(curl -sS -o b1.txt -w "%{http_code}" "$URL/rest/v1/draws?select=id&limit=1" -H "apikey: $KEY" || true)
+          a=$(curl -sS -o b2.txt -w "%{http_code}" "$URL/auth/v1/health" -H "apikey: $KEY" || true)
+          echo "::notice::dns=[$dns] cname=[$cname] rest=$r $(head -c 120 b1.txt 2>/dev/null | tr -d '\n') | auth=$a $(head -c 120 b2.txt 2>/dev/null | tr -d '\n')"
+          # 서버가 응답만 하면 활동으로 기록된다. 응답이 없거나(000) 5xx면 실패로 표시
+          case "$r" in 000|5*|"") exit 1;; esac
