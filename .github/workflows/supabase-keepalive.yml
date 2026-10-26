@@ -1,0 +1,21 @@
+name: supabase-keepalive
+# Supabase 무료 플랜은 7일 동안 활동이 없으면 프로젝트를 일시정지한다.
+# 이틀에 한 번 컬러카드 DB에 가벼운 조회를 보내 '활동 있음' 상태를 유지한다(대표 2026-10-26).
+on:
+  schedule:
+    - cron: "17 0 */2 * *"
+  workflow_dispatch:
+  push:
+    paths: [".github/workflows/supabase-keepalive.yml"]
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ping supabase
+        env:
+          URL: https://ylmhkwetuodxhcgqxckf.supabase.co
+          KEY: sb_publishable_rBEz3bJbiNIQu0Dd285rTQ_l-H3hVKI
+        run: |
+          code=$(curl -sS -o body.txt -w "%{http_code}" "$URL/rest/v1/draws?select=id&limit=1" -H "apikey: $KEY")
+          echo "rest/v1/draws -> $code"; head -c 300 body.txt; echo
+          test "$code" = "200"
