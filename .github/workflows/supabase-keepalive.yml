@@ -1,9 +1,10 @@
 name: supabase-keepalive
 # Supabase 무료 플랜은 7일 동안 활동이 없으면 프로젝트를 일시정지한다.
-# 이틀에 한 번 컬러카드 DB에 가벼운 조회를 보내 '활동 있음' 상태를 유지한다(대표 2026-10-26).
+# 매일 컬러카드 DB에 '쓰기' 한 번(keepalive_ping: 심장박동 한 줄 갱신)을 보내 활동 있음 상태를 유지한다.
+# 2026-10-26엔 조회만 보냈는데 11-01 일시정지 경고가 다시 옴 → 11-02 쓰기 방식으로 변경(대표).
 on:
   schedule:
-    - cron: "17 0 */2 * *"
+    - cron: "17 0 * * *"
   workflow_dispatch:
   push:
     paths: [".github/workflows/supabase-keepalive.yml"]
@@ -16,11 +17,9 @@ jobs:
           URL: https://ylmhkwetuodxhcgqxckf.supabase.co
           KEY: sb_publishable_rBEz3bJbiNIQu0Dd285rTQ_l-H3hVKI
         run: |
-          host=${URL#https://}
-          dns=$(getent hosts "$host" | head -1 || true)
-          cname=$(dig +short CNAME "$host" | head -1 || true)
+          p=$(curl -sS -o b0.txt -w "%{http_code}" -X POST "$URL/rest/v1/rpc/keepalive_ping" -H "apikey: $KEY" -H "Content-Type: application/json" -d '{}' || true)
           r=$(curl -sS -o b1.txt -w "%{http_code}" "$URL/rest/v1/draws?select=id&limit=1" -H "apikey: $KEY" || true)
           a=$(curl -sS -o b2.txt -w "%{http_code}" "$URL/auth/v1/health" -H "apikey: $KEY" || true)
-          echo "::notice::dns=[$dns] cname=[$cname] rest=$r $(head -c 120 b1.txt 2>/dev/null | tr -d '\n') | auth=$a $(head -c 120 b2.txt 2>/dev/null | tr -d '\n')"
-          # 서버가 응답만 하면 활동으로 기록된다. 응답이 없거나(000) 5xx면 실패로 표시
-          case "$r" in 000|5*|"") exit 1;; esac
+          echo "::notice::ping=$p $(head -c 80 b0.txt | tr -d '\n') | rest=$r | auth=$a"
+          # 쓰기(ping)가 안 되면 실패로 표시해 메일이 오게 한다(함수 미설치·일시정지 알림용)
+          case "$p" in 2*) ;; *) echo "::error::keepalive_ping 실패($p) — Supabase에 keepalive SQL을 넣었는지, 프로젝트가 멈췄는지 확인"; exit 1;; esac
